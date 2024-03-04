@@ -2,6 +2,7 @@ const Users = require("../models/Users");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
+const { env } = require("./config/environment");
 
 class UsersContronller {
   index(req, res, next) {
@@ -49,14 +50,30 @@ class UsersContronller {
         return res.send("Account does not exist");
       }
 
-      const checkPass = bcrypt.compareSync(password, check.password);
-      if (!checkPass) {
-        return res.send("Wrong password");
-      }
-      res.render("home");
+      const checkPass = bcrypt.compare(
+        password,
+        check.password,
+        function (Error, Result) {
+          var token = jwt.sign(
+            {
+              name: check.name,
+              email: check.email,
+              password: check.password,
+              role: check.role,
+            },
+            env.jwt
+          );
+          res.cookie("access_token", token);
+          res.redirect("/");
+        }
+      );
     } catch (Error) {
       return res.send("Error");
     }
+  }
+  logout(req, res, next) {
+    res.claercookie("access_token");
+    return res.redirect("/");
   }
 }
 module.exports = new UsersContronller();
