@@ -11,7 +11,7 @@ class UsersContronller {
   }
 
   async register(req, res, next) {
-    const { name, email, password, role } = req.body;
+    const { name, email, password, role, address, phone, img } = req.body;
     try {
       if (!name || !email || !password || !role) {
         return res.send("Please enter correct information");
@@ -32,6 +32,9 @@ class UsersContronller {
         email,
         password: hashPassword,
         role,
+        address,
+        phone,
+        img,
       });
       user.save();
       res.send("login");

@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 
 const News = new mongoose.Schema(
   {
-    users: { type: mongoose.Schema.Type.OjectId, ref: "Users" },
+    users: { type: mongoose.Schema.Types.ObjectId, ref: "Users" },
+    title: String,
     contens: String,
     img: String,
     address: String,
