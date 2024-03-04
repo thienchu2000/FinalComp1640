@@ -1,0 +1,39 @@
+{
+  "name": "finalcomp1640",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --inspect ./src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thienchu2000/FinalComp1640.git"
+  },
+  "author": "Thien Chu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thienchu2000/FinalComp1640/issues"
+  },
+  "homepage": "https://github.com/thienchu2000/FinalComp1640#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
+  "dependencies": {
+    "axios": "^1.6.7",
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.3",
+    "express-handlebars": "^7.1.2",
+    "express-session": "^1.18.0",
+    "google-auth-library": "^9.6.3",
+    "googleapis": "^133.0.0",
+    "mongodb": "^6.4.0",
+    "mongoose": "^8.2.0",
+    "nodemailer": "^6.9.11",
+    "path": "^0.12.7"
+  }
+}
