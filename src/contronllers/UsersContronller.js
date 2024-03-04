@@ -2,7 +2,7 @@ const Users = require("../models/Users");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
-const { env } = require("./config/environment");
+const { env } = require("../config/environment");
 
 class UsersContronller {
   index(req, res, next) {
