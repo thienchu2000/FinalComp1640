@@ -1,5 +1,7 @@
 const Users = require("../models/Users");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 
 class UsersContronller {
   index(req, res, next) {
@@ -23,19 +25,38 @@ class UsersContronller {
         return res.send("must have capital letters");
       }
       const hashPassword = await bcrypt.hashSync(password, 10);
-
       const user = new Users({
         name,
         email,
-        hashPassword,
+        password: hashPassword,
         role,
       });
       user.save();
-      res.render("login");
+      res.send("login");
     } catch (Err) {
-      throw res.send("Err");
+      console.log(Err);
+      return res.send("Err");
     }
   }
-  async login(req, res, next) {}
+  async login(req, res, next) {
+    const { email, password } = req.body;
+    try {
+      if (!email || !password) {
+        return res.send("Please enter correct information");
+      }
+      const check = await Users.findOne({ email });
+      if (!check) {
+        return res.send("Account does not exist");
+      }
+
+      const checkPass = bcrypt.compareSync(password, check.password);
+      if (!checkPass) {
+        return res.send("Wrong password");
+      }
+      res.render("home");
+    } catch (Error) {
+      return res.send("Error");
+    }
+  }
 }
 module.exports = new UsersContronller();

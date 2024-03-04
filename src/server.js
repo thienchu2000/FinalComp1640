@@ -12,6 +12,8 @@ const session = require("express-session");
 const { google } = require("googleapis");
 const { GoogleAuth } = require("google-auth-library");
 const { create } = require("express-handlebars");
+const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 
 require("dotenv").config();
 const { env } = require("./config/environment");
