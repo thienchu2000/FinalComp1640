@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const { env } = require("./environment");
 
 function checkLogin(req, res, next) {
   var cookies = req.cookies["access_token"];
@@ -7,7 +8,7 @@ function checkLogin(req, res, next) {
     res.redirect("/login");
   }
 
-  var decoded = jwt.verify(cookies, "shhhh");
+  var decoded = jwt.verify(cookies, env.jwt);
   res.user = decoded;
 
   next();
