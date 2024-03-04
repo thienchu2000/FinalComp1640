@@ -5,6 +5,7 @@ const nodemailer = require("nodemailer");
 const Users = require("../models/Users");
 const { google } = require("googleapis");
 const { GoogleAuth } = require("google-auth-library");
+const { myOAuth2Client } = require("../config/email");
 
 class NewsController {
   index(req, res, next) {
@@ -59,17 +60,17 @@ class NewsController {
     const { subject, contents } = req.body;
     try {
       const findEmail = await Users.findOne({});
-      console.log(findEmail.email);
-      const myAccessTokenObject = await env.myOAuth2Client.getAccessToken();
+      const myAccessTokenObject = await myOAuth2Client.getAccessToken();
+      const myAccessToken = myAccessTokenObject?.token;
       const transport = nodemailer.createTransport({
         service: "gmail",
         auth: {
           type: "OAuth2",
-          user: ADMIN_EMAIL_ADDRESS,
-          clientId: GOOGLE_MAILER_CLIENT_ID,
-          clientSecret: GOOGLE_MAILER_CLIENT_SECRET,
-          refresh_token: GOOGLE_MAILER_REFRESH_TOKEN,
-          accessToken: env.myAccessToken,
+          user: env.ADMIN_EMAIL_ADDRESS,
+          clientId: env.GOOGLE_MAILER_CLIENT_ID,
+          clientSecret: env.GOOGLE_MAILER_CLIENT_SECRET,
+          refresh_token: env.GOOGLE_MAILER_REFRESH_TOKEN,
+          accessToken: myAccessToken,
         },
       });
       const mailOptions = {
