@@ -5,7 +5,7 @@ const axios = require("axios");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const db = require("./config/db");
-const route = require("./routers/index");
+const router = require("./routers/router");
 const app = express();
 const path = require("path");
 const session = require("express-session");
@@ -37,7 +37,7 @@ app.engine("hbs", exphbs.engine);
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "views"));
 
-route(app);
+router(app);
 
 app.listen(3000, async () => {
   await db.connect("database connection");

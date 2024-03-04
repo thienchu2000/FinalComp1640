@@ -1,9 +1,9 @@
 const homeRouter = require("./homeRouter");
 const uesrsRouter = require("./uesrsRouter");
 
-function route(app) {
+function router(app) {
   app.use("/uesrs", uesrsRouter);
   app.use("/", homeRouter);
 }
 
-module.exports = route;
+module.exports = router;
