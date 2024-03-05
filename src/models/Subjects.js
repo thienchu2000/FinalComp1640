@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const Subject = new mongoose.Schema(
+const Subjects = new mongoose.Schema(
   {
     name_subject: String,
     start_time: Date,
@@ -11,4 +11,4 @@ const Subject = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Subject", Subject);
+module.exports = mongoose.model("Subjects", Subjects);

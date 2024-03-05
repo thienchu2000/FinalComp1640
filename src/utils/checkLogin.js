@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { env } = require("./environment");
+const { env } = require("../config/environment");
 
 function checkLogin(req, res, next) {
   var cookies = req.cookies["access_token"];

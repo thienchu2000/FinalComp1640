@@ -11,7 +11,9 @@ class NewsController {
   index(req, res, next) {
     res.send("Hello");
   }
-  async read(req, res, next) {
+
+  // RCUD -- News.
+  async readNews(req, res, next) {
     try {
       const data = await News.find({});
 
@@ -21,7 +23,7 @@ class NewsController {
     }
   }
 
-  create(req, res, next) {
+  createNews(req, res, next) {
     const { users, title, contens, img, address, phone } = req.body;
     const news = new News({
       users,
@@ -35,7 +37,18 @@ class NewsController {
     res.send("Done");
   }
 
-  delete(req, res, next) {
+  upDateNews(req, res, next) {
+    const { upDateId } = req.params.upDateId;
+    News.updateOne({ upDateId })
+      .then(() => {
+        return res.send("Done");
+      })
+      .catch((err) => {
+        return res.send("err");
+      });
+  }
+
+  deleteNews(req, res, next) {
     const { deleteId } = req.params.deleteId;
     News.deleteOne({ deleteId })
       .then(() => {
@@ -46,17 +59,8 @@ class NewsController {
       });
   }
 
-  upDate(req, res, next) {
-    const { upDateId } = req.params.upDateId;
-    News.updateOne({ upDateId })
-      .then(() => {
-        return res.send("Done");
-      })
-      .catch((err) => {
-        return res.send("err");
-      });
-  }
-  async sendEmail(req, res, next) {
+  // cộng tác sinh viên gửi egmail thông báo EX: đóng học phí.
+  async StaffsendEmail(req, res, next) {
     const { subject, contents } = req.body;
     try {
       const findEmail = await Users.findOne({});
