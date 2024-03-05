@@ -12,17 +12,7 @@ class NewsController {
     res.send("Hello");
   }
 
-  // RCUD -- News.
-  async readNews(req, res, next) {
-    try {
-      const data = await News.find({});
-
-      return res.send(covertData(data));
-    } catch (err) {
-      res.send("err");
-    }
-  }
-
+  // CRUD -- News.
   createNews(req, res, next) {
     const { users, title, contens, img, address, phone } = req.body;
     const news = new News({
@@ -37,22 +27,32 @@ class NewsController {
     res.send("Done");
   }
 
+  async readNews(req, res, next) {
+    const data = await News.find({})
+      .then((data) => {
+        res.status(200).send(covertData(data));
+      })
+      .catch((err) => {
+        return res.status.send("err db");
+      });
+  }
+
   upDateNews(req, res, next) {
     const { upDateId } = req.params.upDateId;
     News.updateOne({ upDateId })
-      .then(() => {
-        return res.send("Done");
+      .then((data) => {
+        res.status(200).send(covertData(data));
       })
       .catch((err) => {
-        return res.send("err");
+        return res.send("err db");
       });
   }
 
   deleteNews(req, res, next) {
     const { deleteId } = req.params.deleteId;
     News.deleteOne({ deleteId })
-      .then(() => {
-        return res.send("Done");
+      .then((data) => {
+        res.status(200).send(covertData(data));
       })
       .catch((err) => {
         return res.send("err");
@@ -63,7 +63,20 @@ class NewsController {
   async StaffsendEmail(req, res, next) {
     const { subject, contents } = req.body;
     try {
-      const findEmail = await Users.findOne({});
+      const findEmail = await Users.find({}).populate({
+        path: "role",
+      });
+      // console.log(findEmail);
+      var arrayPush = [];
+      for (var i = 0; i < findEmail.length; i++) {
+        if (findEmail[i].role.name === "Student") {
+          arrayPush.push(findEmail[i]);
+        }
+      }
+
+      var maparray = arrayPush.map((item) => item.email);
+      console.log(maparray);
+
       const myAccessTokenObject = await myOAuth2Client.getAccessToken();
       const myAccessToken = myAccessTokenObject?.token;
       const transport = nodemailer.createTransport({
@@ -78,7 +91,7 @@ class NewsController {
         },
       });
       const mailOptions = {
-        to: findEmail.email,
+        to: maparray.join(" ,"),
         subject: `${subject}`,
         html: `<h3>${contents}</h3>`,
       };
