@@ -75,7 +75,7 @@ class NewsController {
       }
 
       var maparray = arrayPush.map((item) => item.email);
-      console.log(maparray);
+      // console.log(maparray);
 
       const myAccessTokenObject = await myOAuth2Client.getAccessToken();
       const myAccessToken = myAccessTokenObject?.token;
