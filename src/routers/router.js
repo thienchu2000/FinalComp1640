@@ -1,5 +1,5 @@
 const homeRouter = require("./homeRouter");
-const uesrsRouter = require("./uesrsRouter");
+const usersRouter = require("./usersRouter");
 const newsRouter = require("./newsRouter");
 const contributionsRouter = require("./contributionsRouter");
 const facultysRouter = require("./facultysRouter");
@@ -17,7 +17,7 @@ function router(app) {
   app.use("/comments", commentsRouter);
   app.use("/facultys", facultysRouter);
   app.use("/contributions", contributionsRouter);
-  app.use("/uesrs", uesrsRouter);
+  app.use("/users", usersRouter);
   app.use("/", homeRouter);
 }
 

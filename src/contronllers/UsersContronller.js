@@ -7,43 +7,51 @@ const { env } = require("../config/environment");
 
 class UsersContronller {
   index(req, res, next) {
-    return res.render("hello");
+    res.render("home");
   }
 
-  async register(req, res, next) {
-    const { name, email, password, role, address, phone, img } = req.body;
+  register(req, res, next) {
+    res.render("register");
+  }
+
+  async dk(req, res, next) {
+    const { name, email, password, address, phone, img } = req.body;
     try {
-      if (!name || !email || !password || !role) {
+      if (!name || !email || !password) {
         return res.send("Please enter correct information");
       }
       const checkEmail = await Users.findOne({ email });
       if (checkEmail) {
-        return res.send("Email already exists");
+        return res.status(400).send("Email already exists");
       }
       if (password.length < 6) {
-        return res.send("Password must be more than 6 characters");
+        return res.status(400).send("Password must be more than 6 characters");
       }
       if (!/[A-Z]/.test(password)) {
-        return res.send("must have capital letters");
+        return res.status(400).send("must have capital letters");
       }
       const hashPassword = await bcrypt.hashSync(password, 10);
       const user = new Users({
         name,
         email,
         password: hashPassword,
-        role,
         address,
         phone,
         img,
       });
       user.save();
-      res.send("login");
+      res.status(200, { message: "Sign up succsess" }).redirect("login");
     } catch (Err) {
       console.log(Err);
       return res.send("Err");
     }
   }
-  async login(req, res, next) {
+
+  login(req, res, next) {
+    res.render("login", { message: "Sign up succsess" });
+  }
+
+  async dn(req, res, next) {
     const { email, password } = req.body;
     try {
       if (!email || !password) {
@@ -76,7 +84,7 @@ class UsersContronller {
     }
   }
   logout(req, res, next) {
-    res.claercookie("access_token");
+    res.clearCookie("access_token");
     return res.redirect("/");
   }
 }

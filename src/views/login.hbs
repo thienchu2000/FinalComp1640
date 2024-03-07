@@ -1,0 +1,50 @@
+<div class="container-fluid px-1 py-5 mx-auto">
+  <div class="row d-flex justify-content-center">
+    <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+      <div class="card">
+        <h5 class="text-center mb-4">Login</h5>
+        <form class="form-card" method="post" action="/users/dn">
+          <div class="row justify-content-between text-left">
+            <div class="form-group flex-column d-flex">
+              <label class="form-control-label px-3">Email<span
+                  class="text-danger"
+                > *</span></label>
+              <input
+                type="text"
+                id="email"
+                name="email"
+                placeholder="Email"
+                value="{{email}}"
+                required
+              />
+            </div>
+          </div>
+          <div class="row justify-content-between text-left">
+
+            <div class="form-group flex-column d-flex">
+              <label class="form-control-label px-3">Password<span
+                  class="text-danger"
+                > *</span></label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Password"
+                value="{{password}}"
+                required
+              />
+            </div>
+          </div>
+          <div class="row justify-content-end">
+            <div class="form-group">
+              <button
+                type="submit"
+                class="btn-block btn-primary"
+              >Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

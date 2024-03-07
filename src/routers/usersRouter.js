@@ -5,8 +5,10 @@ const checkLogin = require("../utils/checkLogin");
 const authorize = require("../utils/authorize");
 
 router.get("/logout", UsersContronller.logout);
-router.post("/login", UsersContronller.login);
-router.post("/register", UsersContronller.register);
+router.post("/dn", UsersContronller.dn);
+router.get("/login", UsersContronller.login);
+router.post("/dk", UsersContronller.dk);
+router.get("/register", UsersContronller.register);
 router.get("/", UsersContronller.index);
 
 module.exports = router;
