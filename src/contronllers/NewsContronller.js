@@ -1,4 +1,3 @@
-const News = require("../models/News");
 const { env } = require("../config/environment");
 const covertData = require("../utils/coverData");
 const nodemailer = require("nodemailer");
@@ -73,9 +72,9 @@ class NewsController {
           arrayPush.push(findEmail[i]);
         }
       }
+      console.log(arrayPush);
 
       var maparray = arrayPush.map((item) => item.email);
-      // console.log(maparray);
 
       const myAccessTokenObject = await myOAuth2Client.getAccessToken();
       const myAccessToken = myAccessTokenObject?.token;

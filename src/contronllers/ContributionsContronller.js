@@ -5,10 +5,10 @@ const Users = require("../models/Users");
 const { google } = require("googleapis");
 const { GoogleAuth } = require("google-auth-library");
 const { myOAuth2Client } = require("../config/email");
-const Assignments = require("../models/Assignments");
-const Subjects = require("../models/Subjects");
+const Assignments = require("../models/Contributions");
+const Facultys = require("../models/Facultys");
 
-class AssignmentsController {
+class ContributionsController {
   index(req, res, next) {
     res.send("hello world");
   }
@@ -53,4 +53,4 @@ class AssignmentsController {
   }
 }
 
-module.exports = new AssignmentsController();
+module.exports = new ContributionsController();

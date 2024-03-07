@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 
 const Users = new mongoose.Schema({
   role: { type: mongoose.Schema.Types.ObjectId, ref: "Role" },
-  subject: { type: mongoose.Schema.Types.ObjectId, ref: "Subjects" },
-  news: { type: mongoose.Schema.Types.ObjectId, ref: "News" },
+  facultys: { type: mongoose.Schema.Types.ObjectId, ref: "Facultys" },
+  contributions: { type: mongoose.Schema.Types.ObjectId, ref: "Contributions" },
   name: { type: String },
   email: String,
   password: String,
