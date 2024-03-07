@@ -40,7 +40,7 @@ class UsersContronller {
         img,
       });
       user.save();
-      res.status(200, { message: "Sign up succsess" }).redirect("login");
+      res.status(200).redirect("login");
     } catch (Err) {
       console.log(Err);
       return res.send("Err");
@@ -55,30 +55,29 @@ class UsersContronller {
     const { email, password } = req.body;
     try {
       if (!email || !password) {
-        return res.send("Please enter correct information");
+        return res.status(400).send("Please enter correct information");
       }
       const check = await Users.findOne({ email });
       if (!check) {
-        return res.send("Account does not exist");
+        return res.status(400).send("Account does not exist");
       }
 
-      const checkPass = bcrypt.compare(
-        password,
-        check.password,
-        function (Error, Result) {
-          var token = jwt.sign(
-            {
-              name: check.name,
-              email: check.email,
-              password: check.password,
-              role: check.role,
-            },
-            env.jwt
-          );
-          res.cookie("access_token", token);
-          res.redirect("/");
+      await bcrypt.compare(password, check.password, function (Error, Result) {
+        if (!Result) {
+          return res.status(400).send("Incorrect password");
         }
-      );
+        var token = jwt.sign(
+          {
+            name: check.name,
+            email: check.email,
+            role: check.role,
+          },
+          env.jjwt
+        );
+        console.log(token);
+        res.cookie("access_token", token);
+        res.redirect("/");
+      });
     } catch (Error) {
       return res.send("Error");
     }

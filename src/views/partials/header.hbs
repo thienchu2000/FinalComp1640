@@ -17,12 +17,12 @@
             aria-current="page"
             href="/"
           >Home</a></li>
-        {{#if users}}
+        {{#if check}}
           <li class="nav-item"><a
               class="nav-link"
               href="/users/logout"
             >Logout</a></li>
-          {{users.name}}
+          {{check.email}}
         {{else}}<li class="nav-item"><a
               class="nav-link"
               href="/users/login"

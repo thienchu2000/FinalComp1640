@@ -6,7 +6,7 @@ const env = {
   GOOGLE_MAILER_CLIENT_SECRET: process.env.GOOGLE_MAILER_CLIENT_SECRET,
   GOOGLE_MAILER_REFRESH_TOKEN: process.env.GOOGLE_MAILER_REFRESH_TOKEN,
   ADMIN_EMAIL_ADDRESS: process.env.ADMIN_EMAIL_ADDRESS,
-  jwt: process.env.jwt,
+  jjwt: process.env.jjwt,
 };
 
 module.exports = { env };

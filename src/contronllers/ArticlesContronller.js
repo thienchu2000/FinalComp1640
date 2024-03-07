@@ -5,8 +5,8 @@ const Users = require("../models/Users");
 const { google } = require("googleapis");
 const { GoogleAuth } = require("google-auth-library");
 const { myOAuth2Client } = require("../config/email");
-const Assignments = require("../models/Contributions");
-const Facultys = require("../models/Facultys");
+const Articles = require("../models/Articles");
+const Facultis = require("../models/Facultis");
 
 class ContributionsController {
   index(req, res, next) {

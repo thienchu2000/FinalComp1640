@@ -1,15 +1,15 @@
 const mongoose = require("mongoose");
 
-const Comments = new mongoose.Schema(
+const Status = new mongoose.Schema(
   {
     users: { type: mongoose.Schema.Types.ObjectId, ref: "Users" },
-    contributions: {
+    articles: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Contributions",
+      ref: "Articles",
     },
     comment: String,
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Comments", Comments);
+module.exports = mongoose.model("Status", Status);
