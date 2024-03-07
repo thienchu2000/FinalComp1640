@@ -74,7 +74,7 @@ class UsersContronller {
           },
           env.jjwt
         );
-        console.log(token);
+        console.log("đây là cookies", token);
         res.cookie("access_token", token);
         res.redirect("/");
       });
