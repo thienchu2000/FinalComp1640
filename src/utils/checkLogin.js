@@ -8,7 +8,7 @@ function checkLogin(req, res, next) {
     res.redirect("/login");
   }
 
-  var decoded = jwt.verify(cookies, env.jwt);
+  var decoded = jwt.verify(cookies, env.jjwt);
   res.user = decoded;
 
   next();
