@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const CloseDatesContronller = require("../contronllers/CloseDatesContronller");
+const CloseDatesController = require("../controllers/CloseDatesController");
 
-router.get("/", CloseDatesContronller.index);
+router.get("/", CloseDatesController.index);
 
 module.exports = router;

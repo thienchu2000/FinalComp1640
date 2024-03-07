@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const AcademicYearsContronller = require("../contronllers/AcademicYearsContronller");
+const AcademicYearsController = require("../controllers/AcademicYearsController");
 
-router.get("/", AcademicYearsContronller.index);
+router.get("/", AcademicYearsController.index);
 
 module.exports = router;

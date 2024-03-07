@@ -8,7 +8,7 @@ const { myOAuth2Client } = require("../config/email");
 const Articles = require("../models/Articles");
 const Facultis = require("../models/Facultis");
 
-class ContributionsController {
+class ArticlesController {
   index(req, res, next) {
     res.send("hello world");
   }
@@ -53,4 +53,4 @@ class ContributionsController {
   }
 }
 
-module.exports = new ContributionsController();
+module.exports = new ArticlesController();

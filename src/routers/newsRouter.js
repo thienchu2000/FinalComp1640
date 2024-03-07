@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const NewsController = require("../contronllers/NewsContronller");
+const NewsController = require("../controllers/NewsController");
 
 router.post("/StaffsendEmail", NewsController.StaffsendEmail);
 router.delete("/deleteNews/:deleteID", NewsController.deleteNews);

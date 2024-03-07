@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const FacultisContronller = require("../contronllers/FacultisContronller");
+const FacultisController = require("../controllers/FacultisController");
 
-router.get("/", FacultisContronller.index);
+router.get("/", FacultisController.index);
 
 module.exports = router;

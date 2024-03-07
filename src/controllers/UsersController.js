@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const { env } = require("../config/environment");
 
-class UsersContronller {
+class UsersController {
   index(req, res, next) {
     res.render("home");
   }
@@ -88,4 +88,4 @@ class UsersContronller {
     return res.redirect("/");
   }
 }
-module.exports = new UsersContronller();
+module.exports = new UsersController();

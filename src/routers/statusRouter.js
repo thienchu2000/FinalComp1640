@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const StatusController = require("../contronllers/StatusContronller");
+const StatusController = require("../controllers/StatusController");
 
 router.get("/", StatusController.index);
 
