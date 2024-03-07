@@ -61,6 +61,7 @@ class UsersContronller {
       if (!check) {
         return res.status(400).send("Account does not exist");
       }
+      console.log(check);
 
       await bcrypt.compare(password, check.password, function (Error, Result) {
         if (!Result) {

@@ -9,9 +9,10 @@ const closeDatesRouter = require("./closeDatesRouter");
 
 const {
   isAdmin,
-  isStaff,
+  isMaketing_manager,
+  isMaketing_Coordinator,
   isStudent,
-  isTeacher,
+  isGuest,
 } = require("../utils/authorize");
 // Config đường dẫn khi FE làm xong truyền Function phân quyền vào url trong các router.
 
