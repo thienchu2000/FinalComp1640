@@ -5,9 +5,9 @@ const checkLogin = require("../utils/checkLogin");
 const authorize = require("../utils/authorize");
 
 router.get("/logout", UsersController.logout);
-router.post("/dn", checkLogin, UsersController.dn);
+router.post("/dn", UsersController.dn);
 router.get("/login", UsersController.login);
-router.post("/dk", checkLogin, UsersController.dk);
+router.post("/dk", UsersController.dk);
 router.get("/register", UsersController.register);
 router.get("/", UsersController.index);
 

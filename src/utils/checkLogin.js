@@ -5,7 +5,7 @@ function checkLogin(req, res, next) {
   var cookies = req.cookies["access_token"];
 
   if (!cookies) {
-    res.redirect("/login");
+    res.redirect("/users/login");
   }
 
   var decoded = jwt.verify(cookies, env.jjwt);

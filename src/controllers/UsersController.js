@@ -40,7 +40,7 @@ class UsersController {
         img,
       });
       user.save();
-      res.status(200).redirect("login");
+      res.status(200).render("login", { email });
     } catch (Err) {
       console.log(Err);
       return res.send("Err");
@@ -61,7 +61,6 @@ class UsersController {
       if (!check) {
         return res.status(400).send("Account does not exist");
       }
-      console.log(check);
 
       await bcrypt.compare(password, check.password, function (Error, Result) {
         if (!Result) {
@@ -75,9 +74,8 @@ class UsersController {
           },
           env.jjwt
         );
-        console.log("đây là cookies", token);
         res.cookie("access_token", token);
-        res.redirect("/");
+        res.render("home", { user: true, name: check.name });
       });
     } catch (Error) {
       return res.send("Error");

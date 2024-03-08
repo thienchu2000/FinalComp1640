@@ -6,6 +6,7 @@ const facultisRouter = require("./facultisRouter");
 const statusRouter = require("./statusRouter");
 const academicYearsRouter = require("./academicYearsRouter");
 const closeDatesRouter = require("./closeDatesRouter");
+const checkLogin = require("../utils/checkLogin");
 
 const {
   isAdmin,
