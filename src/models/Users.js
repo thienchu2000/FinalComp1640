@@ -2,7 +2,12 @@ const mongoose = require("mongoose");
 
 const Users = new mongoose.Schema(
   {
-    role: { type: mongoose.Schema.Types.ObjectId, ref: "Role" },
+    role: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Role",
+      default: "65ead5df686f7f723b6dbd60",
+    },
+
     facultis: { type: mongoose.Schema.Types.ObjectId, ref: "Facultis" },
     name: String,
     firstName: String,

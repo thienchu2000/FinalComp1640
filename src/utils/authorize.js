@@ -7,34 +7,34 @@ function isAdmin(req, res, next) {
 }
 
 function isMaketing_manager(req, res, next) {
-  if (res.user.role === "maketingmanager") {
+  if (res.user.role === "Maketing Manager") {
     next();
   } else {
-    return res.send("ban khong duoc");
+    return res.send("You need permission");
   }
 }
 
 function isMaketing_Coordinator(req, res, next) {
-  if (res.user.role === "maketingcoordinator") {
+  if (res.user.role === "Maketing Coordinator") {
     next();
   } else {
-    return res.send("ban khong duoc");
+    return res.send("You need permission");
   }
 }
 
 function isStudent(req, res, next) {
-  if (res.user.role === "student") {
+  if (res.user.role === "Student") {
     next();
   } else {
-    return res.send("ban khong duoc");
+    return res.send("You need permission");
   }
 }
 
 function isGuest(req, res, next) {
-  if (res.user.role === "guest") {
+  if (res.user.role === "Guest") {
     next();
   } else {
-    return res.send("ban khong duoc");
+    return res.send("You need permission");
   }
 }
 module.exports = {

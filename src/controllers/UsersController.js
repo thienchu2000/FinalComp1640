@@ -4,10 +4,11 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const { env } = require("../config/environment");
+const checkLogin = require("../utils/checkLogin");
 
 class UsersController {
   index(req, res, next) {
-    res.render("home");
+    res.render("home", { layouts: "layouts" });
   }
 
   register(req, res, next) {
@@ -68,6 +69,7 @@ class UsersController {
         }
         var token = jwt.sign(
           {
+            _id: check._id,
             name: check.name,
             email: check.email,
             role: check.role,
@@ -75,7 +77,7 @@ class UsersController {
           env.jjwt
         );
         res.cookie("access_token", token);
-        res.render("home", { user: true, name: check.name });
+        res.render("home", { user: true, name: check.name, _id: check._id });
       });
     } catch (Error) {
       return res.send("Error");
@@ -84,6 +86,33 @@ class UsersController {
   logout(req, res, next) {
     res.clearCookie("access_token");
     return res.redirect("/");
+  }
+
+  async Find(req, res, next) {
+    var cookies = req.cookies["access_token"];
+    if (!cookies) {
+      res.redirect("/users/login");
+    }
+    var decoded = jwt.verify(cookies, env.jjwt);
+    var id = decoded._id;
+    try {
+      const findUser = await Users.findOne({ _id: id }).populate("role");
+      if (!findUser) {
+        return res.send("Error");
+      }
+      res.render("profileUser", {
+        user: true,
+        name: findUser.name,
+        email: findUser.email,
+        img: findUser.img,
+        phone: findUser.phone,
+        address: findUser.address,
+        role: findUser.role.name,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.send("error");
+    }
   }
 }
 module.exports = new UsersController();
