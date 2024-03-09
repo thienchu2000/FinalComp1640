@@ -4,6 +4,7 @@ const UsersController = require("../controllers/UsersController");
 const checkLogin = require("../utils/checkLogin");
 const authorize = require("../utils/authorize");
 
+router.get("/updateUser", UsersController.updateUser);
 router.get("/find", UsersController.Find);
 router.get("/logout", UsersController.logout);
 router.post("/dn", UsersController.dn);

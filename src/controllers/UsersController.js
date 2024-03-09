@@ -102,6 +102,7 @@ class UsersController {
       }
       res.render("profileUser", {
         user: true,
+        _id: findUser._id,
         name: findUser.name,
         email: findUser.email,
         img: findUser.img,
@@ -113,6 +114,10 @@ class UsersController {
       console.log(error);
       return res.send("error");
     }
+  }
+
+  async updateUser(req, res, next) {
+    res.render("updateUser", { user: true });
   }
 }
 module.exports = new UsersController();
