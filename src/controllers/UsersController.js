@@ -5,10 +5,11 @@ const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const { env } = require("../config/environment");
 const checkLogin = require("../utils/checkLogin");
+const axios = require("axios");
 
 class UsersController {
   index(req, res, next) {
-    res.render("home", { layouts: "layouts" });
+    res.render("home", { layouts: "main" });
   }
 
   register(req, res, next) {
@@ -109,6 +110,8 @@ class UsersController {
         phone: findUser.phone,
         address: findUser.address,
         role: findUser.role.name,
+        firstName: findUser.firstName,
+        lastName: findUser.lastName,
       });
     } catch (error) {
       console.log(error);
@@ -117,7 +120,32 @@ class UsersController {
   }
 
   async updateUser(req, res, next) {
-    res.render("updateUser", { user: true });
+    const _id = req.params._id;
+
+    const user = await Users.findOne({ _id: _id })
+      .then((data) => {
+        res.render("updateUser", { user: true, name: data.name });
+      })
+      .catch((error) => {
+        return res.send(error);
+      });
+  }
+
+  async changeUser(req, res, next) {
+    const _id = req.params._id;
+    console.log(_id);
+    const { name, phone, address, firstName, lastName, img } = req.body;
+    console.log(req.body);
+    const changeUser = await Users.findOneAndUpdate(
+      { _id: _id },
+      { name, phone, address, firstName, lastName }
+    )
+      .then(() => {
+        res.render("profileUser", { message: "Done" });
+      })
+      .catch((err) => {
+        return res.send(err);
+      });
   }
 }
 module.exports = new UsersController();

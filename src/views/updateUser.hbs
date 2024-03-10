@@ -1,31 +1,51 @@
 <form>
   <div class="form-row">
     <div class="form-group col-md-6">
-      <label for="inputEmail4">Name</label>
+      <label for="inputEmail4">UserName</label>
       <input
-        type="name"
+        type="text"
+        name="name"
         class="form-control"
-        id="name"
-        placeholder="name"
+        placeholder="UserName"
       />
     </div>
+
+  </div>
+  <div class="form-group">
+    <label for="inputAddress">Last Name</label>
+    <input
+      type="text"
+      class="form-control"
+      name="lastName"
+      placeholder="Last Name"
+    />
+  </div>
+  <div class="form-group">
+    <label for="inputAddress">Firt Name</label>
+    <input
+      type="text"
+      class="form-control"
+      name="firtName"
+      placeholder="Firt Name"
+    />
   </div>
   <div class="form-group">
     <label for="inputAddress">Address</label>
     <input
       type="text"
       class="form-control"
-      id="inputAddress"
-      placeholder="1234 Main St"
+      name="address"
+      placeholder="Address"
     />
   </div>
   <div class="form-group">
     <label for="inputAddress">Phone</label>
     <input
-      type="text"
+      type="number"
       class="form-control"
       id="inputAddress"
-      placeholder="1234 Main St"
+      name="phone"
+      placeholder="EX: 09XXXXXXXXXX"
     />
   </div>
   <label for=""></label>
@@ -33,7 +53,8 @@
     <label for="inputAddress">Avatar</label>
     <input
       type="file"
-      {{!-- class="form-control" --}}
+      class="form-control"
+      name="img"
       id="img"
     />
   </div>
@@ -41,5 +62,33 @@
   </div>
   <div class="form-group">
   </div>
-  <button type="submit" class="btn btn-primary">Change</button>
+  <button  class="btn btn-primary" onclick="updateUser('{{_id}}')">Change</button>
 </form>
+
+
+<script>
+function updateUser(_id) {
+  var name = document.getElementById("name").value;
+  var lastName = document.getElementById("lastName").value;
+  var firtName = document.getElementById("firtName").value;
+  var img = document.getElementById("img").value;
+  var _id = document.getElementById("_id").value;
+  var address = document.getElementById("address").value;
+  var phone = document.getElementById("phone").value;
+  axios
+    .put(`/users/changeUser/${_id}`, {
+      name,
+      lastName,
+      img,
+      address,
+      phone,
+      firtName,
+    })
+    .then((result) => {
+      console.log(result);
+      alert("Thanh cong");
+    })
+    .catch(() => alert("That bai"));
+}
+</script>
+
