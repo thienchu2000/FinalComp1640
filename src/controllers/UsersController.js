@@ -136,14 +136,31 @@ class UsersController {
 
   changeUser(req, res, next) {
     const _id = req.params._id;
-    try {
-      Users.findOneAndUpdate({ _id: _id }, { ...req.body }).then((data) => {
-        res.status(200).send("done");
-      });
-    } catch (err) {
-      console.log(err);
-      return res.send(err);
+    var user = {};
+    var von = { ...req.body };
+    if (von.name) {
+      user.name = von.name;
     }
+    if (von.lastName) {
+      user.lastName = von.lastName;
+    }
+    if (von.firstName) {
+      user.firstName = von.firstName;
+    }
+    if (von.phone) {
+      user.phone = von.phone;
+    }
+    if (von.address) {
+      user.address = von.address;
+    }
+    Users.findOneAndUpdate({ _id: _id }, user)
+      .then(() => {
+        res.status(200).send("done");
+      })
+      .catch((err) => {
+        return res.status(404).send(err);
+      });
   }
 }
+
 module.exports = new UsersController();

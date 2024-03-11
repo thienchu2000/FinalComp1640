@@ -1,9 +1,9 @@
 const Status = require("../models/Status");
 
-class StatusController {
+class AdminController {
   index(res, req, next) {
     res.send("Welcome");
   }
 }
 
-module.exports = new StatusController();
+module.exports = new AdminController();

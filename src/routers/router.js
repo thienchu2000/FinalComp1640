@@ -1,12 +1,12 @@
 const homeRouter = require("./homeRouter");
 const usersRouter = require("./usersRouter");
-const newsRouter = require("./newsRouter");
 const articlesRouter = require("./articlesRouter");
 const facultisRouter = require("./facultisRouter");
-const statusRouter = require("./statusRouter");
+const adminRouter = require("./adminRouter");
 const academicYearsRouter = require("./academicYearsRouter");
 const closeDatesRouter = require("./closeDatesRouter");
 const checkLogin = require("../utils/checkLogin");
+const authentication = require("../utils/authentication");
 
 const {
   isAdmin,
@@ -20,11 +20,11 @@ const {
 function router(app) {
   app.use("/closeDates", closeDatesRouter);
   app.use("/academicYears", academicYearsRouter);
-  app.use("/status", statusRouter);
   app.use("/facultis", facultisRouter);
   app.use("/articles", articlesRouter);
+  app.use("/admin", adminRouter);
   app.use("/users", usersRouter);
-  app.use("/", homeRouter);
+  app.use("/", authentication, homeRouter);
 }
 
 module.exports = router;

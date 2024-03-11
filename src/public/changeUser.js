@@ -14,11 +14,9 @@ function changeUser(_id) {
       firstName,
     })
     .then((data) => {
-      console.log(data);
       return alert("Done");
     })
     .catch(function (error) {
-      console.log(error);
       return alert("Can't change user");
     });
 }
