@@ -121,31 +121,29 @@ class UsersController {
 
   async updateUser(req, res, next) {
     const _id = req.params._id;
-
     const user = await Users.findOne({ _id: _id })
       .then((data) => {
-        res.render("updateUser", { user: true, name: data.name });
+        res.render("updateUser", {
+          user: true,
+          name: data.name,
+          _id: data._id,
+        });
       })
       .catch((error) => {
         return res.send(error);
       });
   }
 
-  async changeUser(req, res, next) {
+  changeUser(req, res, next) {
     const _id = req.params._id;
-    console.log(_id);
-    const { name, phone, address, firstName, lastName, img } = req.body;
-    console.log(req.body);
-    const changeUser = await Users.findOneAndUpdate(
-      { _id: _id },
-      { name, phone, address, firstName, lastName }
-    )
-      .then(() => {
-        res.render("profileUser", { message: "Done" });
-      })
-      .catch((err) => {
-        return res.send(err);
+    try {
+      Users.findOneAndUpdate({ _id: _id }, { ...req.body }).then((data) => {
+        res.status(200).send("done");
       });
+    } catch (err) {
+      console.log(err);
+      return res.send(err);
+    }
   }
 }
 module.exports = new UsersController();
