@@ -22,7 +22,7 @@ function router(app) {
   app.use("/academicYears", academicYearsRouter);
   app.use("/facultis", facultisRouter);
   app.use("/articles", articlesRouter);
-  app.use("/admin", adminRouter);
+  app.use("/admin", checkLogin, adminRouter);
   app.use("/users", usersRouter);
   app.use("/", authentication, homeRouter);
 }

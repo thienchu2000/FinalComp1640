@@ -1,9 +1,18 @@
+const jwt = require("jsonwebtoken");
+const { env } = require("../config/environment");
+const Role = require("../models/Role");
+
 function isAdmin(req, res, next) {
-  if (res.user.role === "admin") {
-    next();
-  } else {
-    return res.send("ban khong duoc phep");
-  }
+  var roleId = res.user.role;
+  Role.findOne({ _id: roleId })
+    .then((data) => {
+      if (data.name === "Admin") {
+        next();
+      }
+    })
+    .catch((err) => {
+      return res.send(err);
+    });
 }
 
 function isMaketing_manager(req, res, next) {
