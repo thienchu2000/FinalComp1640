@@ -8,33 +8,23 @@ const { myOAuth2Client } = require("../config/email");
 const Articles = require("../models/Articles");
 const Facultis = require("../models/Facultis");
 const multer = require("multer");
+const path = require("path");
 
 class ArticlesController {
   index(req, res, next) {
-    res.send("hello world");
+    var users = res.user;
+    res.render("test");
   }
 
   // CRUD---articles
 
-  // send --- ASS database send email teacher.
-  async createAss(req, res, next) {
-    const { articlesName, studentId } = req.body;
-    console.log(req.body);
+  async articlesC(req, res, next) {
+    console.log("da vao");
+    var file = req.files[0].path;
+    var image = req.files[1].path;
 
-    try {
-    } catch (err) {
-      return res.status(500).send("err db");
-    }
-  }
-
-  async readAss(req, res, next) {
-    const data = await Assignments.find({})
-      .then((data) => {
-        res.status(200).send(covertData(data));
-      })
-      .catch((err) => {
-        return res.send(err);
-      });
+    var { facultyId } = req.params;
+    var { articlesName, description, StatusId } = req.body;
   }
 }
 

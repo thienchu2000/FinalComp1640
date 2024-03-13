@@ -14,6 +14,7 @@ const { GoogleAuth } = require("google-auth-library");
 const { create } = require("express-handlebars");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
+const multer = require("multer");
 
 require("dotenv").config();
 const { env } = require("./config/environment");
@@ -25,13 +26,7 @@ app.use(cookieParser());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(
-  session({
-    secret: "chuNe",
-    resave: false,
-    saveUninitialized: true,
-  })
-);
+
 app.use(express.static(__dirname + "/public"));
 app.engine("hbs", exphbs.engine);
 app.set("view engine", "hbs");

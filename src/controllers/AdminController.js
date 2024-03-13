@@ -7,7 +7,7 @@ const Role = require("../models/Role");
 class AdminController {
   async index(req, res, next) {
     try {
-      const data = await Users.find({}).populate("role").populate("facultis");
+      const data = await Users.find({}).populate("role");
       const role = await Role.find({});
       return res.status(200).render("admin", {
         user: true,
@@ -20,7 +20,6 @@ class AdminController {
     }
   }
   update(req, res, next) {
-    console.log("da vao");
     const id = req.params._id;
     const { role, faculty } = req.body;
     var obj = {};
@@ -30,7 +29,7 @@ class AdminController {
     if (faculty) {
       obj.faculty = faculty;
     }
-    console.log(obj);
+
     Users.findOneAndUpdate({ _id: id }, obj)
       .then(() => {
         res.status(200).send("Done");
