@@ -19,9 +19,8 @@ class ArticlesController {
   // CRUD---articles
 
   async articlesC(req, res, next) {
-    console.log("da vao");
-    var file = req.files[0].path;
-    var image = req.files[1].path;
+    var file = req.file.path;
+    var image = req.file.path;
 
     var { facultyId } = req.params;
     var { articlesName, description, StatusId } = req.body;
