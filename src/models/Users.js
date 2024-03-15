@@ -7,7 +7,11 @@ const Users = new mongoose.Schema(
       ref: "Role",
       default: "65ead5df686f7f723b6dbd60",
     },
-
+    closedate: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "CloseDates",
+      default: "65f43fb47238ed840bc4f9ba",
+    },
     facultis: { type: mongoose.Schema.Types.ObjectId, ref: "Facultis" },
     name: String,
     firstName: String,

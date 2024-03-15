@@ -3,9 +3,7 @@ const mongoose = require("mongoose");
 const Articles = new mongoose.Schema(
   {
     articlesName: String,
-    comments: String,
-    file: String,
-    img: String,
+    doc_img: Array,
     description: String,
     users: { type: mongoose.Schema.ObjectId, ref: "Users" },
     faculty: { type: mongoose.Schema.ObjectId, ref: "Faculty" },

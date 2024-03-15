@@ -19,6 +19,8 @@ class UsersController {
   async dk(req, res, next) {
     const { name, email, password, address, phone } = req.body;
     const img = req.file.path;
+    var cutString = img.lastIndexOf("\\update_hinh_files\\");
+    var doneCut = img.substring(cutString);
     try {
       if (!name || !email || !password) {
         return res.send("Please enter correct information");
@@ -40,7 +42,7 @@ class UsersController {
         password: hashPassword,
         address,
         phone,
-        img,
+        img: doneCut,
       });
       user.save();
       res.status(200).render("login", { email });
@@ -102,9 +104,6 @@ class UsersController {
       if (!findUser) {
         return res.send("Error");
       }
-      var string = findUser.img;
-      var cutString = string.lastIndexOf("\\update_hinh_files\\");
-      var doneCut = string.substring(cutString);
 
       res.render("profileUser", {
         user: true,
@@ -116,7 +115,7 @@ class UsersController {
         role: findUser.role.name,
         firstName: findUser.firstName,
         lastName: findUser.lastName,
-        img: doneCut,
+        img: findUser.img,
       });
       console.log(findUser.img);
     } catch (error) {

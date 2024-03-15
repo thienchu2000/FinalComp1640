@@ -48,7 +48,6 @@ function document_img(req, res, next) {
       "../update_hinh_files",
       req.files[0].filename
     );
-    res.sendFile(done);
 
     next();
   });

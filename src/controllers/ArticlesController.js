@@ -9,6 +9,7 @@ const Articles = require("../models/Articles");
 const Facultis = require("../models/Facultis");
 const multer = require("multer");
 const path = require("path");
+const CloseDates = require("../models/CloseDates");
 
 class ArticlesController {
   index(req, res, next) {
@@ -19,11 +20,100 @@ class ArticlesController {
   // CRUD---articles
 
   async articlesC(req, res, next) {
-    var file = req.file.path;
-    var image = req.file.path;
+    const doc_img = req.files;
 
-    var { facultyId } = req.params;
-    var { articlesName, description, StatusId } = req.body;
+    var img = doc_img.map((item) => {
+      return {
+        originalname: item.originalname,
+      };
+    });
+
+    const { articlesName, description, condition } = req.body;
+    // const userId = res.user._id;
+    const { facultyId, AcademicYearsId, userId } = req.params;
+    try {
+      if (!condition && condition === false) {
+        return res.status(400).send("must agree to the conditions");
+      }
+      var newday = new Date();
+      var timeday = newday.getTime();
+      var close = await Users.findOne({ _id: userId }).populate("closedate");
+      var name = close.name;
+      var dateclose = close.closedate.closeDates;
+      var finalclose = close.closedate.finalCloseDates;
+
+      var datecloseTime = dateclose.getTime();
+      var finalcloseTime = finalclose.getTime();
+      var checkclose = (timeday - datecloseTime) / (3600 * 1000 * 24);
+      var checkfinal = (timeday - finalcloseTime) / (3600 * 1000 * 24);
+
+      var x;
+      function checkNull(a, b) {
+        if (a) {
+          x = a;
+          b = null;
+        } else {
+          x = b;
+          a = null;
+        }
+      }
+      checkNull(checkfinal, checkclose);
+
+      if (x > 0) {
+        return res.status(400).send("expired");
+      }
+      const articles = new Articles({
+        doc_img: img,
+        articlesName: articlesName,
+        description: description,
+        users: userId,
+        faculty: facultyId,
+        academicYears: AcademicYearsId,
+      });
+
+      articles.save();
+      var namefaculity = await Facultis.findOne({ _id: facultyId }).then(
+        (item) => item.nameFaculty
+      );
+
+      var query = (await Users.find({}).populate("role").populate("facultis"))
+        .filter((data) => {
+          return (
+            data.role.name === "Maketing Coordinator" &&
+            data.facultis.nameFaculty === namefaculity
+          );
+          console.log(
+            data.role.name === "Maketing Coordinator",
+            data.facultis === facultyId
+          );
+        })
+        .map((data) => data.email);
+
+      console.log(query);
+      const myAccessTokenObject = await myOAuth2Client.getAccessToken();
+      const myAccessToken = myAccessTokenObject.token;
+      const transport = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          type: "OAuth2",
+          user: env.ADMIN_EMAIL_ADDRESS,
+          clientId: env.GOOGLE_MAILER_CLIENT_ID,
+          clientSecret: env.GOOGLE_MAILER_CLIENT_SECRET,
+          refresh_token: env.GOOGLE_MAILER_REFRESH_TOKEN,
+          accessToken: myAccessToken,
+        },
+      });
+      const mailOptions = {
+        to: query.join(","),
+        subject: `student ${name} submission`,
+        html: `<h3>Submission</h3>`,
+      };
+      await transport.sendMail(mailOptions);
+      res.status(200).send("Success Submissions");
+    } catch (err) {
+      console.error(err);
+      return res.status(500).send(err);
+    }
   }
 }
 
