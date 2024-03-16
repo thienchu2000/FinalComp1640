@@ -12,16 +12,43 @@ const path = require("path");
 const CloseDates = require("../models/CloseDates");
 
 class ArticlesController {
-  index(req, res, next) {
-    var users = res.user;
-    res.render("test");
+  async index(req, res, next) {
+    try {
+      var users = res.user;
+      var user = await Users.findOne({ _id: users._id }).populate({
+        path: "closedate",
+        populate: { path: "academic", model: "AcademicYears" },
+      });
+
+      var articles = await Articles.find({}).populate("users");
+      var userCheck = articles
+        .filter((item) => item.users.name === user.name)
+        .map((item) => {
+          console.log(item.users.name);
+          console.log(user.name);
+          return;
+          item._id;
+        });
+
+      res.render("articles", {
+        user: true,
+        student: true,
+        name: users.name,
+        role: users.role,
+        img: users.img,
+        FacultyId: user.facultis,
+        AcademicYearsId: user.closedate.academic._id,
+      });
+    } catch (err) {
+      console.log(err);
+      return res.send("err");
+    }
   }
 
   // CRUD---articles
 
   async articlesC(req, res, next) {
     const doc_img = req.files;
-
     var image = [];
     var doc = [];
     doc_img.forEach(function (data) {
@@ -31,10 +58,10 @@ class ArticlesController {
         return doc.push(data.filename);
       }
     });
-
     const { articlesName, description, condition } = req.body;
-    // const userId = res.user._id;
-    const { facultyId, AcademicYearsId, userId } = req.params;
+    const userId = res.user._id;
+    var name = res.user.name;
+    const { FacultyId, AcademicYearsId } = req.params;
     try {
       if (!condition && condition === false) {
         return res.status(400).send("must agree to the conditions");
@@ -42,7 +69,7 @@ class ArticlesController {
       var newday = new Date();
       var timeday = newday.getTime();
       var close = await Users.findOne({ _id: userId }).populate("closedate");
-      var name = close.name;
+
       var dateclose = close.closedate.closeDates;
       var finalclose = close.closedate.finalCloseDates;
 
@@ -57,28 +84,29 @@ class ArticlesController {
         return res.status(400).send("expired");
       }
       const articles = new Articles({
-        img: image,
-        doc: doc,
+        img: JSON.stringify(image),
+        doc: JSON.stringify(doc),
         articlesName: articlesName,
         description: description,
         users: userId,
-        faculty: facultyId,
+        faculty: FacultyId,
         academicYears: AcademicYearsId,
       });
 
       articles.save();
-      var namefaculity = await Facultis.findOne({ _id: facultyId }).then(
+      var namefaculity = await Facultis.findOne({ _id: FacultyId }).then(
         (item) => item.nameFaculty
       );
 
       var query = (await Users.find({}).populate("role").populate("facultis"))
         .filter((data) => {
           return (
-            data.role.name === "Maketing Coordinator" &&
+            data.role.name === "Marketing Coordinator" &&
             data.facultis.nameFaculty === namefaculity
           );
         })
         .map((data) => data.email);
+
       const myAccessTokenObject = await myOAuth2Client.getAccessToken();
       const myAccessToken = myAccessTokenObject.token;
       const transport = nodemailer.createTransport({
@@ -94,8 +122,8 @@ class ArticlesController {
       });
       const mailOptions = {
         to: query.join(","),
-        subject: `student ${name} submission`,
-        html: `<h3>Submission</h3>`,
+        subject: `Student submission`,
+        html: `<h3>${name} Submission at ${namefaculity} </h3>`,
       };
       await transport.sendMail(mailOptions);
       res.status(200).send("Success Submissions");

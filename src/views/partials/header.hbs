@@ -29,12 +29,23 @@
               style="color: aqua;"
             >Dashboard</a></li>
         {{/if}}
+        {{#if student}}
+         <li class="nav-item"><a
+              class="nav-link"
+              href="/articles"
+              style="color: aqua;"
+            >Ariticles</a></li>
+          <li>
+        {{/if}}
         {{#if user}}
           <li class="nav-item"><a
               class="nav-link"
               href="/users/find"
               style="color: aqua;"
             >{{name}}</a></li>
+          <li>
+            <img src="/{{img}}" alt="..." style="height: 40px; " />
+          </li>
           <li class="nav-item"><a
               class="nav-link"
               href="/users/logout"

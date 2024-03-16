@@ -1,0 +1,60 @@
+<h1>
+  <div style="height: 40px; color:coral;">Submit your article here</div>
+</h1>
+
+<form
+  action="articles/articlesC/{{FacultyId}}/{{AcademicYearsId}}"
+  method="post"
+  enctype="multipart/form-data"
+>
+  <div class="form-group">
+    <label for="exampleInputEmail1">ArticlesName</label>
+    <input
+      class="form-control"
+      type="text"
+      name="articlesName"
+      id="articlesName"
+      aria-describedby="emailHelp"
+      required
+    />
+  </div><br />
+  <div class="form-group">
+    <label for="exampleInputPassword1">Description</label>
+    <input
+      class="form-control"
+      type="text"
+      name="description"
+      id="description"
+      required
+    />
+  </div><br />
+  <div class="form-group">
+    <label for="exampleInputPassword1">Image</label>
+    <input type="file" name="files" required />
+    <label for="exampleInputPassword1">Document</label>
+    <input type="file" name="files" required />
+  </div><br />
+  <div class="form-group form-check">
+    <label for="exampleInputPassword1">Once you submit your work, it will be
+      reviewed and approved and you agree</label>
+    <input
+      type="checkbox"
+      class="form-check-input"
+      name="condition"
+      id="condition"
+      required
+    />
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<br />
+
+<h2>Report information</h2>
+<ul>
+  <li></li>
+</ul>
+
+<h3> <div style="height: 40px; color:coral">Comment</div> </h3>
+<form action="post">
+  <input type="text" value="" style="height: 100px; width: 600px " />
+</form>

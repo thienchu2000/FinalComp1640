@@ -15,6 +15,34 @@ class HomeController {
             id: data._id,
             admin: data.role.name,
           });
+        } else if (id && data.role.name === "Student") {
+          res.render("home", {
+            user: true,
+            name: data.name,
+            id: data._id,
+            student: data.role.name,
+          });
+        } else if (id && data.role.name === "Marketing Coordinator") {
+          res.render("home", {
+            user: true,
+            name: data.name,
+            id: data._id,
+            marketingCoordinator: data.role.name,
+          });
+        } else if (id && data.role.name === "Marketing Manager") {
+          res.render("home", {
+            user: true,
+            name: data.name,
+            id: data._id,
+            marketingManager: data.role.name,
+          });
+        } else if (id && data.role.name === "Guest") {
+          res.render("home", {
+            user: true,
+            name: data.name,
+            id: data._id,
+            guest: data.role.name,
+          });
         } else {
           res.render("home");
         }

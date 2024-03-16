@@ -21,7 +21,7 @@ const Users = new mongoose.Schema(
     password: String,
     phone: Number,
     address: String,
-    img: String,
+    img: { type: String, default: "images.jpeg" },
   },
   { timestamps: true }
 );

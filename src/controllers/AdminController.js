@@ -4,19 +4,23 @@ const Users = require("../models/Users");
 const coverData = require("../utils/coverData");
 const Role = require("../models/Role");
 const AcademicYears = require("../models/AcademicYears");
-const closeDates = require("../models/CloseDates");
 const CloseDates = require("../models/CloseDates");
 
 class AdminController {
   async index(req, res, next) {
     try {
-      const data = await Users.find({}).populate("role");
+      const ad = res.user;
+      const dataClose = await CloseDates.find({});
+      const data = await Users.find({}).populate("role").populate("facultis");
       const role = await Role.find({});
       return res.status(200).render("admin", {
         user: true,
         admin: true,
+        name: ad.name,
         data: coverData(data),
         nameRole: coverData(role),
+        img: ad.img,
+        dataClose: coverData(dataClose),
       });
     } catch (err) {
       return res.send("404 Not Found");

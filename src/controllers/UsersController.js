@@ -133,6 +133,7 @@ class UsersController {
           user: true,
           name: data.name,
           _id: data._id,
+          img: data.img,
         });
       })
       .catch((error) => {
@@ -166,7 +167,7 @@ class UsersController {
 
     Users.findOneAndUpdate({ _id: _id }, user)
       .then(() => {
-        res.status(200).send("done");
+        res.status(200).redirect("/users/find");
       })
       .catch((err) => {
         return res.status(404).send(err);

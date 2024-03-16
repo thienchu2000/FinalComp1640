@@ -30,7 +30,6 @@ const upload = (req, res, next) => {
     if (error) {
       return res.send(`Error when trying to upload image: ${error}`);
     }
-    console.log(req.file);
     if (!req.file) {
       return res.status(400).send("No file uploaded.");
     }
