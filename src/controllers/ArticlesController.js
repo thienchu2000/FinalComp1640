@@ -57,8 +57,8 @@ class ArticlesController {
         return res.status(400).send("expired");
       }
       const articles = new Articles({
-        img: JSON.stringify(image),
-        doc: JSON.stringify(doc),
+        img: image,
+        doc: doc,
         articlesName: articlesName,
         description: description,
         users: userId,

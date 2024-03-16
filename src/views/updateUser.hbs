@@ -1,4 +1,4 @@
-<form>
+<form enctype="multipart/form-data" method="post" action="/users/changeUser/{{_id}}">
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="inputEmail4">UserName</label>
@@ -53,6 +53,12 @@
     />
   </div>
   <label for=""></label>
+   <div class="form-group flex-column d-flex">
+              <label class="form-control-label px-3">Avatar<span
+                  class="text-danger"
+                > *</span></label>
+              <input type="file" name="file" id="file" required />
+            </div>
   </div>
   </div>
   <div class="form-group">

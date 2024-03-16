@@ -8,7 +8,7 @@ class HomeController {
     Users.findOne({ _id: id })
       .populate("role")
       .then((data) => {
-        if (id) {
+        if (id && data.role.name === "Admin") {
           res.render("home", {
             user: true,
             name: data.name,

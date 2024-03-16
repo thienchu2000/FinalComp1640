@@ -6,7 +6,7 @@ function changeUser(_id) {
   var phone = document.getElementById("phone").value;
 
   axios
-    .put(`/users/changeUser/${_id}`, {
+    .post(`/users/changeUser/${_id}`, {
       name,
       lastName,
       address,

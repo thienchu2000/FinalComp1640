@@ -18,7 +18,6 @@ class UsersController {
 
   async dk(req, res, next) {
     const { name, email, password, address, phone } = req.body;
-    const img = req.file.filename;
     try {
       if (!name || !email || !password) {
         return res.send("Please enter correct information");
@@ -40,7 +39,6 @@ class UsersController {
         password: hashPassword,
         address,
         phone,
-        img: img,
       });
       user.save();
       res.status(200).render("login", { email });
@@ -144,6 +142,7 @@ class UsersController {
 
   changeUser(req, res, next) {
     const _id = req.params._id;
+    var img = req.file.filename;
     var user = {};
     var von = { ...req.body };
     if (von.name) {
@@ -160,6 +159,9 @@ class UsersController {
     }
     if (von.address) {
       user.address = von.address;
+    }
+    if (img) {
+      user.img = img;
     }
 
     Users.findOneAndUpdate({ _id: _id }, user)
