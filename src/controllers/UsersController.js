@@ -18,9 +18,7 @@ class UsersController {
 
   async dk(req, res, next) {
     const { name, email, password, address, phone } = req.body;
-    const img = req.file.path;
-    var cutString = img.lastIndexOf("\\update_hinh_files\\");
-    var doneCut = img.substring(cutString);
+    const img = req.file.filename;
     try {
       if (!name || !email || !password) {
         return res.send("Please enter correct information");
@@ -42,7 +40,7 @@ class UsersController {
         password: hashPassword,
         address,
         phone,
-        img: doneCut,
+        img: img,
       });
       user.save();
       res.status(200).render("login", { email });
@@ -77,11 +75,17 @@ class UsersController {
             name: check.name,
             email: check.email,
             role: check.role,
+            img: check.img,
           },
           env.jjwt
         );
         res.cookie("access_token", token);
-        res.render("home", { user: true, name: check.name, _id: check._id });
+        res.render("home", {
+          user: true,
+          name: check.name,
+          _id: check._id,
+          img: check.img,
+        });
       });
     } catch (Error) {
       return res.send("Error");
@@ -117,7 +121,6 @@ class UsersController {
         lastName: findUser.lastName,
         img: findUser.img,
       });
-      console.log(findUser.img);
     } catch (error) {
       console.log(error);
       return res.send("error");

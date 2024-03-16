@@ -22,10 +22,14 @@ class ArticlesController {
   async articlesC(req, res, next) {
     const doc_img = req.files;
 
-    var img = doc_img.map((item) => {
-      return {
-        originalname: item.originalname,
-      };
+    var image = [];
+    var doc = [];
+    doc_img.forEach(function (data) {
+      if (data.filename.match(/\.(jpg|png|jpeg)$/)) {
+        return image.push(data.filename);
+      } else if (data.filename.match(/\.(msword|doc|pdf)$/)) {
+        return doc.push(data.filename);
+      }
     });
 
     const { articlesName, description, condition } = req.body;
@@ -47,23 +51,14 @@ class ArticlesController {
       var checkclose = (timeday - datecloseTime) / (3600 * 1000 * 24);
       var checkfinal = (timeday - finalcloseTime) / (3600 * 1000 * 24);
 
-      var x;
-      function checkNull(a, b) {
-        if (a) {
-          x = a;
-          b = null;
-        } else {
-          x = b;
-          a = null;
-        }
-      }
-      checkNull(checkfinal, checkclose);
+      var x = checkfinal > 0 ? checkfinal : checkclose;
 
       if (x > 0) {
         return res.status(400).send("expired");
       }
       const articles = new Articles({
-        doc_img: img,
+        img: JSON.stringify(image),
+        doc: JSON.stringify(doc),
         articlesName: articlesName,
         description: description,
         users: userId,
@@ -82,14 +77,8 @@ class ArticlesController {
             data.role.name === "Maketing Coordinator" &&
             data.facultis.nameFaculty === namefaculity
           );
-          console.log(
-            data.role.name === "Maketing Coordinator",
-            data.facultis === facultyId
-          );
         })
         .map((data) => data.email);
-
-      console.log(query);
       const myAccessTokenObject = await myOAuth2Client.getAccessToken();
       const myAccessToken = myAccessTokenObject.token;
       const transport = nodemailer.createTransport({
@@ -114,6 +103,26 @@ class ArticlesController {
       console.error(err);
       return res.status(500).send(err);
     }
+  }
+
+  async comemt(req, res, next) {
+    const { articlesId } = req.params;
+    const { comment } = req.body;
+    var checkIdStudent = await Articles.findOne({ _id: articlesId });
+    var nameStudent = checkIdStudent.name;
+    var dateSubmission = checkIdStudent.createdAt;
+    var newdate = new Date();
+    var newdateTime = newdate.getTime();
+    var timeSubmission = dateSubmission.getTime();
+    var coverData = newdateTime - timeSubmission / (3600 * 1000 * 24);
+    if (coverData > 14) {
+      return res.status(400).send("Out of date");
+    }
+    Articles.findOneAndUpdate({ _id: articlesId }, { comment: comment }).then(
+      () => {
+        res.status(200).send("Done");
+      }
+    );
   }
 }
 
