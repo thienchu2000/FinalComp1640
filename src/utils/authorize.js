@@ -8,6 +8,8 @@ function isAdmin(req, res, next) {
     .then((data) => {
       if (data.name === "Admin") {
         next();
+      } else {
+        return res.send("You need permission");
       }
     })
     .catch((err) => {
@@ -15,41 +17,69 @@ function isAdmin(req, res, next) {
     });
 }
 
-function isMaketing_manager(req, res, next) {
-  if (res.user.role === "Maketing Manager") {
-    next();
-  } else {
-    return res.send("You need permission");
-  }
+function isMarketing_manager(req, res, next) {
+  var roleId = res.user.role;
+  Role.findOne({ _id: roleId })
+    .then((data) => {
+      if (data.name === "Marketing Manager") {
+        next();
+      } else {
+        return res.send("You need permission");
+      }
+    })
+    .catch((err) => {
+      return res.send(err);
+    });
 }
 
-function isMaketing_Coordinator(req, res, next) {
-  if (res.user.role === "Maketing Coordinator") {
-    next();
-  } else {
-    return res.send("You need permission");
-  }
+function isMarketing_Coordinator(req, res, next) {
+  var roleId = res.user.role;
+  Role.findOne({ _id: roleId })
+    .then((data) => {
+      if (data.name === "Marketing Coordinator") {
+        next();
+      } else {
+        return res.send("You need permission");
+      }
+    })
+    .catch((err) => {
+      return res.send(err);
+    });
 }
 
 function isStudent(req, res, next) {
-  if (res.user.role === "Student") {
-    next();
-  } else {
-    return res.send("You need permission");
-  }
+  var roleId = res.user.role;
+  Role.findOne({ _id: roleId })
+    .then((data) => {
+      if (data.name === "Student") {
+        next();
+      } else {
+        return res.send("You need permission");
+      }
+    })
+    .catch((err) => {
+      return res.send(err);
+    });
 }
 
 function isGuest(req, res, next) {
-  if (res.user.role === "Guest") {
-    next();
-  } else {
-    return res.send("You need permission");
-  }
+  var roleId = res.user.role;
+  Role.findOne({ _id: roleId })
+    .then((data) => {
+      if (data.name === "Guest") {
+        next();
+      } else {
+        return res.send("You need permission");
+      }
+    })
+    .catch((err) => {
+      return res.send(err);
+    });
 }
 module.exports = {
   isAdmin,
-  isMaketing_manager,
-  isMaketing_Coordinator,
+  isMarketing_manager,
+  isMarketing_Coordinator,
   isStudent,
   isGuest,
 };

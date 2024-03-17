@@ -31,7 +31,6 @@ class ArticlesController {
           return item._id;
         });
       var find = await Articles.find({ _id: userCheck });
-
       res.render("articles", {
         user: true,
         student: true,
@@ -47,8 +46,6 @@ class ArticlesController {
       return res.send("err");
     }
   }
-
-  // CRUD---articles
 
   async articlesC(req, res, next) {
     const doc_img = req.files;
@@ -134,26 +131,6 @@ class ArticlesController {
       console.error(err);
       return res.status(500).send(err);
     }
-  }
-
-  async comemt(req, res, next) {
-    const { articlesId } = req.params;
-    const { comment } = req.body;
-    var checkIdStudent = await Articles.findOne({ _id: articlesId });
-    var nameStudent = checkIdStudent.name;
-    var dateSubmission = checkIdStudent.createdAt;
-    var newdate = new Date();
-    var newdateTime = newdate.getTime();
-    var timeSubmission = dateSubmission.getTime();
-    var coverData = newdateTime - timeSubmission / (3600 * 1000 * 24);
-    if (coverData > 14) {
-      return res.status(400).send("Out of date");
-    }
-    Articles.findOneAndUpdate({ _id: articlesId }, { comment: comment }).then(
-      () => {
-        res.status(200).send("Done");
-      }
-    );
   }
 }
 

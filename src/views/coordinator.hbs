@@ -1,0 +1,37 @@
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Name Student</th>
+      <th scope="col">Name Articles</th>
+      <th scope="col">Description</th>
+      <th scope="col">Image</th>
+      <th scope="col">Document</th>
+      <th scope="col">CreatedAt</th>
+      <th scope="col">Comment</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each findArticle}}
+      <tr>
+        <td>{{this.users.name}} </td>
+        <td>{{articlesName}}</td>
+        <td>{{description}}</td>
+        <td><img src="{{img}}" alt="..." height="130" width="150" /></td>
+        <td> <a href="{{doc}}" download="document"> Document</a></td>
+        <td>{{createdAt}}</td>
+        <td><input
+            type="text"
+            id="comment"
+            name="comment"
+            value="{{comment}}"
+          /></td>
+
+        <td><button onclick="update('{{_id}}')">Comment</button>
+          <button onclick="">Update</button>
+
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

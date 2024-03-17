@@ -1,9 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container px-5">
     <img
-      src="/assets/logo.png"
+      src="/assets/logo.jpeg"
       alt="..."
-      style="border :2px solid white ; width: 140px; height: 90px; margin-right: 500px"
+      style="border :2px solid white ; width: 160px; height: 100px; margin-right: 500px"
     />
     <button
       class="navbar-toggler"
@@ -27,7 +27,7 @@
               class="nav-link"
               href="/admin"
               style="color: aqua;"
-            >Dashboard</a></li>
+            >Dash Board</a></li>
         {{/if}}
         {{#if student}}
          <li class="nav-item"><a
@@ -35,6 +35,14 @@
               href="/articles"
               style="color: aqua;"
             >Ariticles</a></li>
+          <li>
+        {{/if}}
+         {{#if coordinator}}
+         <li class="nav-item"><a
+              class="nav-link"
+              href="/coordinator"
+              style="color: aqua;"
+            >Coordinator</a></li>
           <li>
         {{/if}}
         {{#if user}}

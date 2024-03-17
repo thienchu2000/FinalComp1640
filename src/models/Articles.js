@@ -6,6 +6,8 @@ const Articles = new mongoose.Schema(
     img: Array,
     doc: Array,
     description: String,
+    comment: String,
+    coordinator: { type: mongoose.Schema.ObjectId, ref: "Users" },
     users: { type: mongoose.Schema.ObjectId, ref: "Users" },
     faculty: { type: mongoose.Schema.ObjectId, ref: "Faculty" },
     status: { type: mongoose.Schema.ObjectId, ref: "Status" },

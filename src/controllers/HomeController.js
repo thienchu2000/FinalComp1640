@@ -21,6 +21,7 @@ class HomeController {
             name: data.name,
             id: data._id,
             student: data.role.name,
+            student: true,
           });
         } else if (id && data.role.name === "Marketing Coordinator") {
           res.render("home", {
@@ -28,6 +29,7 @@ class HomeController {
             name: data.name,
             id: data._id,
             marketingCoordinator: data.role.name,
+            coordinator: true,
           });
         } else if (id && data.role.name === "Marketing Manager") {
           res.render("home", {
