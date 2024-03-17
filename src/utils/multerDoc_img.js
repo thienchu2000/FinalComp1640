@@ -4,7 +4,7 @@ const fs = require("fs");
 
 const docStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const dest = path.join(__dirname, "../update_hinh_files");
+    const dest = path.join(__dirname, "../public");
     if (!fs.existsSync(dest)) {
       fs.mkdirSync(dest);
     }
@@ -43,11 +43,7 @@ function document_img(req, res, next) {
       return res.status(400).send("No file uploaded.");
     }
 
-    var done = path.join(
-      __dirname,
-      "../update_hinh_files",
-      req.files[0].filename
-    );
+    var done = path.join(__dirname, "../public", req.files[0].filename);
 
     next();
   });

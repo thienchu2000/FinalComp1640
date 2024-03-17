@@ -49,12 +49,16 @@
 </form>
 <br />
 
-<h2>Report information</h2>
-<ul>
-  <li></li>
-</ul>
-
-<h3> <div style="height: 40px; color:coral">Comment</div> </h3>
-<form action="post">
-  <input type="text" value="" style="height: 100px; width: 600px " />
-</form>
+<h2><div style="height: 40px; color:coral">Report information</div></h2>
+{{#each find}}
+  <div style="width: 300px; border: solid black">
+    <ul>
+      <li>Articles Name :{{articlesName}}</li>
+      <li>Description :{{description}}</li>
+      <li>CreatedAt :{{createdAt}}</li>
+      <li>Comment:{{comment}}</li>
+      <li>Image:
+        <img src="/{{img}}" alt="..." style="height: 80px; waith: 80px" /></li>
+      <li><a href="/{{doc}}" download="Document">Document</a></li>
+    </ul></div>
+{{/each}}

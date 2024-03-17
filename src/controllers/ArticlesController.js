@@ -19,16 +19,18 @@ class ArticlesController {
         path: "closedate",
         populate: { path: "academic", model: "AcademicYears" },
       });
+      var uId = user._id;
 
       var articles = await Articles.find({}).populate("users");
+
       var userCheck = articles
-        .filter((item) => item.users.name === user.name)
+        .filter((item) => {
+          return item.users._id.equals(uId);
+        })
         .map((item) => {
-          console.log(item.users.name);
-          console.log(user.name);
-          return;
-          item._id;
+          return item._id;
         });
+      var find = await Articles.find({ _id: userCheck });
 
       res.render("articles", {
         user: true,
@@ -38,6 +40,7 @@ class ArticlesController {
         img: users.img,
         FacultyId: user.facultis,
         AcademicYearsId: user.closedate.academic._id,
+        find: covertData(find),
       });
     } catch (err) {
       console.log(err);
@@ -84,8 +87,8 @@ class ArticlesController {
         return res.status(400).send("expired");
       }
       const articles = new Articles({
-        img: JSON.stringify(image),
-        doc: JSON.stringify(doc),
+        img: image,
+        doc: doc,
         articlesName: articlesName,
         description: description,
         users: userId,
@@ -126,7 +129,7 @@ class ArticlesController {
         html: `<h3>${name} Submission at ${namefaculity} </h3>`,
       };
       await transport.sendMail(mailOptions);
-      res.status(200).send("Success Submissions");
+      res.status(200).redirect("/articles");
     } catch (err) {
       console.error(err);
       return res.status(500).send(err);
