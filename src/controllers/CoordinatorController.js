@@ -41,10 +41,30 @@ class CoordinatorController {
     }
   }
 
-  async comment(req, res, next) {
+  async updateAr(req, res, next) {
+    console.log("davao");
     const id = res.user._id;
     const { articlesId } = req.params;
-    const { comment } = req.body;
+    const { comment, description, status } = req.body;
+    var done = {};
+    var arr = Array.isArray(status) ? status : [status];
+
+    var arrCheck = arr.filter((item) => {
+      return item.status === true;
+    });
+    if (arrCheck.length > 3) {
+      return res.status(400).send("can't take more then 3 status");
+    }
+    var getStatus = arrCheck.map((item) => {
+      return item.status;
+    });
+
+    if (comment) {
+      done.comment = comment;
+    }
+    if (description) {
+      done.description = description;
+    }
     try {
       var checkIdStudent = await Articles.findOne({ _id: articlesId }).populate(
         "users"
@@ -60,7 +80,7 @@ class CoordinatorController {
       }
       var done = Articles.findOneAndUpdate(
         { _id: articlesId },
-        { comment: comment, coordinator: id }
+        { coordinator: id, done, status: getStatus }
       );
 
       res.status(200).redirect("/coordinator");

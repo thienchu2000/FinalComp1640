@@ -14,6 +14,7 @@ class HomeController {
             name: data.name,
             id: data._id,
             admin: data.role.name,
+            admin: true,
           });
         } else if (id && data.role.name === "Student") {
           res.render("home", {

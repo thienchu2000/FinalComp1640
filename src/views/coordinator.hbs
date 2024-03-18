@@ -8,6 +8,7 @@
       <th scope="col">Document</th>
       <th scope="col">CreatedAt</th>
       <th scope="col">Comment</th>
+      <th scope="col">Status</th>
       <th scope="col">Action</th>
     </tr>
   </thead>
@@ -16,7 +17,12 @@
       <tr>
         <td>{{this.users.name}} </td>
         <td>{{articlesName}}</td>
-        <td>{{description}}</td>
+        <td><input
+            type="text"
+            value="{{description}}"
+            id="description"
+            name="description"
+          /></td>
         <td><img src="{{img}}" alt="..." height="130" width="150" /></td>
         <td> <a href="{{doc}}" download="document"> Document</a></td>
         <td>{{createdAt}}</td>
@@ -26,10 +32,15 @@
             name="comment"
             value="{{comment}}"
           /></td>
+        <td><input
+            type="checkbox"
+            value="true"
+            id="status"
+            name="status"
+          />Order:{{status}}</td>
 
-        <td><button onclick="update('{{_id}}')">Comment</button>
-          <button onclick="">Update</button>
-
+        <td>
+          <button onclick="updateAr('{{_id}}')"> Update </button>
         </td>
       </tr>
     {{/each}}
