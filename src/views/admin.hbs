@@ -1,37 +1,74 @@
-<table class="table table-dark">
-  <thead>
-    <tr>
-      <th scope="col">UserName</th>
-      <th scope="col">Role</th>
-      <th scope="col">Facultis</th>
-      <th scope="col">Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each data}}
-    <tr>
-    <td> {{name}}</td>
-    </td>
-    <td><p>Position:{{role.name}}</p>
-    <select class="custom-select"  id="roleId" onchange="getSelectValue()">
-      <option selected >---ChangeRole---</option>
-     <option value="65ead79c686f7f723b6dbd64">Student</option>
-     <option value="65ead7b7686f7f723b6dbd65">Maketing Coordinator</option>
-     <option value="65ead7e6686f7f723b6dbd66">Maketing Manage</option>
-     <option value="65ead5df686f7f723b6dbd60">Guest</option>
-     </select></td>
-      <td><p>Faculty:{{facultis.nameFaculty}}</p>
-     <select class="custom-select"  id="facultyId">
-      <option >---ChangeFaculty---</option>
-     <option value="65efd90176f3b57cc8683aa7">Faculty of Information Technology</option>
-     <option value="65efd99176f3b57cc8683aaa">Faculty of graphic design</option>
-     <option value="65efd9bd76f3b57cc8683aab">Faculty business management</option>
-     </select></td>
-      <td><button onclick="update('{{_id}}')">Update</button></td>
-    </tr>
-    {{/each}}
-  </tbody>
-</table>
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-12">
+          <div class="card mb-4">
+            <div class="card-body px-0 pt-0 pb-2">
+              <div class="table-responsive p-0">
+                <table class="table align-items-center mb-0">
+                  <thead>
+                    <tr>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">UserName</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Role</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Facultis</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
+                      <th class="text-secondary opacity-7"></th>
+                      <th class="text-secondary opacity-7"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {{#each data}}
+                      <tr>
+                        <td>
+                          <div class="d-flex px-2 py-1">
+                            <div class="d-flex flex-column justify-content-center">
+                              <h6 class="mb-0 text-sm">{{name}}</h6>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div>
+                            <h6 class="mb-0 text-sm">Position</h6>
+                            <p class="text-xs text-secondary mb-0">{{role.name}}</p>
+                          </div>
+                          <div>
+                            <select class="custom-select"  id="roleId" onchange="getSelectValue()">
+                            <option selected >---ChangeRole---</option>
+                            <option value="65ead79c686f7f723b6dbd64">Student</option>
+                            <option value="65ead7b7686f7f723b6dbd65">Maketing Coordinator</option>
+                            <option value="65ead7e6686f7f723b6dbd66">Maketing Manage</option>
+                            <option value="65ead5df686f7f723b6dbd60">Guest</option>
+                            </select>
+                          </div>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <div>
+                            <h6 class="mb-0 text-sm">Faculty</h6>
+                            <p class="text-xs text-secondary mb-0">{{facultis.nameFaculty}}</p>
+                          </div>
+                          <div>
+                            <select class="custom-select"  id="facultyId">
+                            <option >---ChangeFaculty---</option>
+                            <option value="65efd90176f3b57cc8683aa7">Faculty of Information Technology</option>
+                            <option value="65efd99176f3b57cc8683aaa">Faculty of graphic design</option>
+                            <option value="65efd9bd76f3b57cc8683aab">Faculty business management</option>
+                            </select>
+                          </div>
+                        </td>
+                        <td class="align-middle text-center text-sm">
+                          <button onclick="update('{{_id}}')">Update</button>
+                        </td>
+                      </tr>
+                    {{/each}}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
 <script>
   function update(_id){
