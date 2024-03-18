@@ -8,7 +8,7 @@
       <th scope="col">Document</th>
       <th scope="col">CreatedAt</th>
       <th scope="col">Comment</th>
-      <th scope="col">Status</th>
+      <th scope="col">Order</th>
       <th scope="col">Action</th>
     </tr>
   </thead>
@@ -32,12 +32,17 @@
             name="comment"
             value="{{comment}}"
           /></td>
-        <td><input
-            type="checkbox"
+        <td>
+          <label for="true">True</label><input
+            type="radio"
             value="true"
-            id="status"
+            id="true"
             name="status"
-          />Order:{{status}}</td>
+          />
+          <label for="false">False</label>
+          <input type="radio" value="false" id="false" name="status" />
+          Status:
+          {{status}}</td>
 
         <td>
           <button onclick="updateAr('{{_id}}')"> Update </button>

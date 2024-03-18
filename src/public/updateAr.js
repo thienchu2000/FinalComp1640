@@ -1,16 +1,15 @@
 function updateAr(id) {
-  console.log("update");
   var description = document.getElementById("description").value;
   var comment = document.getElementById("comment").value;
-  var status = document.getElementById("status").value;
-  console.log(description, comment, status);
+  var status = document.querySelector('input[name="status"]:checked').value;
+  console.log(status);
   axios
     .put(`/coordinator/updateAr/${id}`, { description, comment, status })
-    .then(() => {
-      return alert("success");
+    .then((data) => {
+      console.log(data);
+      return window.location.reload();
     })
     .catch((error) => {
-      console.log(error);
       return alert("thatbai");
     });
 }

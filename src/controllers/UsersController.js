@@ -83,6 +83,7 @@ class UsersController {
           name: check.name,
           _id: check._id,
           img: check.img,
+          role: check.role,
         });
       });
     } catch (Error) {

@@ -7,11 +7,10 @@ const Articles = new mongoose.Schema(
     doc: Array,
     description: String,
     comment: String,
-    status: { type: Boolean, default: "false" },
+    status: { type: Boolean, default: false },
     coordinator: { type: mongoose.Schema.ObjectId, ref: "Users" },
     users: { type: mongoose.Schema.ObjectId, ref: "Users" },
-    faculty: { type: mongoose.Schema.ObjectId, ref: "Faculty" },
-
+    faculty: { type: mongoose.Schema.ObjectId, ref: "Facultis" },
     academicYears: { type: mongoose.Schema.ObjectId, ref: "AcademicYears" },
   },
   { timestamps: true }

@@ -6,8 +6,6 @@ const coordinatorRouter = require("./coordinatorRouter");
 const checkLogin = require("../utils/checkLogin");
 const authentication = require("../utils/authentication");
 
-// Config đường dẫn khi FE làm xong truyền Function phân quyền vào url trong các router.
-
 function router(app) {
   app.use("/coordinator", checkLogin, coordinatorRouter);
   app.use("/articles", checkLogin, articlesRouter);

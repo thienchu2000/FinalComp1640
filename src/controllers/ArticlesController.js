@@ -31,6 +31,7 @@ class ArticlesController {
           return item._id;
         });
       var find = await Articles.find({ _id: userCheck });
+
       res.render("articles", {
         user: true,
         student: true,

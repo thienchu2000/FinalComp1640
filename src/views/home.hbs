@@ -17,43 +17,16 @@
         tagline!</p></div>
   </div>
   <!-- Content Row-->
-  <div class="row gx-4 gx-lg-5">
-    <div class="col-md-4 mb-5">
-      <div class="card h-100">
-        <div class="card-body">
-          <h2 class="card-title">
-            Faculty of Information Technology</h2>
-          <p class="card-text">ABCD</p>
-        </div>
-        <div class="card-footer"><a
-            class="btn btn-primary btn-sm"
-            href="#!"
-          >More Info</a></div>
-      </div>
-    </div>
-    <div class="col-md-4 mb-5">
-      <div class="card h-100">
-        <div class="card-body">
-          <h2 class="card-title">Faculty of graphic design</h2>
-          <p class="card-text">Price </p>
-        </div>
-        <div class="card-footer"><a
-            class="btn btn-primary btn-sm"
-            href="#!"
-          >More Info</a></div>
-      </div>
-    </div>
-    <div class="col-md-4 mb-5">
-      <div class="card h-100">
-        <div class="card-body">
-          <h2 class="card-title">Faculty business management</h2>
-          <p class="card-text">price </p>
-        </div>
-        <div class="card-footer"><a
-            class="btn btn-primary btn-sm"
-            href="#!"
-          >More Info</a></div>
-      </div>
-    </div>
-  </div>
-</div>
+         {{#if findTrue}} <h2 >Best Article</h2> {{/if}}
+          {{#each findTrue}}
+          <div style="border: solid black ; width: 300px">
+          <ul>
+            <li>Faculty: {{nameFaculty}}</li>
+            <li>Articles Name: {{articlesName}}</li>
+            <li>Description: {{description}}</li>
+            <li>Image: <img src="{{img}}" alt="..." height="130" width="150"></li>
+            <li> <a href="{{doc}}" download ="document">Document</a></li>
+          </ul>
+          </div>
+    {{/each}}
+ 

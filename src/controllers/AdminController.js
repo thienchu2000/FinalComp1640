@@ -5,6 +5,7 @@ const coverData = require("../utils/coverData");
 const Role = require("../models/Role");
 const AcademicYears = require("../models/AcademicYears");
 const CloseDates = require("../models/CloseDates");
+const Articles = require("../models/Articles");
 
 class AdminController {
   async index(req, res, next) {
@@ -13,6 +14,46 @@ class AdminController {
       const dataClose = await CloseDates.find({});
       const data = await Users.find({}).populate("role").populate("facultis");
       const role = await Role.find({});
+      const sumAr = await Articles.find({})
+        .populate("faculty")
+        .populate("users");
+      // var pusharr = [];
+      // var sumAr2;
+      // for (var i = 0; i < sumAr.length; i++) {
+      //   var namefaculity = sumAr[i].faculty.nameFaculty;
+      //   if (namefaculity) {
+      //     sumAr2 = sumAr.length;
+      //     pusharr.push(namefaculity, sumAr2);
+      //   }
+      // }
+      // console.log(pusharr[0], pusharr[1]);
+      var tong = data.length;
+      var pusharr = [];
+      var facultyCount = {};
+      for (var i = 0; i < sumAr.length; i++) {
+        var nameFaculty = sumAr[i].faculty.nameFaculty;
+        if (nameFaculty) {
+          if (!facultyCount[nameFaculty]) {
+            facultyCount[nameFaculty] = 1;
+          } else {
+            facultyCount[nameFaculty]++;
+          }
+        }
+      }
+      for (var faculty in facultyCount) {
+        pusharr.push({ name: faculty, count: facultyCount[faculty] });
+      }
+
+      var con = [];
+      for (var i = 0; i < pusharr.length; i++) {
+        var bao = pusharr[i].count;
+        var cao = tong - bao;
+        con.push(cao);
+      }
+      var conObj = {};
+      if (con) {
+        conObj.con = con;
+      }
       return res.status(200).render("admin", {
         user: true,
         admin: true,
@@ -21,6 +62,9 @@ class AdminController {
         nameRole: coverData(role),
         img: ad.img,
         dataClose: coverData(dataClose),
+        sumAr: pusharr,
+        tong: tong,
+        Ar: conObj,
       });
     } catch (err) {
       return res.send("404 Not Found");

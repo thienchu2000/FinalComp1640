@@ -42,28 +42,15 @@ class CoordinatorController {
   }
 
   async updateAr(req, res, next) {
-    console.log("davao");
     const id = res.user._id;
     const { articlesId } = req.params;
     const { comment, description, status } = req.body;
-    var done = {};
-    var arr = Array.isArray(status) ? status : [status];
-
-    var arrCheck = arr.filter((item) => {
-      return item.status === true;
-    });
-    if (arrCheck.length > 3) {
-      return res.status(400).send("can't take more then 3 status");
+    var chuyenBoo;
+    if (status === "true" && status !== null) {
+      chuyenBoo = true;
     }
-    var getStatus = arrCheck.map((item) => {
-      return item.status;
-    });
-
-    if (comment) {
-      done.comment = comment;
-    }
-    if (description) {
-      done.description = description;
+    if (status === "false" && status !== null) {
+      chuyenBoo = false;
     }
     try {
       var checkIdStudent = await Articles.findOne({ _id: articlesId }).populate(
@@ -74,17 +61,19 @@ class CoordinatorController {
       var newdate = new Date();
       var newdateTime = newdate.getTime();
       var timeSubmission = dateSubmission.getTime();
-      var coverData = newdateTime - timeSubmission / (3600 * 1000 * 24);
-      if (coverData > 14) {
+      var cover = (newdateTime - timeSubmission) / (3600 * 1000 * 24);
+      // console.log(cover);
+      if (cover > 14) {
         return res.status(400).send("Out of date");
       }
       var done = Articles.findOneAndUpdate(
         { _id: articlesId },
-        { coordinator: id, done, status: getStatus }
-      );
-
-      res.status(200).redirect("/coordinator");
+        { coordinator: id, comment, description, status: chuyenBoo }
+      ).then((data) => {
+        res.status(200).send("done");
+      });
     } catch (err) {
+      console.log(err);
       return res.send("err");
     }
   }
