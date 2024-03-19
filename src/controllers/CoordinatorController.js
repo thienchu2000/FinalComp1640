@@ -45,6 +45,7 @@ class CoordinatorController {
     const id = res.user._id;
     const { articlesId } = req.params;
     const { comment, description, status } = req.body;
+    console.log(req.body);
     var chuyenBoo;
     if (status === "true" && status !== null) {
       chuyenBoo = true;

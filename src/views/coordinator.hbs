@@ -19,8 +19,8 @@
         <td>{{articlesName}}</td>
         <td><input
             type="text"
-            value="{{description}}"
-            id="description"
+            value="{{this.description}}"
+            id="description_{{this.description}}"
             name="description"
           /></td>
         <td><img src="{{img}}" alt="..." height="130" width="150" /></td>
@@ -28,9 +28,9 @@
         <td>{{createdAt}}</td>
         <td><input
             type="text"
-            id="comment"
+            id="comment_{{this._id}}"
             name="comment"
-            value="{{comment}}"
+            value="{{this.comment}}"
           /></td>
         <td>
           <label for="true">True</label><input
@@ -45,7 +45,7 @@
           {{status}}</td>
 
         <td>
-          <button onclick="updateAr('{{_id}}')"> Update </button>
+          <button onclick="updateAr('{{this._id}}')"> Update </button>
         </td>
       </tr>
     {{/each}}

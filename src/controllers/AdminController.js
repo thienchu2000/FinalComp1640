@@ -6,13 +6,19 @@ const Role = require("../models/Role");
 const AcademicYears = require("../models/AcademicYears");
 const CloseDates = require("../models/CloseDates");
 const Articles = require("../models/Articles");
+const Facultis = require("../models/Facultis");
 
 class AdminController {
   async index(req, res, next) {
     try {
       const ad = res.user;
       const dataClose = await CloseDates.find({});
-      const data = await Users.find({}).populate("role").populate("facultis");
+      const dataAcademicyears = await AcademicYears.find({});
+      const dataFacultis = await Facultis.find({});
+      const data = await Users.find({})
+        .populate("role")
+        .populate("facultis")
+        .populate("closedate");
       const role = await Role.find({});
       const sumAr = await Articles.find({})
         .populate("faculty")
@@ -43,7 +49,6 @@ class AdminController {
       for (var faculty in facultyCount) {
         pusharr.push({ name: faculty, count: facultyCount[faculty] });
       }
-
       var con = [];
       for (var i = 0; i < pusharr.length; i++) {
         var bao = pusharr[i].count;
@@ -65,6 +70,8 @@ class AdminController {
         sumAr: pusharr,
         tong: tong,
         Ar: conObj,
+        dataAcademicyears: coverData(dataAcademicyears),
+        dataFacultis: coverData(dataFacultis),
       });
     } catch (err) {
       return res.send("404 Not Found");
@@ -72,13 +79,16 @@ class AdminController {
   }
   update(req, res, next) {
     const id = req.params._id;
-    const { role, faculty } = req.body;
+    const { role, faculty, closedate } = req.body;
     var obj = {};
     if (role) {
       obj.role = role;
     }
     if (faculty) {
       obj.faculty = faculty;
+    }
+    if (closedate) {
+      obj.closedate = closedate;
     }
 
     Users.findOneAndUpdate({ _id: id }, obj)
@@ -90,9 +100,12 @@ class AdminController {
       });
   }
   academic(req, res, next) {
-    const { academicYears } = req.body;
+    const { academicStart, academicEnd } = req.body;
     try {
-      const academicyears = new AcademicYears({ AcademicYears: academicYears });
+      const academicyears = new AcademicYears({
+        AcademicYears: academicStart,
+        End: academicEnd,
+      });
       academicyears.save();
       res.status(200).send(done);
     } catch (err) {

@@ -1,9 +1,10 @@
-<table class="table table-dark">
+ <table class="table table-dark">
   <thead>
     <tr>
       <th scope="col">UserName</th>
       <th scope="col">Role</th>
       <th scope="col">Facultis</th>
+      <th scope="col">Close Date</th>
       <th scope="col">Action</th>
     </tr>
   </thead>
@@ -27,12 +28,58 @@
      <option value="65efd99176f3b57cc8683aaa">Faculty of graphic design</option>
      <option value="65efd9bd76f3b57cc8683aab">Faculty business management</option>
      </select></td>
+     <td>
+      {{#each closedate }}
+      <section class="custom-select" id="closeDateId">
+      <option value=""></option>
+     </section>{{/each}}
+
+     </td>
       <td><button onclick="update('{{_id}}')">Update</button></td>
     </tr>
     {{/each}}
   </tbody>
 </table>
+<br>
+<h2>Academic Year</h2>
+<div style="border: solid black ; width: 350px ">
+<form action="/admin/academic" method="post">
+<label for="academic">Statr Academic Year</label>
+<input type="date" name="academicStart" id="academicStart" value="">
+<br>
+<label for="End academic">End Academic Year</label>
+<input type="date" name="academicEnd" id="academicEnd" value="">
+</form>
+</div>
+<br>
 
+
+<h3>CloseDate</h3>
+<div style="border: solid black ; width: 350px ">
+  <form action="" method="post">
+    <label for="closedate">Close Dates</label>
+    <input type="date" name="closedate" id="closedate">
+    <br>
+    <label for="finalclosedate">Final Close Date</label>
+    <input type="date" name="finalclosedate" id="closedate">
+    <br>
+    {{#each dataAcademicyears}}
+    <label for="academic">Academic Year</label>
+    <select name="academic" id="academic">
+      <option value=""></option>
+    </select>
+    {{/each}}
+    <br>
+    <label for="faculty">Facultis</label>
+    {{#each dataFacultis}}
+    <select name="faculty" id="faculty">
+      <option value=""></option>
+    </select>
+    {{/each}}
+  </form>
+</div>
+<br>
+<h3>Statistics</h3>
 <table class="table table-dark">
   <thead>
     <tr> 
@@ -68,4 +115,6 @@
     .then(()=>{ return alert("Update Done")})
     .catch(()=>{ return alert("can't update")})
   }
-</script>
+</script> 
+
+

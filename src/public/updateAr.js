@@ -1,6 +1,6 @@
 function updateAr(id) {
-  var description = document.getElementById("description").value;
-  var comment = document.getElementById("comment").value;
+  var description = document.getElementById("description_" + id).value;
+  var comment = document.getElementById("comment_" + id).value;
   var status = document.querySelector('input[name="status"]:checked').value;
   console.log(status);
   axios
