@@ -17,7 +17,7 @@
         tagline!</p></div>
   </div>
   <!-- Content Row-->
-         {{#if findTrue}} <h2 >Best Article</h2> {{/if}}
+         {{!-- {{#if findTrue}} <h2 >Best Article</h2> {{/if}}
           {{#each findTrue}}
           <div style="border: solid black ; width: 300px">
           <ul>
@@ -28,5 +28,36 @@
             <li> <a href="{{doc}}" download ="document">Document</a></li>
           </ul>
           </div>
-    {{/each}}
+    {{/each}} --}}
+
+
+
+  {{#if findTrue}}   <h3><div style="height: 40px; color:coral">Best Article</div></h3>
+<br />
+<br />
+<br />
+{{#each findTrue}}
+<div class="row">
+  <div class="col-xs-6" class="form-floating">
+    
+      <ul class="list-group">
+        <li class="list-group-item active" aria-current="true">Faculty :{{nameFaculty}}</li>
+        <li class="list-group-item" >Articles Name :{{articlesName}}</li>
+        <li class="list-group-item">Description :{{description}}</li>
+        <li class="list-group-item">CreatedAt :{{createdAt}}</li>
+        <li class="list-group-item">Image:
+          <img
+            src="/{{img}}"
+            alt="..."
+            style="height: 80px; waith: 80px"
+          /></li>
+      </ul>
+   
+  </div>
+</div>
+<br>
+<br />
+<label for="floatingTextarea" style="color: #FF00CC ;">Next Post</label>
+ {{/each}}
+{{/if}}
  

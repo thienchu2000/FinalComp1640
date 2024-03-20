@@ -55,15 +55,25 @@
 
 <h2><div style="height: 40px; color:coral">Report information</div></h2>
 {{#each find}}
-  <div style="width: 300px; border: solid black" class="form-group">
-    <ul>
-      <li>Articles Name :{{articlesName}}</li>
-      <li>Description :{{description}}</li>
-      <li>CreatedAt :{{createdAt}}</li>
-      <li>Comment:{{comment}}</li>
-      <li>Image:
-        <img src="/{{img}}" alt="..." style="height: 80px; waith: 80px" /></li>
-      <li><a href="/{{doc}}" download="Document">Document</a></li>
-    </ul></div>
+  <div class="row">
+    <div class="col-xs-6" class="form-floating">
+      <ul class="list-group">
+        <li class="list-group-item active" aria-current="true">Articles Name :{{articlesName}}</li>
+        <li class="list-group-item">Description :{{description}}</li>
+        <li class="list-group-item">CreatedAt :{{createdAt}}</li>
+        <li class="list-group-item">Comment:{{comment}}</li>
+        <li class="list-group-item">Image:
+          <img
+            src="/{{img}}"
+            alt="..."
+            style="height: 80px; waith: 80px"
+          /></li>
+        <li class="list-group-item"><a
+            href="/{{doc}}"
+            download="Document"
+          >Document</a></li>
+      </ul></div>
+  </div>
   <br />
+  <label for="floatingTextarea" style="color: #FF00CC ;">Next Post</label>
 {{/each}}

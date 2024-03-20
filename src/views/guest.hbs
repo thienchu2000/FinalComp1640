@@ -1,0 +1,26 @@
+<h1><div style="height: 40px; color:coral">
+    You are a guest of the department These are the best articles from our
+    {{nameFa}}, Hope you enjoy it</div></h1>
+<br />
+<br />
+<br />
+<div class="row">
+  <div class="col-xs-6" class="form-floating">
+    {{#each dataGuest}}
+      <ul class="list-group">
+        <li class="list-group-item active" aria-current="true">Articles Name :{{articlesName}}</li>
+        <li class="list-group-item">Description :{{description}}</li>
+        <li class="list-group-item">CreatedAt :{{createdAt}}</li>
+        <li class="list-group-item">Comment:{{comment}}</li>
+        <li class="list-group-item">Image:
+          <img
+            src="/{{img}}"
+            alt="..."
+            style="height: 80px; waith: 80px"
+          /></li>
+      </ul>
+    {{/each}}
+  </div>
+</div>
+<br />
+<label for="floatingTextarea" style="color: #FF00CC ;">Next Post</label>

@@ -9,7 +9,7 @@ function isAdmin(req, res, next) {
       if (data.name === "Admin") {
         next();
       } else {
-        return res.send("You need permission");
+        return res.render("error");
       }
     })
     .catch((err) => {
@@ -24,7 +24,7 @@ function isMarketing_manager(req, res, next) {
       if (data.name === "Marketing Manager") {
         next();
       } else {
-        return res.send("You need permission");
+        return res.render("error");
       }
     })
     .catch((err) => {
@@ -39,7 +39,7 @@ function isMarketing_Coordinator(req, res, next) {
       if (data.name === "Marketing Coordinator") {
         next();
       } else {
-        return res.send("You need permission");
+        return res.render("error");
       }
     })
     .catch((err) => {
@@ -54,7 +54,7 @@ function isStudent(req, res, next) {
       if (data.name === "Student") {
         next();
       } else {
-        return res.send("You need permission");
+        return res.render("error");
       }
     })
     .catch((err) => {
@@ -69,7 +69,7 @@ function isGuest(req, res, next) {
       if (data.name === "Guest") {
         next();
       } else {
-        return res.send("You need permission");
+        return res.render("error");
       }
     })
     .catch((err) => {
