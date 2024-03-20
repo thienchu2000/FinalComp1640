@@ -1,8 +1,13 @@
 function updateAr(id) {
-  var description = document.getElementById("description_" + id).value;
-  var comment = document.getElementById("comment_" + id).value;
-  var status = document.querySelector('input[name="status"]:checked').value;
-  console.log(status);
+  var descriptionInput = document.getElementById("description_" + id);
+  var description = descriptionInput ? descriptionInput.value : "";
+  var commentInput = document.getElementById("comment_" + id);
+  var comment = commentInput ? commentInput.value : "";
+  var statusInput = document.querySelector(
+    'input[name="status_' + id + '" ]:checked'
+  );
+  var status = statusInput ? statusInput.value : "";
+
   axios
     .put(`/coordinator/updateAr/${id}`, { description, comment, status })
     .then((data) => {
@@ -10,6 +15,6 @@ function updateAr(id) {
       return window.location.reload();
     })
     .catch((error) => {
-      return alert("thatbai");
+      return alert("failed : Do not order more than 3");
     });
 }

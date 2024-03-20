@@ -20,6 +20,7 @@ require("dotenv").config();
 const { env } = require("./config/environment");
 
 const exphbs = create({
+  helpers: require("./utils/helpers"),
   extname: ".hbs",
 });
 app.use(cookieParser());

@@ -78,14 +78,14 @@ class AdminController {
     }
   }
   update(req, res, next) {
-    const id = req.params._id;
-    const { role, faculty, closedate } = req.body;
+    const id = req.params.id;
+    const { role, facultis, closedate } = req.body;
     var obj = {};
     if (role) {
       obj.role = role;
     }
-    if (faculty) {
-      obj.faculty = faculty;
+    if (facultis) {
+      obj.facultis = facultis;
     }
     if (closedate) {
       obj.closedate = closedate;
@@ -96,18 +96,20 @@ class AdminController {
         res.status(200).send("Done");
       })
       .catch((err) => {
+        console.error(err);
         return res.status(404).send("Error");
       });
   }
-  academic(req, res, next) {
+  async academic(req, res, next) {
     const { academicStart, academicEnd } = req.body;
     try {
       const academicyears = new AcademicYears({
         AcademicYears: academicStart,
         End: academicEnd,
       });
+
       academicyears.save();
-      res.status(200).send(done);
+      res.redirect("/admin");
     } catch (err) {
       return res.status(500).send("Error");
     }
@@ -121,18 +123,19 @@ class AdminController {
       .catch((err) => res.status(500).send("Error"));
   }
   closeDate(req, res, next) {
-    const academicId = req.params._id;
-    const facultyId = req.params._id;
-    const { closeDates, finalCloseDates } = req.body;
+    const { closedate, finalclosedate, academic, faculty } = req.body;
     try {
-      const closeDates = new CloseDates({
-        closeDates: closeDates,
-        finalCloseDates: finalCloseDates,
-        academic: academicId,
-        faculty: facultyId,
+      const closedates = new CloseDates({
+        closeDates: closedate,
+        finalCloseDates: finalclosedate,
+        academic: academic,
+        faculty: faculty,
       });
+      closedates.save();
+      res.redirect("/admin");
     } catch (err) {
-      return res.status(500).send("Error");
+      console.error(err);
+      return res.status(500).send("err");
     }
   }
   deleteCloseDates(req, res, next) {
@@ -142,6 +145,18 @@ class AdminController {
         res.status(200).send("Success");
       })
       .catch((err) => res.status(500).send("Error"));
+  }
+  facultyC(req, res, next) {
+    const nameFaculty = req.body;
+    try {
+      const facultis = new Facultis({
+        nameFaculty: nameFaculty,
+      });
+      facultis.save();
+      res.redirect("/admim");
+    } catch (err) {
+      return res.status(500).send("err");
+    }
   }
 }
 

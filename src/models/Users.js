@@ -10,7 +10,6 @@ const Users = new mongoose.Schema(
     closedate: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "CloseDates",
-      default: "65f43fb47238ed840bc4f9ba",
     },
     articles: { type: mongoose.Schema.Types.ObjectId, ref: "Article" },
     facultis: { type: mongoose.Schema.Types.ObjectId, ref: "Facultis" },

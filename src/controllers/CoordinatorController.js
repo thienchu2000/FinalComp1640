@@ -45,14 +45,21 @@ class CoordinatorController {
     const id = res.user._id;
     const { articlesId } = req.params;
     const { comment, description, status } = req.body;
-    console.log(req.body);
-    var chuyenBoo;
-    if (status === "true" && status !== null) {
-      chuyenBoo = true;
+
+    const ar = await Articles.find({});
+    var checkt = ar
+      .filter((item) => {
+        return item.status === true;
+      })
+      .map((item) => {
+        return item.status;
+      });
+
+    if (checkt.length >= 3 && status === true) {
+      return res.send("err");
     }
-    if (status === "false" && status !== null) {
-      chuyenBoo = false;
-    }
+    console.log("day la", checkt.length >= 3 && status == true);
+
     try {
       var checkIdStudent = await Articles.findOne({ _id: articlesId }).populate(
         "users"
@@ -69,7 +76,7 @@ class CoordinatorController {
       }
       var done = Articles.findOneAndUpdate(
         { _id: articlesId },
-        { coordinator: id, comment, description, status: chuyenBoo }
+        { coordinator: id, ...req.body }
       ).then((data) => {
         res.status(200).send("done");
       });

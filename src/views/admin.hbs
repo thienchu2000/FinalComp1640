@@ -1,120 +1,226 @@
- <table class="table table-dark">
-  <thead>
-    <tr>
-      <th scope="col">UserName</th>
-      <th scope="col">Role</th>
-      <th scope="col">Facultis</th>
-      <th scope="col">Close Date</th>
-      <th scope="col">Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each data}}
-    <tr>
-    <td> {{name}}</td>
-    </td>
-    <td><p>Position:{{role.name}}</p>
-    <select class="custom-select"  id="roleId" onchange="getSelectValue()">
-      <option selected >---ChangeRole---</option>
-     <option value="65ead79c686f7f723b6dbd64">Student</option>
-     <option value="65ead7b7686f7f723b6dbd65">Maketing Coordinator</option>
-     <option value="65ead7e6686f7f723b6dbd66">Maketing Manage</option>
-     <option value="65ead5df686f7f723b6dbd60">Guest</option>
-     </select></td>
-      <td><p>Faculty:{{facultis.nameFaculty}}</p>
-     <select class="custom-select"  id="facultyId">
-      <option >---ChangeFaculty---</option>
-     <option value="65efd90176f3b57cc8683aa7">Faculty of Information Technology</option>
-     <option value="65efd99176f3b57cc8683aaa">Faculty of graphic design</option>
-     <option value="65efd9bd76f3b57cc8683aab">Faculty business management</option>
-     </select></td>
-     <td>
-      {{#each closedate }}
-      <section class="custom-select" id="closeDateId">
-      <option value=""></option>
-     </section>{{/each}}
+<div class="mt-5 container-fluid">
 
-     </td>
-      <td><button onclick="update('{{_id}}')">Update</button></td>
-    </tr>
-    {{/each}}
-  </tbody>
-</table>
-<br>
-<h2>Academic Year</h2>
-<div style="border: solid black ; width: 350px ">
-<form action="/admin/academic" method="post">
-<label for="academic">Statr Academic Year</label>
-<input type="date" name="academicStart" id="academicStart" value="">
-<br>
-<label for="End academic">End Academic Year</label>
-<input type="date" name="academicEnd" id="academicEnd" value="">
-</form>
+  <h1 class="text-center mb-5">User management</h1>
+
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Faculties</th>
+          <th>Close Date</th>
+          
+          <th class="text-center">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each data}}
+        <tr>
+          <th>
+            <img src="/{{img}}" class="img-fluid rounded-circle" style="height: 40px; width: 40px" />
+          </th>
+          <th>{{name}}</th>
+          <th>{{email}}</th>
+          <th>
+            <select class="form-select" onchange="submitChangeRole(this, '{{_id}}')">
+              {{#each ../nameRole}}
+              <option value="{{_id}}" {{#ifEqual _id ../role._id}}selected{{/ifEqual}}>{{name}}</option>
+              {{/each}}
+            </select>
+          </th>
+          <th>
+            <select class="form-select" onchange="submitChangeFaculties(this, '{{_id}}')">
+              <option value="" disabled selected>Choose one</option>
+              {{#each ../dataFacultis}}
+              <option value="{{_id}}" {{#ifEqual _id ../facultis._id}}selected{{/ifEqual}}>{{nameFaculty}}</option>
+              {{/each}}
+            </select>
+          </th>
+          <th>
+                 CloseDate: {{formatDate this.closedate.closeDates}} <br> 
+                 FinalDate: {{formatDate this.closedate.finalCloseDates}}
+            <select class="form-select" onchange="submitChangeCloseDate(this, '{{_id}}')">
+               <option value="" disabled selected>Choose one</option>
+               {{#each ../dataClose}}
+                <option value="{{_id}}"{{#ifEqual _id ../closedates._id}}selected{{/ifEqual}} >{{formatDate closeDates}} - {{formatDate finalCloseDates}} </option>
+                {{/each}}
+            </select>
+            
+          </th>
+          <td>
+            {{!-- <button class="btn btn-primary"><i class="fa fa-info-circle" aria-hidden="true"></i></button> --}}
+            <button class="btn btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i></button>
+            {{!-- <button class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button> --}}
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
 </div>
-<br>
-
-
-<h3>CloseDate</h3>
-<div style="border: solid black ; width: 350px ">
-  <form action="" method="post">
-    <label for="closedate">Close Dates</label>
-    <input type="date" name="closedate" id="closedate">
-    <br>
-    <label for="finalclosedate">Final Close Date</label>
-    <input type="date" name="finalclosedate" id="closedate">
-    <br>
-    {{#each dataAcademicyears}}
-    <label for="academic">Academic Year</label>
-    <select name="academic" id="academic">
-      <option value=""></option>
-    </select>
-    {{/each}}
-    <br>
-    <label for="faculty">Facultis</label>
-    {{#each dataFacultis}}
-    <select name="faculty" id="faculty">
-      <option value=""></option>
-    </select>
-    {{/each}}
+<section class="container">
+<div class="border p-4" style="width: 500px;">
+<h2 class="text-center">Academic Year</h2>
+  <form action="/admin/academic" method="post">
+   <div class="form-group mt-3">
+    <label for="academic">Start Academic Year</label>
+    <input type="date" name="academicStart" id="academicStart" value="" />
+    </div>
+    <div class="form-group mt-3">
+    <label for="End academic">End Academic Year</label>
+    <input type="date" name="academicEnd" id="academicEnd" value="" />
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">submit</button>
   </form>
 </div>
+</section>
+
 <br>
+
+</div>
+<section class="container">
+<div class="border p-4" style="width: 500px;">
+<h2 class="text-center">Faculties</h2>
+  <form action="/admin/facultyC" method="post">
+   <div class="form-group mt-3">
+    <label for="academic">Create a new Faculty </label> <br>
+    <input type="text" name="nameFaculty" id="nameFaculty" value="" />
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">submit</button>
+  </form>
+</div>
+</section>
+
+<br>
+
+<section class="container">
+  <div class="border p-4">
+    <h3 class="text-center">CloseDate</h3>
+    <form action="/admin/closeDate" method="post">
+      <div class="form-group mt-3">
+        <label for="closedate">Close Dates</label>
+        <input type="date" class="form-control" name="closedate" id="closedate" />
+      </div>
+      <div class="form-group mt-3">
+        <label for="finalclosedate">Final Close Date</label>
+        <input type="date" class="form-control" name="finalclosedate" id="finalclosedate" />
+      </div>
+      <div class="form-group mt-3">
+        <label for="academic">Academic Year</label>
+        <select class="form-control" name="academic" id="academic">
+          <option value="" selected disabled>Choose one</option>
+          {{#each dataAcademicyears}}
+          <option value="{{_id}}">{{formatDate AcademicYears}} - {{formatDate End}}</option>
+          {{/each}}
+        </select>
+      </div>
+      <div class="form-group mt-3">
+        <label for="faculty">Faculties</label>
+        <select class="form-control" name="faculty" id="faculty">
+          <option value="" selected disabled>Choose one</option>
+          {{#each dataFacultis}}
+          <option value="{{_id}}">{{nameFaculty}}</option>
+          {{/each}}
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    </form>
+  </div>
+</section>
+
+
 <h3>Statistics</h3>
 <table class="table table-dark">
   <thead>
-    <tr> 
-      
+    <tr>
+
       <th scope="col">Name Faculty</th>
       <th scope="col">Sum Articles </th>
       <th>Sum Users : {{tong}}</th>
-      <th>Count Article of users: {{Ar.con}}</th> 
+      <th>The general account did not submit the article: {{Ar.con}}</th>
     </tr>
   </thead>
   <tbody>
-    
-   <tr>
-  {{#each sumAr}} 
-    <td>{{name}}</td>
-    <td>{{count}}</td>
-  {{/each}}
-   </tr>
- 
-    
+
+    <tr>
+      {{#each sumAr}}
+      <td>{{name}}</td>
+      <td>{{count}}</td>
+      {{/each}}
+    </tr>
+
   </tbody>
 </table>
 
 <script>
-  function update(_id){
-    console.log(_id);
-    var role= document.getElementById("roleId").value;
-    
-    var faculty = document.getElementById("facultyId").value;
-    
-    console.log("dayla role",role, "day la khoa",faculty)
-    axios.put(`/admin/update/${_id}`,{role,faculty})
-    .then(()=>{ return alert("Update Done")})
-    .catch(()=>{ return alert("can't update")})
-  }
-</script> 
+  // Change role
+  function submitChangeRole(e, id) {
+    const selectRoleId = e.value;
+    const userId = id;
 
+    axios.put(`/admin/update/${userId}`, { role: selectRoleId })
+      .then((res) => {
+        e.style.background = "#84dd89"
+      })
+      .catch((err) => {
+        e.style.background = "rgb(255,86,86)"
+      })
+      .finally(() => {
+        setTimeout(function () {
+          e.style.background = "";
+        }, 2000);
+      })
+  }
+
+  // Change faculty
+  function submitChangeFaculties(e, id) {
+    const selectFacultyId = e.value;
+    const userId = id;
+
+    console.log('selectFacultyId: ', selectFacultyId);
+
+    axios.put(`/admin/update/${userId}`, { facultis: selectFacultyId })
+      .then((res) => {
+        e.style.background = "#84dd89"
+      })
+      .catch((err) => {
+        e.style.background = "rgb(255,86,86)"
+      })
+      .finally(() => {
+        setTimeout(function () {
+          e.style.background = "";
+        }, 2000);
+      })
+  }
+
+ // ChangeCloseDate
+
+ function submitChangeCloseDate(e, id) {
+  const selectCloseDateId = e.value;
+  const userId = id;
+
+  console.log('selectCloseDate: ', selectCloseDateId)
+
+  axios.put(`/admin/update/${userId}`, {closedate: selectCloseDateId})
+  .then((res) => {
+     e.style.background = "#84dd89"
+  }).catch((err)=>{
+    e.style.background = "rgb(255,86,86)"
+  }).finally(() => {
+        setTimeout(function () {
+          e.style.background = "";
+        }, 2000);
+      })
+
+
+ }
+
+
+
+
+</script>
 
