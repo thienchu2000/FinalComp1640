@@ -25,6 +25,7 @@
           <th>{{name}}</th>
           <th>{{email}}</th>
           <th>
+             The user wants the position to apply for: {{roleTreatment}}
             <select class="form-select" onchange="submitChangeRole(this, '{{_id}}')">
               {{#each ../nameRole}}
               <option value="{{_id}}" {{#ifEqual _id ../role._id}}selected{{/ifEqual}}>{{name}}</option>

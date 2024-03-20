@@ -13,35 +13,71 @@ const CloseDates = require("../models/CloseDates");
 
 class ArticlesController {
   async index(req, res, next) {
+    var users = res.user;
     try {
-      var users = res.user;
-      var user = await Users.findOne({ _id: users._id }).populate({
-        path: "closedate",
-        populate: { path: "academic", model: "AcademicYears" },
-      });
-      var uId = user._id;
-
-      var articles = await Articles.find({}).populate("users");
-
-      var userCheck = articles
-        .filter((item) => {
-          return item.users._id.equals(uId);
-        })
-        .map((item) => {
-          return item._id;
+      var checkPrime = await Users.findOne({ _id: users._id });
+      if (checkPrime.facultis === undefined || checkPrime.facultis === null) {
+        return res.render("articles", {
+          user: true,
+          student: true,
+          name: users.name,
+          role: users.role,
+          img: users.img,
+          FacultyId: "1",
+          AcademicYearsId: "2",
         });
-      var find = await Articles.find({ _id: userCheck });
+      } else if (
+        (checkPrime.facultis && checkPrime.closedate === undefined) ||
+        checkPrime.closedate === null
+      ) {
+        var uId = checkPrime._id;
+        var articles = await Articles.find({}).populate("users");
+        var userCheck = articles
+          .filter((item) => {
+            return item.users._id.equals(uId);
+          })
+          .map((item) => {
+            return item._id;
+          });
+        var find = await Articles.find({ _id: userCheck });
+        return res.render("articles", {
+          user: true,
+          student: true,
+          name: users.name,
+          role: users.role,
+          img: users.img,
+          FacultyId: checkPrime.facultis,
+          AcademicYearsId: "2",
+        });
+      } else if (checkPrime.facultis && checkPrime.closedate) {
+        var userr = await Users.findOne({ _id: users._id }).populate({
+          path: "closedate",
+          populate: { path: "academic", model: "AcademicYears" },
+        });
 
-      res.render("articles", {
-        user: true,
-        student: true,
-        name: users.name,
-        role: users.role,
-        img: users.img,
-        FacultyId: user.facultis,
-        AcademicYearsId: user.closedate.academic._id,
-        find: covertData(find),
-      });
+        var uIdd = userr._id;
+
+        var articless = await Articles.find({}).populate("users");
+
+        var userCheckk = articless
+          .filter((item) => {
+            return item.users._id.equals(uIdd);
+          })
+          .map((item) => {
+            return item._id;
+          });
+        var findd = await Articles.find({ _id: userCheckk });
+        res.render("articles", {
+          user: true,
+          student: true,
+          name: users.name,
+          role: users.role,
+          img: users.img,
+          FacultyId: userr.facultis,
+          AcademicYearsId: userr.closedate.academic._id,
+          find: covertData(findd),
+        });
+      }
     } catch (err) {
       console.log(err);
       return res.send("err");
@@ -49,6 +85,13 @@ class ArticlesController {
   }
 
   async articlesC(req, res, next) {
+    const { FacultyId, AcademicYearsId } = req.params;
+    if (FacultyId === "1" && AcademicYearsId === "1") {
+      return res.status(404).send("can't Faculty");
+    }
+    if (FacultyId && AcademicYearsId === "2") {
+      return res.status(404).send("can't close date");
+    }
     const doc_img = req.files;
     var image = [];
     var doc = [];
@@ -62,7 +105,7 @@ class ArticlesController {
     const { articlesName, description, condition } = req.body;
     const userId = res.user._id;
     var name = res.user.name;
-    const { FacultyId, AcademicYearsId } = req.params;
+
     try {
       if (!condition && condition === false) {
         return res.status(400).send("must agree to the conditions");
@@ -74,39 +117,67 @@ class ArticlesController {
       var dateclose = close.closedate.closeDates;
       var finalclose = close.closedate.finalCloseDates;
 
-      var datecloseTime = dateclose.getTime();
-      var finalcloseTime = finalclose.getTime();
-      var checkclose = (timeday - datecloseTime) / (3600 * 1000 * 24);
-      var checkfinal = (timeday - finalcloseTime) / (3600 * 1000 * 24);
-
-      var x = checkfinal > 0 ? checkfinal : checkclose;
-
-      if (x > 0) {
-        return res.status(400).send("expired");
+      var finalcloseTime;
+      if (finalclose) {
+        finalcloseTime = finalclose.getTime();
+      } else {
+        finalcloseTime = null;
       }
-      const articles = new Articles({
-        img: image,
-        doc: doc,
-        articlesName: articlesName,
-        description: description,
-        users: userId,
-        faculty: FacultyId,
-        academicYears: AcademicYearsId,
-      });
+      // console.log(finalclose);
+      var datecloseTime;
+      if (dateclose) {
+        datecloseTime = dateclose.getTime();
+      } else {
+        datecloseTime = null;
+      }
 
-      articles.save();
-      var namefaculity = await Facultis.findOne({ _id: FacultyId }).then(
+      var count;
+      if (finalcloseTime === null || finalcloseTime === undefined) {
+        count = (timeday - datecloseTime) / (3600 * 1000 * 24);
+      } else {
+        count = (timeday - finalcloseTime) / (3600 * 1000 * 24);
+      }
+
+      if (count >= 0) {
+        return res.status(400).send("Invalid");
+      }
+      // const articles = new Articles({
+      //   img: image,
+      //   doc: doc,
+      //   articlesName: articlesName,
+      //   description: description,
+      //   users: userId,
+      //   faculty: FacultyId,
+      //   academicYears: AcademicYearsId,
+      // });
+
+      // articles.save();
+      var faculityId = await Facultis.findOne({ _id: FacultyId }).then(
+        (item) => item._id
+      );
+      var nameF = await Facultis.findOne({ _id: FacultyId }).then(
         (item) => item.nameFaculty
       );
 
-      var query = (await Users.find({}).populate("role").populate("facultis"))
-        .filter((data) => {
+      var query = await Users.find({}).populate("facultis").populate("role");
+      var checkUder = query.filter((item) => {
+        return (
+          item.facultis !== undefined &&
+          item.facultis !== null &&
+          item.facultis.nameFaculty !== undefined &&
+          item.facultis.nameFaculty !== null
+        );
+      });
+      var checkEmail = checkUder
+        .filter((item) => {
           return (
-            data.role.name === "Marketing Coordinator" &&
-            data.facultis.nameFaculty === namefaculity
+            item.role.name === "Marketing Coordinator" &&
+            item.facultis._id.equals(faculityId)
           );
         })
-        .map((data) => data.email);
+        .map((item) => {
+          return item.email;
+        });
 
       const myAccessTokenObject = await myOAuth2Client.getAccessToken();
       const myAccessToken = myAccessTokenObject.token;
@@ -122,9 +193,9 @@ class ArticlesController {
         },
       });
       const mailOptions = {
-        to: query.join(","),
+        to: checkEmail.join(","),
         subject: `Student submission`,
-        html: `<h3>${name} Submission at ${namefaculity} </h3>`,
+        html: `<h3>${name} Submission at ${nameF} </h3>`,
       };
       await transport.sendMail(mailOptions);
       res.status(200).redirect("/articles");

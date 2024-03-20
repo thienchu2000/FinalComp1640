@@ -5,7 +5,7 @@ const Users = new mongoose.Schema(
     role: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Role",
-      default: "65ead5df686f7f723b6dbd60",
+      default: "65ead79c686f7f723b6dbd64",
     },
     closedate: {
       type: mongoose.Schema.Types.ObjectId,
@@ -14,6 +14,7 @@ const Users = new mongoose.Schema(
     articles: { type: mongoose.Schema.Types.ObjectId, ref: "Article" },
     facultis: { type: mongoose.Schema.Types.ObjectId, ref: "Facultis" },
     name: String,
+    roleTreatment: String,
     firstName: String,
     lastName: String,
     email: String,
