@@ -14,6 +14,9 @@ const CloseDates = require("../models/CloseDates");
 class ArticlesController {
   async index(req, res, next) {
     var users = res.user;
+    var a =
+      "You have not been considered for faculty so you cannot submit a report !!!";
+    var b = "There is no deadline yet so you can't submit !!!";
     try {
       var checkPrime = await Users.findOne({ _id: users._id });
       if (checkPrime.facultis === undefined || checkPrime.facultis === null) {
@@ -23,6 +26,7 @@ class ArticlesController {
           name: users.name,
           role: users.role,
           img: users.img,
+          a: a,
           FacultyId: "1",
           AcademicYearsId: "2",
         });
@@ -48,6 +52,7 @@ class ArticlesController {
           img: users.img,
           FacultyId: checkPrime.facultis,
           AcademicYearsId: "2",
+          b: b,
         });
       } else if (checkPrime.facultis && checkPrime.closedate) {
         var userr = await Users.findOne({ _id: users._id }).populate({
@@ -87,10 +92,10 @@ class ArticlesController {
   async articlesC(req, res, next) {
     const { FacultyId, AcademicYearsId } = req.params;
     if (FacultyId === "1" && AcademicYearsId === "1") {
-      return res.status(404).send("can't Faculty");
+      return res.status(404).render("error");
     }
     if (FacultyId && AcademicYearsId === "2") {
-      return res.status(404).send("can't close date");
+      return res.status(404).render("error");
     }
     const doc_img = req.files;
     var image = [];

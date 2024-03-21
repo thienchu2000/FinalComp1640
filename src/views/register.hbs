@@ -43,22 +43,34 @@
                 required
               />
             </div>
+            <p>Note:</p>
             <div class="form-group flex-column d-flex">
-              <label class="form-control-label px-3">Role Treatment<span
-                  class="text-danger"
-                > *</span></label>
-              <input
-                type="text"
-                id="roleTreatment"
-                name="roleTreatment"
-                placeholder="Role Treatment"
-                required
-              />
+            <label for="roleTreatment">Desired location</label>
+              <Select name="roleTreatment" id="roleTreatment" required class="form-select form-control" >
+                 <option value="">--Choose--</option>
+                 <option value="Admin">Admin</option>
+                 <option value="Guest">Guest</option>
+                 <option value="Student">Student</option>
+                 <option value="Marketing Coordinator">Marketing Coordinator</option>
+                 <option value="Marketing Manager">Marketing Manager</option>
+              </Select>
+             </div>
+             </div>
+             <br>
+             <div class="form-group flex-column d-flex">
+               <label for="facultyWant">Please select the faculty you want</label>
+              <Select name="facultyWant" id="facultyWant" required class="facultyWant" required  class="form-select form-control">
+                 <option value="">--Choose--</option>
+                 <option value="Faculty of Information Technology">Faculty of Information Technology</option>
+                 <option value="Faculty of graphic design">Faculty of graphic design</option>
+                 <option value="Faculty business management">Faculty business management</option>
+              </Select>
+              </div>
             </div>
           </div>
           <div class="row justify-content-end mt-4">
-            <div class="form-group">
-              <button type="submit" class="btn-block btn-dark">Submit</button>
+            <div >
+              <button type="submit" class="btn-block btn-dark" style="margin-left: 1000px ;">Submit</button>
             </div>
           </div>
         </form>

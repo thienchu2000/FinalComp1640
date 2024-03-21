@@ -33,6 +33,7 @@
             </select>
           </th>
           <th>
+            The user wants to be in the faculty: {{facultyWant}}
             <select class="form-select" onchange="submitChangeFaculties(this, '{{_id}}')">
               <option value="" disabled selected>Choose one</option>
               {{#each ../dataFacultis}}

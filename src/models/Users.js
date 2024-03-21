@@ -13,6 +13,7 @@ const Users = new mongoose.Schema(
     },
     articles: { type: mongoose.Schema.Types.ObjectId, ref: "Article" },
     facultis: { type: mongoose.Schema.Types.ObjectId, ref: "Facultis" },
+    facultyWant: String,
     name: String,
     roleTreatment: String,
     firstName: String,

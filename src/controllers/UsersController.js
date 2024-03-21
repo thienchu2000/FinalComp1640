@@ -17,9 +17,17 @@ class UsersController {
   }
 
   async dk(req, res, next) {
-    const { name, email, password, address, phone, roleTreatment } = req.body;
+    const {
+      name,
+      email,
+      password,
+      address,
+      phone,
+      roleTreatment,
+      facultyWant,
+    } = req.body;
     try {
-      if (!name || !email || !password || !roleTreatment) {
+      if (!name || !email || !password || !roleTreatment || !facultyWant) {
         return res.send("Please enter correct information");
       }
       const checkEmail = await Users.findOne({ email });
@@ -40,6 +48,7 @@ class UsersController {
         address,
         phone,
         roleTreatment,
+        facultyWant,
       });
       user.save();
       res.status(200).render("login", { email });
