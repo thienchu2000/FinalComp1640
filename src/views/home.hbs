@@ -32,7 +32,7 @@
 
 
 
-  {{#if findTrue}}   <h3><div style="height: 40px; color:coral">Best Article</div></h3>
+  {{#if findTrue}}   <h3><div style="height: 40px; color:coral">Read the best articles</div></h3>
 <br />
 <br />
 <br />
@@ -42,14 +42,14 @@
     
       <ul class="list-group">
         <li class="list-group-item active" aria-current="true">Faculty :{{nameFaculty}}</li>
-        <li class="list-group-item" >Articles Name :{{articlesName}}</li>
-        <li class="list-group-item">Description :{{description}}</li>
-        <li class="list-group-item">CreatedAt :{{createdAt}}</li>
+        <li class="list-group-item" >Articles Name : {{articlesName}}</li>
+        <li class="list-group-item">Description : {{description}}</li>
+        <li class="list-group-item">CreatedAt : {{formatDate createdAt}}</li>
         <li class="list-group-item">Image:
           <img
             src="/{{img}}"
             alt="..."
-            style="height: 80px; waith: 80px"
+            style="height: 200px; waith: 200px"
           /></li>
       </ul>
    
@@ -57,7 +57,7 @@
 </div>
 <br>
 <br />
-<label for="floatingTextarea" style="color: #FF00CC ;">Next Post</label>
+<label for="floatingTextarea" style="color: #FF00CC ;">Next Post...</label>
  {{/each}}
 {{/if}}
  

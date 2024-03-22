@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const AcademicYears = new mongoose.Schema({
-  AcademicYears: Date,
+  academicYears: Date,
   End: Date,
 });
 

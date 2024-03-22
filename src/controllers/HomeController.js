@@ -6,10 +6,9 @@ const Articles = require("../models/Articles");
 class HomeController {
   async index(req, res, next) {
     var result = await Articles.find({}).populate("faculty");
-
     var findTrue = result
       .filter((item) => {
-        return item.status === true;
+        return item.status === "true";
       })
       .map((item) => {
         return {
@@ -18,6 +17,7 @@ class HomeController {
           doc: item.doc,
           description: item.description,
           nameFaculty: item.faculty.nameFaculty,
+          createdAt: item.createdAt,
         };
       });
     var id = res.locals._id;

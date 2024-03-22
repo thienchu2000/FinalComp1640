@@ -146,17 +146,17 @@ class ArticlesController {
       if (count >= 0) {
         return res.status(400).send("Invalid");
       }
-      // const articles = new Articles({
-      //   img: image,
-      //   doc: doc,
-      //   articlesName: articlesName,
-      //   description: description,
-      //   users: userId,
-      //   faculty: FacultyId,
-      //   academicYears: AcademicYearsId,
-      // });
+      const articles = new Articles({
+        img: image,
+        doc: doc,
+        articlesName: articlesName,
+        description: description,
+        users: userId,
+        faculty: FacultyId,
+        academicYears: AcademicYearsId,
+      });
 
-      // articles.save();
+      articles.save();
       var faculityId = await Facultis.findOne({ _id: FacultyId }).then(
         (item) => item._id
       );

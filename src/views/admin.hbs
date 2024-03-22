@@ -56,16 +56,19 @@
             {{!-- <button class="btn btn-primary"><i class="fa fa-info-circle" aria-hidden="true"></i></button> --}}
             <button class="btn btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i></button>
             {{!-- <button class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button> --}}
+             <button type="submit" class="btn btn-primary mt-3" onclick="deleteUser('{{_id}}')" >Delete</button>
           </td>
         </tr>
         {{/each}}
       </tbody>
     </table>
   </div>
-
-</div>
-<section class="container">
-<div class="border p-4" style="width: 500px;">
+<div>
+</div><br>
+<div class="row">
+<div class="col-md-6">
+<section class="container" class="row">
+<div class="border p-4" style="width: 500px;" class="col-sm">
 <h2 class="text-center">Academic Year</h2>
   <form action="/admin/academic" method="post">
    <div class="form-group mt-3">
@@ -78,14 +81,64 @@
     </div>
     <button type="submit" class="btn btn-primary mt-3">submit</button>
   </form>
+  <br>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Start</th>
+      <th scope="col">End</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each dataAcademicyears}}
+      <tr>
+        
+        <td>
+          
+          <input
+            type="date"
+           
+            id="academicYears_{{this._id}}"
+            name="academicYears"
+            value="{{formatDate this.academicYears}}"
+          />
+          <p> {{formatDate  this.academicYears}}</p>
+          </td>
+        <td>
+          
+          <input
+            type="date"
+            id="End_{{this._id}}"
+            name="End"
+            value="{{formatDate this.End}}"
+          />
+          <p>{{formatDate this.End}}</p>
+          <td><button onclick="upA('{{_id}}')" class="btn btn-primary">Edit</button>
+          <br>
+              <button onclick="deA('{{_id}}')" class="btn btn-primary">Delete</button>
+          </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
 </div>
+
+
+
+
+
+
 </section>
 
 <br>
 
 </div>
-<section class="container">
-<div class="border p-4" style="width: 500px;">
+<div class="col-md-6">
+<section class="container" class="row">
+<div class="border p-4" style="width: 500px;" class="col-sm">
 <h2 class="text-center">Faculties</h2>
   <form action="/admin/facultyC" method="post">
    <div class="form-group mt-3">
@@ -94,8 +147,39 @@
     </div>
     <button type="submit" class="btn btn-primary mt-3">submit</button>
   </form>
+  <br>
+  <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Faculty</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each dataFacultis}}
+      <tr>
+        
+        <td>
+          <input
+            type="text"
+            id="nameFaculty_{{this._id}}"
+            name="nameFaculty"
+            value="{{this.nameFaculty}}"
+          />
+          </td>
+          <td>
+            <button onclick="updateFa('{{_id}}')" class="btn btn-primary">Edit</button><br>
+            <button onclick="deleteFa('{{_id}}')" class="btn btn-primary">Delete</button>
+          </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+  
 </div>
 </section>
+
+</div>
 
 <br>
 
@@ -113,16 +197,16 @@
       </div>
       <div class="form-group mt-3">
         <label for="academic">Academic Year</label>
-        <select class="form-control" name="academic" id="academic">
+        <select class="form-control" name="academic" id="academic" required>
           <option value="" selected disabled>Choose one</option>
           {{#each dataAcademicyears}}
-          <option value="{{_id}}">{{formatDate AcademicYears}} - {{formatDate End}}</option>
+          <option value="{{_id}}">{{formatDate academicYears}} - {{formatDate End}}</option>
           {{/each}}
         </select>
       </div>
       <div class="form-group mt-3">
-        <label for="faculty">Faculties</label>
-        <select class="form-control" name="faculty" id="faculty">
+        <label for="faculty">Facultis</label>
+        <select class="form-control" name="faculty" id="faculty" required>
           <option value="" selected disabled>Choose one</option>
           {{#each dataFacultis}}
           <option value="{{_id}}">{{nameFaculty}}</option>
@@ -131,8 +215,103 @@
       </div>
       <button type="submit" class="btn btn-primary mt-3">Submit</button>
     </form>
+
+       </form>
+  <br>
+  <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Close Dates</th>
+      <th scope="col">Final Close Date</th>
+      <th scope="col">Academic Year</th>
+      <th scope="col">Facultis</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  {{#each dataClose}}
+  <tbody>
+ 
+      <tr>
+        
+        <td> 
+              <p>Start: {{formatDate closeDates}}</p>
+               <input type="date" class="form-control" name="closedate" id="closedate_{{this._id}}" value="{{formatDate this.closedate}}" />
+             
+          </td>
+               <td>
+                <p>End: {{formatDate finalCloseDates}}</p>
+                <input type="date" class="form-control" name="finalclosedate" id="finalclosedate_{{this._id}}" value="{{formatDate this.finalCloseDates}}" />
+              </td>
+           <td>
+         
+           <p>{{formatDate academic.academicYears}} - {{formatDate academic.End}}</p>
+          <select class="form-select" onchange="subAca(this, '{{_id}}')"required>
+             <option value="" selected disabled>Choose one </option>
+               {{#each ../dataAcademicyears}} 
+                   <option value="{{_id}}"{{#ifEqual _id ../dataAcademicyears._id}}selected{{/ifEqual}} >{{formatDate academicYears}} - {{formatDate End}} </option>
+               {{/each}}
+        </select>
+          
+           </td>   
+           <td>
+
+          <select class="form-select" onchange="subFa(this, '{{_id}}')"required>
+             <option value="" selected disabled>Choose one </option>
+               {{#each ../dataFacultis}} 
+                   <option value="{{_id}}"{{#ifEqual _id ../dataFacultis._id}}selected{{/ifEqual}} >{{nameFaculty}} </option>
+               {{/each}}
+        </select>
+           </td>
+           
+           <td><button onclick="closedateUp('{{_id}}')" class="btn btn-primary">Edit</button>
+                <button onclick="deleteClose('{{_id}}')" class="btn btn-primary">Delete</button>
+           </td>
+      </tr>
+  
+  </tbody>
+  {{/each}}
+</table>
   </div>
 </section>
+
+<br>
+<br>
+<section class="container">
+  <h4 class="text-center">Articles</h4>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Name Student</th>
+      <th scope="col">Name Articles</th>
+      <th scope="col">Description</th>
+      <th scope="col">Image</th>
+      <th scope="col">Document</th>
+      <th scope="col">CreatedAt</th>
+      <th scope="col">Comment</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each dataAr}}
+      <tr>
+        <td>{{this.users.name}} </td>
+        <td>{{this.articlesName}}</td>
+        <td>{{this.description}}</td>
+        <td><img src="{{this.img}}" alt="..." height="130" width="150" /></td>
+        <td> <a href="{{this.doc}}" download="document"> Document</a></td>
+        <td>{{formatDate this.createdAt}}</td>
+        <td>{{this.comment}}</td>
+        <td>
+          <button onclick="deleteAr('{{_id}}')"  class="btn btn-primary">
+            Delete
+          </button>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+</section>
+
 
 
 <h3>Statistics</h3>
@@ -224,5 +403,142 @@
 
 
 
+function upA(id) {
+  var academicYearsInput = document.getElementById("academicYears_" + id);
+  var academicYears = academicYearsInput ? academicYearsInput.value : "";
+  var EndInput = document.getElementById("End_" + id);
+  var End = EndInput ? EndInput.value : "";
+ 
+
+  axios
+    .put(`/admin/updateA/${id}`, { academicYears, End })
+    .then((data) => {
+      console.log(data);
+      return window.location.reload();
+    })
+    .catch((error) => {
+      return alert("failed");
+    });
+}
+
+
+
+
+function deA(id) {
+  axios
+    .delete(`/admin/deleteAcademic/${id}`)
+    .then((result) => {
+      window.location.reload();
+    })
+    .catch((error) => {
+      alert("that bai");
+    });
+}
+
+
+
+
+function updateFa(id) {
+  var nameFacultyInput = document.getElementById("nameFaculty_" + id);
+  var nameFaculty= nameFacultyInput ? nameFacultyInput.value : "";
+  axios
+    .put(`/admin/updateFa/${id}`, { nameFaculty })
+    .then((data) => {
+      console.log(data);
+      return window.location.reload();
+    })
+    .catch((error) => {
+      return alert("failed");
+    });
+}
+
+
+function deleteFa(id) {
+  axios
+    .delete(`/admin/deleteFa/${id}`)
+    .then((result) => {
+      window.location.reload();
+    })
+    .catch((error) => {
+      alert("that bai");
+    });
+}
+
+
+
+function subAca(e,id) {
+    const selectAcaId = e.value;
+    console.log(selectAcaId);
+  axios
+    .put(`/admin/closedateUp/${id}`, { academic: selectAcaId })
+    .then((data) => {
+      console.log(data);
+      return window.location.reload();
+    })
+    .catch((error) => {
+      return alert("failed");
+    });
+}
+
+function subFa(e,id) {
+    const selectFaId = e.value;
+  axios
+    .put(`/admin/closedateUp/${id}`, { faculty:selectFaId })
+    .then((data) => {
+      console.log(data);
+      return window.location.reload();
+    })
+    .catch((error) => {
+      return alert("failed");
+    });
+}
+
+
+
+
+
+
+function closedateUp(id) {
+  var closedateInput = document.getElementById("closedate_" + id);
+  var closedate = closedateInput ? closedateInput.value : "";
+  var finalCloseDatesInput = document.getElementById("finalCloseDates_" + id);
+  var finalCloseDates = finalCloseDatesInput ? finalCloseDatesInput.value : "";
+ 
+
+  axios
+    .put(`/admin/closedateUp/${id}`, {finalCloseDates , closedate})
+    .then((data) => {
+      console.log(data);
+      return window.location.reload();
+    })
+    .catch((error) => {
+      return alert("failed");
+    });
+}
+
+
+
+function deleteClose(id) {
+  axios
+    .delete(`/admin/deleteCloseDates/${id}`)
+    .then((result) => {
+      window.location.reload();
+    })
+    .catch((error) => {
+      alert("that bai");
+    });
+}
+
+
+function deleteAr(id) {
+  axios
+    .delete(`/admin/deleteAr/${id}`)
+    .then((result) => {
+      window.location.reload();
+    })
+    .catch((error) => {
+      alert("that bai");
+    });
+}
 </script>
 

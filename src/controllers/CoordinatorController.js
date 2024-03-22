@@ -13,7 +13,21 @@ class CoordinatorController {
       const namefaculty = await Users.findOne({ _id: userId }).populate(
         "facultis"
       );
-      var idFaculty = namefaculty.facultis._id;
+      var idFaculty;
+      if (namefaculty.facultis === undefined || namefaculty.facultis === null) {
+        idFaculty = "1";
+      } else if (namefaculty.facultis) {
+        idFaculty = namefaculty.facultis._id;
+      }
+      var a = "Note: You don't have a faculty to manage ";
+      if (idFaculty === "1") {
+        return res.render("coordinator", {
+          user: true,
+          img: res.user.img,
+          coordinator: true,
+          a: a,
+        });
+      }
 
       const userfaculty = await Users.find({}).populate("facultis");
 
@@ -24,17 +38,33 @@ class CoordinatorController {
         .map((item) => {
           return item._id;
         });
-      var chuyenId = checkId;
-      const findArticle = await Articles.find({ users: chuyenId }).populate(
-        "users"
-      );
+      var b = "There are currently no students in the faculty";
+      var chuyenId;
+      if (checkId === undefined || checkId === null) {
+        checkId = "2";
+      } else {
+        chuyenId = checkId;
+      }
 
-      res.render("coordinator", {
-        user: true,
-        img: res.user.img,
-        coordinator: true,
-        findArticle: covertData(findArticle),
-      });
+      if (checkId === "2") {
+        res.render("coordinator", {
+          user: true,
+          img: res.user.img,
+          coordinator: true,
+          b: b,
+        });
+      } else if (checkId) {
+        const findArticle = await Articles.find({ users: chuyenId }).populate(
+          "users"
+        );
+
+        res.render("coordinator", {
+          user: true,
+          img: res.user.img,
+          coordinator: true,
+          findArticle: covertData(findArticle),
+        });
+      }
     } catch (err) {
       console.log(err);
       return res.send("err");
@@ -46,19 +76,20 @@ class CoordinatorController {
     const { articlesId } = req.params;
     const { comment, description, status } = req.body;
 
-    const ar = await Articles.find({});
+    const checkFa = await Users.findOne({ _id: id }).populate("facultis");
+    var layname = checkFa.facultis.nameFaculty;
+    const ar = await Articles.find({}).populate("faculty");
     var checkt = ar
       .filter((item) => {
-        return item.status === true;
+        return item.status === true && item.faculty.nameFaculty === layname;
       })
       .map((item) => {
         return item.status;
       });
 
-    if (checkt.length >= 3 && status === true) {
-      return res.send("err");
+    if (checkt.length >= 3 && status === "true") {
+      return res.status(400).send("err");
     }
-    console.log("day la", checkt.length >= 3 && status == true);
 
     try {
       var checkIdStudent = await Articles.findOne({ _id: articlesId }).populate(

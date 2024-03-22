@@ -9,5 +9,5 @@ router.put(
   isMarketing_Coordinator,
   CoordinatorController.updateAr
 );
-router.get("/", CoordinatorController.index);
+router.get("/", isMarketing_Coordinator, CoordinatorController.index);
 module.exports = router;
