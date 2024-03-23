@@ -8,10 +8,9 @@ const { isStudent } = require("../utils/authorize");
 router.post(
   "/articlesC/:FacultyId/:AcademicYearsId",
   isStudent,
-  checkLogin,
   document_img,
   ArticlesController.articlesC
 );
-router.get("/", checkLogin, isStudent, ArticlesController.index);
+router.get("/", isStudent, ArticlesController.index);
 
 module.exports = router;

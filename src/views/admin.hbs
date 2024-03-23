@@ -254,7 +254,7 @@
           
            </td>   
            <td>
-
+            <p>{{faculty.nameFaculty}}</p>
           <select class="form-select" onchange="subFa(this, '{{_id}}')"required>
              <option value="" selected disabled>Choose one </option>
                {{#each ../dataFacultis}} 
@@ -311,22 +311,18 @@
   </tbody>
 </table>
 </section>
-
-
-
+<br>
 <h3>Statistics</h3>
-<table class="table table-dark">
-  <thead>
+<div class="row">
+  <div class="col-md-6" >
+<table class="table table-striped table-dark" >
+  <thead  >
     <tr>
-
       <th scope="col">Name Faculty</th>
       <th scope="col">Sum Articles </th>
-      <th>Sum Users : {{tong}}</th>
-      <th>The general account did not submit the article: {{Ar.con}}</th>
     </tr>
   </thead>
   <tbody>
-
     <tr>
       {{#each sumAr}}
       <td>{{name}}</td>
@@ -335,7 +331,29 @@
     </tr>
 
   </tbody>
+</table >
+</div>
+  <div class="col-md-6" >
+<table class="table table-striped table-dark" >
+  <thead>
+    <tr>
+       <th>Sum Users </th> 
+      <th>The general account did not submit the article</th> 
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+      
+      <td>{{tong}}</td>
+      <td>{{Ar.con}}</td>
+      
+    </tr>
+
+  </tbody>
 </table>
+  </div>
+</div>
 
 <script>
   // Change role
@@ -500,13 +518,13 @@ function subFa(e,id) {
 
 function closedateUp(id) {
   var closedateInput = document.getElementById("closedate_" + id);
-  var closedate = closedateInput ? closedateInput.value : "";
+  var closeDates= closedateInput ? closedateInput.value : "";
   var finalCloseDatesInput = document.getElementById("finalCloseDates_" + id);
   var finalCloseDates = finalCloseDatesInput ? finalCloseDatesInput.value : "";
  
 
   axios
-    .put(`/admin/closedateUp/${id}`, {finalCloseDates , closedate})
+    .put(`/admin/closedateUp/${id}`, {finalCloseDates , closeDates})
     .then((data) => {
       console.log(data);
       return window.location.reload();

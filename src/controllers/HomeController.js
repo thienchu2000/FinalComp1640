@@ -32,6 +32,7 @@ class HomeController {
             admin: data.role.name,
             admin: true,
             findTrue: findTrue,
+            back: "https://wallpapercave.com/wp/wp10866884.jpg",
           });
         } else if (id && data.role.name === "Student") {
           res.render("home", {
@@ -41,6 +42,7 @@ class HomeController {
             student: data.role.name,
             student: true,
             findTrue: findTrue,
+            back: "https://wallpapercave.com/wp/wp10866884.jpg",
           });
         } else if (id && data.role.name === "Marketing Coordinator") {
           res.render("home", {
@@ -50,6 +52,7 @@ class HomeController {
             marketingCoordinator: data.role.name,
             coordinator: true,
             findTrue: findTrue,
+            back: "https://wallpapercave.com/wp/wp10866884.jpg",
           });
         } else if (id && data.role.name === "Marketing Manager") {
           res.render("home", {
@@ -58,6 +61,7 @@ class HomeController {
             id: data._id,
             marketingManager: data.role.name,
             findTrue: findTrue,
+            back: "https://wallpapercave.com/wp/wp10866884.jpg",
           });
         } else if (id && data.role.name === "Guest") {
           res.render("home", {
@@ -66,9 +70,12 @@ class HomeController {
             id: data._id,
             guest: data.role.name,
             findTrue: findTrue,
+            back: "https://wallpapercave.com/wp/wp10866884.jpg",
           });
         } else {
-          res.render("home");
+          res.render("home", {
+            back: "https://wallpapercave.com/wp/wp10866884.jpg",
+          });
         }
       })
       .catch((err) => {

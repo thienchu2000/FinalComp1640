@@ -12,7 +12,9 @@ class AdminController {
   async index(req, res, next) {
     try {
       const ad = res.user;
-      const dataClose = await CloseDates.find({}).populate("academic");
+      const dataClose = await CloseDates.find({})
+        .populate("academic")
+        .populate("faculty");
       const dataAcademicyears = await AcademicYears.find({});
       const dataFacultis = await Facultis.find({});
       const data = await Users.find({})
@@ -180,14 +182,14 @@ class AdminController {
   }
   closedateUp(req, res, next) {
     const id = req.params.id;
-    const { finalCloseDates, closedate, academic, faculty } = req.body;
+    const { finalCloseDates, closeDates, academic, faculty } = req.body;
 
     var obj = {};
     if (finalCloseDates) {
       obj.finalCloseDates = finalCloseDates;
     }
-    if (closedate) {
-      obj.closedate = closedate;
+    if (closeDates) {
+      obj.closeDates = closeDates;
     }
     if (academic) {
       obj.academic = academic;

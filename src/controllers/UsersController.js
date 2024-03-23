@@ -9,7 +9,9 @@ const axios = require("axios");
 
 class UsersController {
   index(req, res, next) {
-    res.render("home", { layouts: "main" });
+    res.render("home", {
+      back: "https://wallpapercave.com/wp/wp10866884.jpg",
+    });
   }
 
   register(req, res, next) {
@@ -94,6 +96,7 @@ class UsersController {
           _id: check._id,
           img: check.img,
           role: check.role,
+          back: "https://wallpapercave.com/wp/wp10866884.jpg",
         });
       });
     } catch (Error) {
