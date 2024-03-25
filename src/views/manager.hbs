@@ -1,4 +1,8 @@
-<div class="page-content page-container" id="page-content">
+<div
+  class="page-content page-container"
+  id="page-content"
+  style="font-size: 20px; font-family: Courier New ;  color:brown ; width: 2000px ; margin-left: 75px"
+>
   <div class="padding">
     <div class="row container d-flex justify-content-center">
       <div class="col-lg-8 grid-margin stretch-card">
@@ -9,7 +13,7 @@
               Follow and edit
             </p>
             <div class="table-responsive">
-              <table class="table table-hover">
+              <table class="table table-hover" style="color: burlywood;">
                 <thead>
                   <tr>
                     <th>Articles Name </th>
@@ -38,6 +42,10 @@
                       <td><button
                           type="submit"
                           onclick="downloadZip('{{_id}}')"
+                          class="btn btn-primary"
+                          data-toggle="button"
+                          aria-pressed="false"
+                          autocomplete="off"
                         >DownloadZip</button></td>
                     </tr>
                   {{/each}}

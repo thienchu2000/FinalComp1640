@@ -3,7 +3,7 @@
     <img
       src="/assets/logo.jpeg"
       alt="..."
-      style="  border-radius: 99999px; border: solid black; width: 80px; height: 80px; margin-right: 500px"
+      style="  border-radius: 99999px; border: solid rgb(178, 167, 167); width: 80px; height: 80px; margin-right: 500px"
     />
     <button
       class="navbar-toggler"
@@ -18,70 +18,80 @@
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
         <li class="nav-item"><a
-            class="nav-link active"
+            class="nav-link a"
             aria-current="page"
             href="/"
-          >Home</a></li>
+          ><svg xmlns="http://www.w3.org/2000/svg" width="26" height="30" fill="currentColor" class="bi bi-house-check-fill" viewBox="0 0 16 16">
+          <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
+          <path d="m8 3.293 4.712 4.712A4.5 4.5 0 0 0 8.758 15H3.5A1.5 1.5 0 0 1 2 13.5V9.293z"/>
+          <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.707l.547.547 1.17-1.951a.5.5 0 1 1 .858.514"/>
+          </svg> <i class="bi bi-house-check-fill"></i></a></li>
           </li>
            {{#if marketingManager}}
           <li class="nav-item"><a
-              class="nav-link"
+              class="nav-link a"
               href="/manager"
-              style="color: aqua;"
             >Table manager</a></li>
         {{/if}}
         {{#if guest}}
           <li class="nav-item"><a
-              class="nav-link"
+              class="nav-link a"
               href="/guest"
-              style="color: aqua;"
+              
             >Guest article</a></li>
         {{/if}}
 
+         
+        {{#if findTrue}}
+          <li class="nav-item"><a
+              class="nav-link a"
+              href="/bestArticle"
+            >Best Articles</a></li>
+        {{/if}}
 
         {{#if admin}}
           <li class="nav-item"><a
-              class="nav-link"
+              class="nav-link a"
               href="/admin"
-              style="color: aqua;"
             >Dash Board</a></li>
         {{/if}}
+
         {{#if student}}
          <li class="nav-item"><a
-              class="nav-link"
+              class="nav-link a"
               href="/articles"
-              style="color: aqua;"
+             
             >Ariticles</a></li>
           <li>
         {{/if}}
          {{#if coordinator}}
          <li class="nav-item"><a
-              class="nav-link"
+              class="nav-link a"
               href="/coordinator"
-              style="color: aqua;"
+            
             >Coordinator</a></li>
           <li>
         {{/if}}
         {{#if user}}
           <li class="nav-item"><a
-              class="nav-link"
+              class="nav-link a"
               href="/users/find"
-              style="color: aqua;"
+              
             >{{name}}</a></li>
-          <li>
-            <img src="/{{img}}" alt="..." style="height: 40px; " />
+          <li >
+            <img src="/{{img}}" alt="..." style="height: 70px; width: 70px; border:2px solid rgb(171, 163, 163)" />
           </li>
           <li class="nav-item"><a
-              class="nav-link"
+              class="nav-link a"
               href="/users/logout"
             >Logout</a></li>
         {{else}}
           <li class="nav-item"><a
-              class="nav-link"
+              class="nav-link a"
               href="/users/login"
             >Login</a></li>
           <li class="nav-item"><a
-              class="nav-link"
+              class="nav-link a"
               href="/users/register"
             >Register</a></li>
         {{/if}}
@@ -89,3 +99,4 @@
     </div>
   </div>
 </nav>
+

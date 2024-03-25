@@ -75,6 +75,7 @@ class AdminController {
         dataAcademicyears: coverData(dataAcademicyears),
         dataFacultis: coverData(dataFacultis),
         dataAr: coverData(sumAr),
+        back: "https://intoroigiare.vn/wp-content/uploads/2023/11/background-nen-trang.jpg",
       });
     } catch (err) {
       return res.send("404 Not Found");

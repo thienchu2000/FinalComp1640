@@ -28,6 +28,7 @@ class GuestController {
         name: query.name,
         dataGuest: coverData(query2),
         nameFa: name,
+        back: "https://t4.ftcdn.net/jpg/04/61/47/03/360_F_461470323_6TMQSkCCs9XQoTtyer8VCsFypxwRiDGU.jpg",
       });
     } catch (err) {
       return res.send("error){");

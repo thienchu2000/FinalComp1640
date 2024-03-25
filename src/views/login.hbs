@@ -1,4 +1,7 @@
-<div class="container-fluid px-1 py-5 mx-auto">
+<div
+  class="container-fluid px-1 py-5 mx-auto"
+  style="width: 1200px; color:burlywood; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif"
+>
   <div class="row d-flex justify-content-center">
     <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
       <div class="card">
@@ -6,9 +9,7 @@
         <form class="form-card" method="post" action="/users/dn">
           <div class="row justify-content-between text-left">
             <div class="form-group flex-column d-flex">
-              <label class="form-control-label px-3">Email<span
-                  class="text-danger"
-                > *</span></label>
+              <label class="form-control-label px-3">Email</label>
               <input
                 type="text"
                 id="email"
@@ -22,9 +23,7 @@
           <div class="row justify-content-between text-left">
 
             <div class="form-group flex-column d-flex">
-              <label class="form-control-label px-3">Password<span
-                  class="text-danger"
-                > *</span></label>
+              <label class="form-control-label px-3">Password</label>
               <input
                 type="password"
                 id="password"
@@ -34,13 +33,17 @@
                 required
               />
             </div>
-
           </div>
+          <br />
           <div class="row justify-content-end">
             <div class="form-group">
               <button
                 type="submit"
-                class="btn-block btn-primary"
+                class="btn btn-primary"
+                data-toggle="button"
+                aria-pressed="false"
+                autocomplete="off"
+                style="margin-left: 600px ;"
               >Submit</button>
             </div>
           </div>

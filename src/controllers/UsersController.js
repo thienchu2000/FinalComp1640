@@ -15,7 +15,9 @@ class UsersController {
   }
 
   register(req, res, next) {
-    res.render("register");
+    res.render("register", {
+      back: "https://png.pngtree.com/background/20230520/original/pngtree-the-dark-background-is-filled-with-triangles-and-dots-picture-image_2679996.jpg",
+    });
   }
 
   async dk(req, res, next) {
@@ -61,7 +63,10 @@ class UsersController {
   }
 
   login(req, res, next) {
-    res.render("login", { message: "Sign up succsess" });
+    res.render("login", {
+      message: "Sign up succsess",
+      back: "https://png.pngtree.com/background/20230520/original/pngtree-the-dark-background-is-filled-with-triangles-and-dots-picture-image_2679996.jpg",
+    });
   }
 
   async dn(req, res, next) {
@@ -132,6 +137,7 @@ class UsersController {
         firstName: findUser.firstName,
         lastName: findUser.lastName,
         img: findUser.img,
+        back: "https://img.freepik.com/free-photo/thick-twirling-smoke-pattern-corner-black-background_23-2148092641.jpg",
       });
     } catch (error) {
       console.log(error);
@@ -148,6 +154,7 @@ class UsersController {
           name: data.name,
           _id: data._id,
           img: data.img,
+          back: "https://img.freepik.com/free-photo/thick-twirling-smoke-pattern-corner-black-background_23-2148092641.jpg",
         });
       })
       .catch((error) => {

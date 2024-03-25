@@ -14,6 +14,7 @@ class ManagerController {
         name: users.name,
         manager: true,
         dataAr: coverData(results),
+        back: "https://t4.ftcdn.net/jpg/02/67/47/05/360_F_267470534_75jH8bHYJ59Zn4ikrdKDlzSqsjYumTqk.jpg",
       });
     });
   }

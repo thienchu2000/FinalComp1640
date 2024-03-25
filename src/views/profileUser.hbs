@@ -1,61 +1,58 @@
-  <section class="vh-100" style="background-color: #f4f5f7;">
-    <div class="container py-5 h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col col-lg-6 mb-4 mb-lg-0">
-          <div class="card mb-3" style="border-radius: .5rem;">
-            <div class="row g-0">
-              <div
-                class="col-md-4 gradient-custom text-center text-white"
-                style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;"
-              >
-                <img
-                 src="/{{img}}"
-                  alt="Avatar"
-                  class="img-fluid my-5"
-                  style="width: 200px; border-radius:10px ; border:5px solid black"
-
-
-                />
-              </div>
-              <div class="col-md-8">
-                <div class="card-body p-4">
-                  <h6>Information</h6>
-                  <hr class="mt-0 mb-4" />
-                  <div class="row pt-1">
-                    <div class="col-6 mb-3">
-                      <h6>User name</h6>
-                      <p class="text-muted">{{name}}</p>
-                    </div>
-                      <div class="col-6 mb-3">
-                  <h6>Position: <p class="text-muted">{{role}}</h6>
-                    </div>
-                    <div class="col-6 mb-3">
-                  <h6>Last name: <p class="text-muted">{{lastName}}</h6>
-                    </div>
-                    <div class="col-6 mb-3">
-                  <h6>First Name: <p class="text-muted">{{firstName}}</h6>
-                    </div>
-                    
-                    <div class="col-6 mb-3">
-                      <h6>Phone</h6>
-                      <p class="text-muted">0{{phone}}</p>
-                        <div lass="col-6 mb-3">
-                    <h6>Address: <p class="text-muted">{{address}}</p></h6></div>
-                    <div class="col-6 mb-3">
-                      <h6>Email</h6>
-                      <p class="text-muted">{{email}}</p>
-                    </div>
-                    </div>
-                
-                
-                  <hr class="mt-0 mb-4" />
-                  <div class="row pt-1">
-                    <div>
-                      <form action="/users/updateUser/{{_id}}" method="get"> <button type="submit" style="margin-left: 150px; color:rgb(0, 255, 94); 
-                      background-color: rgb(48, 41, 41)
-                      ; border-radius: 20px";  >Update Information</button>
+<section
+  class="vh-100"
+  style="font-size: 20px; color:burlywood; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif"
+>
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-lg-6 mb-4 mb-lg-0">
+        <div class="card mb-3" style="border-radius: .5rem;">
+          <div class="row g-0">
+            <div
+              class="col-md-4 gradient-custom text-center text-white"
+              style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;"
+            >
+              <img
+                src="/{{img}}"
+                alt="Avatar"
+                class="img-fluid my-5"
+                style="width: 200px; border-radius:10px ; border:5px solid black"
+              />
+            </div>
+            <div class="col-md-8">
+              <div class="card-body p-4">
+                <h6>Information</h6>
+                <hr class="mt-0 mb-4" />
+                <div class="row">
+                  <div class="col">
+                    <h6>User name</h6>
+                    <p class="text-muted">{{name}}</p>
+                    <h6>Last name: </h6>
+                    <p class="text-muted">{{lastName}}</p>
+                    <h6>First Name: </h6>
+                    <p class="text-muted">{{firstName}}</p>
+                  </div>
+                  <div class="col">
+                    <h6> Phone:</h6>
+                    <p class="text-muted"> 0{{phone}}</p>
+                    <h6>Address:</h6>
+                    <p class="text-muted"> {{address}}</p>
+                    <h6>Email: </h6>
+                    <p class="text-muted">{{email}}</p>
+                    <h6> Position:</h6>
+                    <p class="text-muted"> {{role}}</p>
+                  </div>
+                </div>
+                <hr class="mt-0 mb-4" />
+                <div class="row pt-1">
+                  <div style="margin-left: 205px;">
+                    <form action="/users/updateUser/{{_id}}" method="get">
+                      <button
+                        type="submit"
+                        class="btn btn-primary"
+                        data-toggle="button"
+                        aria-pressed="false"
+                      >Update Information</button>
                     </form>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -64,4 +61,5 @@
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>

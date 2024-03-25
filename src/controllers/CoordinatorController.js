@@ -26,6 +26,7 @@ class CoordinatorController {
           img: res.user.img,
           coordinator: true,
           a: a,
+          back: "https://t4.ftcdn.net/jpg/02/67/47/05/360_F_267470534_75jH8bHYJ59Zn4ikrdKDlzSqsjYumTqk.jpg",
         });
       }
 
@@ -52,6 +53,7 @@ class CoordinatorController {
           img: res.user.img,
           coordinator: true,
           b: b,
+          back: "https://t4.ftcdn.net/jpg/02/67/47/05/360_F_267470534_75jH8bHYJ59Zn4ikrdKDlzSqsjYumTqk.jpg",
         });
       } else if (checkId) {
         const findArticle = await Articles.find({ users: chuyenId }).populate(
@@ -63,6 +65,7 @@ class CoordinatorController {
           img: res.user.img,
           coordinator: true,
           findArticle: covertData(findArticle),
+          back: "https://t4.ftcdn.net/jpg/02/67/47/05/360_F_267470534_75jH8bHYJ59Zn4ikrdKDlzSqsjYumTqk.jpg",
         });
       }
     } catch (err) {

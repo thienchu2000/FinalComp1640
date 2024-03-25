@@ -29,6 +29,7 @@ class ArticlesController {
           a: a,
           FacultyId: "1",
           AcademicYearsId: "2",
+          back: "https://t4.ftcdn.net/jpg/02/67/47/05/360_F_267470534_75jH8bHYJ59Zn4ikrdKDlzSqsjYumTqk.jpg",
         });
       } else if (
         (checkPrime.facultis && checkPrime.closedate === undefined) ||
@@ -53,6 +54,7 @@ class ArticlesController {
           FacultyId: checkPrime.facultis,
           AcademicYearsId: "2",
           b: b,
+          back: "https://t4.ftcdn.net/jpg/02/67/47/05/360_F_267470534_75jH8bHYJ59Zn4ikrdKDlzSqsjYumTqk.jpg",
         });
       } else if (checkPrime.facultis && checkPrime.closedate) {
         var userr = await Users.findOne({ _id: users._id }).populate({
@@ -81,6 +83,7 @@ class ArticlesController {
           FacultyId: userr.facultis,
           AcademicYearsId: userr.closedate.academic._id,
           find: covertData(findd),
+          back: "https://t4.ftcdn.net/jpg/02/67/47/05/360_F_267470534_75jH8bHYJ59Zn4ikrdKDlzSqsjYumTqk.jpg",
         });
       }
     } catch (err) {
