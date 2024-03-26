@@ -51,16 +51,47 @@ class AdminController {
       for (var faculty in facultyCount) {
         pusharr.push({ name: faculty, count: facultyCount[faculty] });
       }
-      var con = [];
-      for (var i = 0; i < pusharr.length; i++) {
-        var bao = pusharr[i].count;
-        var cao = tong - bao;
-        con.push(cao);
-      }
-      var conObj = {};
-      if (con) {
-        conObj.con = con;
-      }
+
+      // var checkfa = sumAr.length;
+      // var checkUser = {};
+      // var sumUser = [];
+      // for (var i = 0; i < sumAr.length; i++) {
+      //   var idUser = sumAr[i].users._id;
+      //   if (idUser) {
+      //     if (!checkUser[idUser]) {
+      //       checkUser[idUser] = 1;
+      //     } else {
+      //       checkUser[idUser]++;
+      //     }
+      //   }
+      // }
+      // for (var id in checkUser) {
+      //   sumUser.push({ id: id, count: checkUser[idUser] });
+      // }
+      // console.log(checkUser);
+
+      // console.log(sumUser);
+      var checkfa = await Articles.aggregate([
+        {
+          $group: { _id: "$users", count: { $sum: 1 } },
+        },
+        {
+          $sortByCount: "$_id",
+        },
+      ]);
+
+      var sumUser = tong - checkfa.length;
+
+      var checkCmt = (await Articles.find({}))
+        .filter((item) => {
+          return (
+            item.comment && item.comment !== undefined && item.comment !== null
+          );
+        })
+        .map((item) => item.comment);
+
+      var noCmt = sumAr.length - checkCmt.length;
+
       return res.status(200).render("admin", {
         user: true,
         admin: true,
@@ -71,11 +102,13 @@ class AdminController {
         dataClose: coverData(dataClose),
         sumAr: pusharr,
         tong: tong,
-        Ar: conObj,
+        Ar: sumUser,
+        sumCmt: checkCmt.length,
+        noCmt: noCmt,
         dataAcademicyears: coverData(dataAcademicyears),
         dataFacultis: coverData(dataFacultis),
         dataAr: coverData(sumAr),
-        back: "https://intoroigiare.vn/wp-content/uploads/2023/11/background-nen-trang.jpg",
+        back: "https://png.pngtree.com/background/20210715/original/pngtree-simple-white-textured-crepe-paper-texture-background-picture-image_1296663.jpg",
       });
     } catch (err) {
       return res.send("404 Not Found");
