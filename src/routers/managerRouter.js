@@ -3,6 +3,8 @@ const router = express.Router();
 const ManagerController = require("../controllers/ManagerController");
 const { isMarketing_manager } = require("../utils/authorize");
 
+router.post("/gusetCr", isMarketing_manager, ManagerController.gusetCr);
+router.get("/gusetCrA", isMarketing_manager, ManagerController.gusetCrA);
 router.get(
   "/downloaded/:idAr",
   isMarketing_manager,

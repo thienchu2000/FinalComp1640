@@ -52,9 +52,24 @@
         {{#if admin}}
           <li class="nav-item"><a
               class="nav-link a"
-              href="/admin"
-            >Dash Board</a></li>
-        {{/if}}
+              href=""
+            ></a></li>
+       
+      
+    <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+            <a class="nav-link a">Dash Board</a>
+            <ul class="nav-dropdown">
+                <li><a href="/admin" class="nav-link a">Users management </a></li>
+                <li><a href="/admin/updatedateAvsFa" class="nav-link a">Update Academic And Faculty</a></li>
+                <li><a href="/admin/closedate" class="nav-link a">Edit Close Date</a></li>
+                <li><a href="/admin/article" class="nav-link a">Article</a></li>
+                <li><a href="/admin/statis" class="nav-link a">Statistics</a></li>
+            </ul>
+        </li>
+     
+    </ul>
+   {{/if}}
 
         {{#if student}}
          <li class="nav-item"><a

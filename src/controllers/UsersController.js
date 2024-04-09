@@ -52,9 +52,10 @@ class UsersController {
         address,
         phone,
         roleTreatment,
-        facultyWant,
+        facultis: facultyWant,
       });
       user.save();
+
       res.status(200).render("login", { email });
     } catch (Err) {
       console.log(Err);

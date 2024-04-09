@@ -11,7 +11,7 @@
           <th>Email</th>
           <th>Role</th>
           <th>Faculties</th>
-          <th>Close Date</th>
+          {{!-- <th>Close Date</th> --}}
           
           <th class="text-center">Action</th>
         </tr>
@@ -41,17 +41,17 @@
               {{/each}}
             </select>
           </th>
-          <th>
-                 CloseDate: {{formatDate this.closedate.closeDates}} <br> 
-                 FinalDate: {{formatDate this.closedate.finalCloseDates}}
-            <select class="form-select" onchange="submitChangeCloseDate(this, '{{_id}}')">
+          {{!-- <th> --}}
+                 {{!-- CloseDate: {{formatDate this.closedate.closeDates}} <br> 
+                 FinalDate: {{formatDate this.closedate.finalCloseDates}} --}}
+            {{!-- <select class="form-select" onchange="submitChangeCloseDate(this, '{{_id}}')">
                <option value="" disabled selected>Choose one</option>
                {{#each ../dataClose}}
                 <option value="{{_id}}"{{#ifEqual _id ../closedates._id}}selected{{/ifEqual}} >{{formatDate closeDates}} - {{formatDate finalCloseDates}} </option>
                 {{/each}}
-            </select>
+            </select> --}}
             
-          </th>
+          {{!-- </th> --}}
           <td>
             {{!-- <button class="btn btn-primary"><i class="fa fa-info-circle" aria-hidden="true"></i></button> --}}
             <button class="btn btn-primary"><i class="fa fa-pencil-square" aria-hidden="true"></i></button>
@@ -65,10 +65,12 @@
   </div>
 <div>
 </div>
-<br>
-<hr>
-<hr>
-<div class="row" style="color: rgb(233, 156, 40)249, 240); font-family:Optima">
+
+
+
+
+
+{{!-- <div class="row" style="color: rgb(233, 156, 40)249, 240); font-family:Optima">
 <div class="col-md-6">
 <section class="container" class="row" style="border: 3px solid black;" >
 <div class="border p-4" style="width: 500px; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; color:rgb(219, 116, 27)" class="col-sm">
@@ -177,16 +179,10 @@
   
 </div>
 </section>
-</div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<hr>
-<hr>
+</div> --}}
 
-<section class="container" style="border: 3px solid black; color:chocolate ; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+
+{{!-- <section class="container" style="border: 3px solid black; color:chocolate ; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
   <div class="border p-4">
     <h3 class="text-center">CloseDate</h3>
     <form action="/admin/closeDate" method="post">
@@ -275,14 +271,10 @@
   {{/each}}
 </table>
   </div>
-</section>
+</section> --}}
 
-<br>
-<br>
-<br>
-<hr>
-<hr>
-<section class="container" style="border: 3px solid black; color:chocolate; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+
+{{!-- <section class="container" style="border: 3px solid black; color:chocolate; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
   <h4 class="text-center">Articles</h4>
 <table class="table" style="color: chocolate; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
   <thead class="thead-dark">
@@ -316,12 +308,9 @@
     {{/each}}
   </tbody>
 </table>
-</section>
-<br>
-<br>
-<br>
-<hr>
-<hr>
+</section> --}}
+
+{{!-- 
 <h3>Statistics</h3>
 <div class="row">
   <div class="col-md-6" >
@@ -371,7 +360,7 @@
 
 <div style="height: 500px; width:700px">
 <canvas id="myChart" width="200" height="200"></canvas>
-</div>
+</div> --}}
 
 <script>
   // Change role

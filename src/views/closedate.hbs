@@ -1,0 +1,302 @@
+<section class="container" style="border: 3px solid black; color:chocolate ; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+  <div class="border p-4">
+    <h3 class="text-center">Close Date</h3>
+    <form action="/admin/closeDate" method="post">
+      <div class="form-group mt-3">
+        <label for="closedate">Close Dates</label>
+        <input type="date" class="form-control" name="closedate" id="closedate" />
+      </div>
+      <div class="form-group mt-3">
+        <label for="finalclosedate">Final Close Date</label>
+        <input type="date" class="form-control" name="finalclosedate" id="finalclosedate" />
+      </div>
+      <div class="form-group mt-3">
+        <label for="academic">Academic Year</label>
+        <select class="form-control" name="academic" id="academic" required>
+          <option value="" selected disabled>Choose one</option>
+          {{#each dataAcademicyears}}
+          <option value="{{_id}}">{{formatDate academicYears}} - {{formatDate End}}</option>
+          {{/each}}
+        </select>
+      </div>
+      <div class="form-group mt-3">
+        <label for="faculty">Facultis</label>
+        <select class="form-control" name="faculty" id="faculty" required>
+          <option value="" selected disabled>Choose one</option>
+          {{#each dataFacultis}}
+          <option value="{{_id}}">{{nameFaculty}}</option>
+          {{/each}}
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    </form>
+
+       </form>
+  <br>
+  <table class="table" style="color: chocolate; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Close Dates</th>
+      <th scope="col">Final Close Date</th>
+      <th scope="col">Academic Year</th>
+      <th scope="col">Facultis</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  {{#each dataClose}}
+  <tbody>
+ 
+      <tr>
+        
+        <td> 
+              <p>Start: {{formatDate closeDates}}</p>
+               <input type="date" class="form-control" name="closedate" id="closedate_{{this._id}}" value="{{formatDate this.closedate}}" />
+             
+          </td>
+               <td>
+                <p>End: {{formatDate finalCloseDates}}</p>
+                <input type="date" class="form-control" name="finalclosedate" id="finalclosedate_{{this._id}}" value="{{formatDate this.finalCloseDates}}" />
+              </td>
+           <td>
+         
+           <p>{{formatDate academic.academicYears}} - {{formatDate academic.End}}</p>
+          <select class="form-select" onchange="subAca(this, '{{_id}}')"required>
+             <option value="" selected disabled>Choose one </option>
+               {{#each ../dataAcademicyears}} 
+                   <option value="{{_id}}"{{#ifEqual _id ../dataAcademicyears._id}}selected{{/ifEqual}} >{{formatDate academicYears}} - {{formatDate End}} </option>
+               {{/each}}
+        </select>
+          
+           </td>   
+           <td>
+            <p>{{faculty.nameFaculty}}</p>
+          <select class="form-select" onchange="subFa(this, '{{_id}}')"required>
+             <option value="" selected disabled>Choose one </option>
+               {{#each ../dataFacultis}} 
+                   <option value="{{_id}}"{{#ifEqual _id ../dataFacultis._id}}selected{{/ifEqual}} >{{nameFaculty}} </option>
+               {{/each}}
+        </select>
+           </td>
+           
+           <td><button onclick="closedateUp('{{_id}}')" class="btn btn-primary">Edit</button>
+                <button onclick="deleteClose('{{_id}}')" class="btn btn-primary">Delete</button>
+           </td>
+      </tr>
+  
+  </tbody>
+  {{/each}}
+</table>
+  </div>
+</section>
+
+<script>
+  // Change role
+  function submitChangeRole(e, id) {
+    const selectRoleId = e.value;
+    const userId = id;
+
+    axios.put(`/admin/update/${userId}`, { role: selectRoleId })
+      .then((res) => {
+        e.style.background = "#84dd89"
+      })
+      .catch((err) => {
+        e.style.background = "rgb(255,86,86)"
+      })
+      .finally(() => {
+        setTimeout(function () {
+          e.style.background = "";
+        }, 2000);
+      })
+  }
+
+  // Change faculty
+  function submitChangeFaculties(e, id) {
+    const selectFacultyId = e.value;
+    const userId = id;
+
+    console.log('selectFacultyId: ', selectFacultyId);
+
+    axios.put(`/admin/update/${userId}`, { facultis: selectFacultyId })
+      .then((res) => {
+        e.style.background = "#84dd89"
+      })
+      .catch((err) => {
+        e.style.background = "rgb(255,86,86)"
+      })
+      .finally(() => {
+        setTimeout(function () {
+          e.style.background = "";
+        }, 2000);
+      })
+  }
+
+ // ChangeCloseDate
+
+ function submitChangeCloseDate(e, id) {
+  const selectCloseDateId = e.value;
+  const userId = id;
+
+  console.log('selectCloseDate: ', selectCloseDateId)
+
+  axios.put(`/admin/update/${userId}`, {closedate: selectCloseDateId})
+  .then((res) => {
+     e.style.background = "#84dd89"
+  }).catch((err)=>{
+    e.style.background = "rgb(255,86,86)"
+  }).finally(() => {
+        setTimeout(function () {
+          e.style.background = "";
+        }, 2000);
+      })
+
+
+ }
+
+
+
+
+function upA(id) {
+  var academicYearsInput = document.getElementById("academicYears_" + id);
+  var academicYears = academicYearsInput ? academicYearsInput.value : "";
+  var EndInput = document.getElementById("End_" + id);
+  var End = EndInput ? EndInput.value : "";
+ 
+
+  axios
+    .put(`/admin/updateA/${id}`, { academicYears, End })
+    .then((data) => {
+      console.log(data);
+      return window.location.reload();
+    })
+    .catch((error) => {
+      return alert("failed");
+    });
+}
+
+
+
+
+function deA(id) {
+  axios
+    .delete(`/admin/deleteAcademic/${id}`)
+    .then((result) => {
+      window.location.reload();
+    })
+    .catch((error) => {
+      alert("that bai");
+    });
+}
+
+
+
+
+function updateFa(id) {
+  var nameFacultyInput = document.getElementById("nameFaculty_" + id);
+  var nameFaculty= nameFacultyInput ? nameFacultyInput.value : "";
+  axios
+    .put(`/admin/updateFa/${id}`, { nameFaculty })
+    .then((data) => {
+      console.log(data);
+      return window.location.reload();
+    })
+    .catch((error) => {
+      return alert("failed");
+    });
+}
+
+
+function deleteFa(id) {
+  axios
+    .delete(`/admin/deleteFa/${id}`)
+    .then((result) => {
+      window.location.reload();
+    })
+    .catch((error) => {
+      alert("that bai");
+    });
+}
+
+
+
+function subAca(e,id) {
+    const selectAcaId = e.value;
+    console.log(selectAcaId);
+  axios
+    .put(`/admin/closedateUp/${id}`, { academic: selectAcaId })
+    .then((data) => {
+      console.log(data);
+      return window.location.reload();
+    })
+    .catch((error) => {
+      return alert("failed");
+    });
+}
+
+function subFa(e,id) {
+    const selectFaId = e.value;
+  axios
+    .put(`/admin/closedateUp/${id}`, { faculty:selectFaId })
+    .then((data) => {
+      console.log(data);
+      return window.location.reload();
+    })
+    .catch((error) => {
+      return alert("failed");
+    });
+}
+
+
+
+
+
+
+function closedateUp(id) {
+  var closedateInput = document.getElementById("closedate_" + id);
+  var closeDates= closedateInput ? closedateInput.value : "";
+  var finalCloseDatesInput = document.getElementById("finalCloseDates_" + id);
+  var finalCloseDates = finalCloseDatesInput ? finalCloseDatesInput.value : "";
+ 
+
+  axios
+    .put(`/admin/closedateUp/${id}`, {finalCloseDates , closeDates})
+    .then((data) => {
+      console.log(data);
+      return window.location.reload();
+    })
+    .catch((error) => {
+      return alert("failed");
+    });
+}
+
+
+
+function deleteClose(id) {
+  axios
+    .delete(`/admin/deleteCloseDates/${id}`)
+    .then((result) => {
+      window.location.reload();
+    })
+    .catch((error) => {
+      alert("that bai");
+    });
+}
+
+
+function deleteAr(id) {
+  axios
+    .delete(`/admin/deleteAr/${id}`)
+    .then((result) => {
+      window.location.reload();
+    })
+    .catch((error) => {
+      alert("that bai");
+    });
+}
+
+
+
+
+//chart
+
+
+</script>

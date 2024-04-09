@@ -3,7 +3,8 @@ const coverData = require("../utils/coverData");
 const fs = require("fs");
 const archiver = require("archiver");
 const path = require("path");
-
+const Users = require("../models/Users");
+const bcrypt = require("bcrypt");
 class ManagerController {
   index(req, res, next) {
     var users = res.user;
@@ -54,6 +55,55 @@ class ManagerController {
     };
     createZipFromFile(coverImg, res);
     createZipFromFile(coverDoc, res);
+  }
+
+  gusetCrA(req, res, next) {
+    var users = res.user;
+    Articles.find({}).then((results) => {
+      res.render("managerCr", {
+        user: true,
+        img: users.img,
+        name: users.name,
+        manager: true,
+        back: "https://t4.ftcdn.net/jpg/02/67/47/05/360_F_267470534_75jH8bHYJ59Zn4ikrdKDlzSqsjYumTqk.jpg",
+      });
+    });
+  }
+
+  async gusetCr(req, res, next) {
+    const { name, email, password, address, phone, facultyWant } = req.body;
+    try {
+      if (!name || !email || !password || !facultyWant) {
+        return res.send("Please enter correct information");
+      }
+      const checkEmail = await Users.findOne({ email });
+      if (checkEmail) {
+        return res.status(400).send("Email already exists");
+      }
+      if (password.length < 6) {
+        return res.status(400).send("Password must be more than 6 characters");
+      }
+      if (!/[A-Z]/.test(password)) {
+        return res.status(400).send("must have capital letters");
+      }
+      const hashPassword = await bcrypt.hashSync(password, 10);
+      var roleTreatment = "65ead5df686f7f723b6dbd60";
+      const user = new Users({
+        name,
+        email,
+        password: hashPassword,
+        address,
+        phone,
+        role: roleTreatment,
+        facultis: facultyWant,
+      });
+      user.save();
+
+      res.status(200).redirect("/manager");
+    } catch (Err) {
+      console.log(Err);
+      return res.send("Err");
+    }
   }
 }
 

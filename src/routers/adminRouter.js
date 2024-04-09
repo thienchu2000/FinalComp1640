@@ -3,6 +3,10 @@ const router = express.Router();
 const AdminController = require("../controllers/AdminController");
 const { isAdmin } = require("../utils/authorize");
 
+router.get("/statis", isAdmin, AdminController.statis);
+router.get("/article", isAdmin, AdminController.article);
+router.get("/closedate", isAdmin, AdminController.closedate);
+router.get("/updatedateAvsFa", isAdmin, AdminController.updateAvsFa);
 router.delete("/deleteAr/:id", isAdmin, AdminController.deleteAr);
 router.delete("/deleteFa/:id", isAdmin, AdminController.deleteFa);
 router.put("/updateFa/:id", isAdmin, AdminController.updateFa);
