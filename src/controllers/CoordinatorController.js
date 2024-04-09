@@ -104,7 +104,6 @@ class CoordinatorController {
       var newdateTime = newdate.getTime();
       var timeSubmission = dateSubmission.getTime();
       var cover = (newdateTime - timeSubmission) / (3600 * 1000 * 24);
-      // console.log(cover);
       if (cover > 14) {
         return res.status(400).send("Out of date");
       }

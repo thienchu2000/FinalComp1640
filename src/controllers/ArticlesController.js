@@ -14,11 +14,11 @@ const CloseDates = require("../models/CloseDates");
 class ArticlesController {
   async index(req, res, next) {
     var users = res.user;
-    var a =
-      "You have not been considered for faculty so you cannot submit a report !!!";
-    var b = "There is no deadline yet so you can't submit !!!";
     try {
-      var checkPrime = await Users.findOne({ _id: users._id });
+      var checkPrime = await Users.findOne({ _id: users._id }).populate({
+        path: "facultis",
+        populate: { path: "closeDate" },
+      });
       if (checkPrime.facultis === undefined || checkPrime.facultis === null) {
         return res.render("articles", {
           user: true,
@@ -51,20 +51,21 @@ class ArticlesController {
           name: users.name,
           role: users.role,
           img: users.img,
-          FacultyId: checkPrime.facultis,
-          AcademicYearsId: "2",
-          b: b,
+          find: covertData(find),
+          FacultyId: checkPrime.facultis._id,
+          AcademicYearsId: checkPrime.facultis.closeDate.academic,
           back: "https://t4.ftcdn.net/jpg/02/67/47/05/360_F_267470534_75jH8bHYJ59Zn4ikrdKDlzSqsjYumTqk.jpg",
         });
-      } else if (checkPrime.facultis && checkPrime.closedate) {
+      } else if (checkPrime.facultis) {
         var userr = await Users.findOne({ _id: users._id }).populate({
-          path: "closedate",
-          populate: { path: "academic", model: "AcademicYears" },
+          path: "facultis",
+          populate: { path: "closeDate" },
         });
 
         var uIdd = userr._id;
 
         var articless = await Articles.find({}).populate("users");
+        console.log(articless);
 
         var userCheckk = articless
           .filter((item) => {
@@ -73,15 +74,17 @@ class ArticlesController {
           .map((item) => {
             return item._id;
           });
+        console.log(userCheckk);
         var findd = await Articles.find({ _id: userCheckk });
+        console.log(findd);
         res.render("articles", {
           user: true,
           student: true,
           name: users.name,
           role: users.role,
           img: users.img,
-          FacultyId: userr.facultis,
-          AcademicYearsId: userr.closedate.academic._id,
+          FacultyId: checkPrime.facultis._id,
+          AcademicYearsId: checkPrime.facultis.closeDate.academic,
           find: covertData(findd),
           back: "https://t4.ftcdn.net/jpg/02/67/47/05/360_F_267470534_75jH8bHYJ59Zn4ikrdKDlzSqsjYumTqk.jpg",
         });
@@ -94,6 +97,7 @@ class ArticlesController {
 
   async articlesC(req, res, next) {
     const { FacultyId, AcademicYearsId } = req.params;
+    console.log("ok", FacultyId);
     if (FacultyId === "1" && AcademicYearsId === "1") {
       return res.status(404).render("error");
     }
@@ -120,10 +124,19 @@ class ArticlesController {
       }
       var newday = new Date();
       var timeday = newday.getTime();
-      var close = await Users.findOne({ _id: userId }).populate("closedate");
+      var close = await Users.findOne({ _id: userId }).populate({
+        path: "facultis",
+        populate: { path: "closeDate" },
+      });
+      // console.log(
+      //   "dayla",
+      //   close.facultis.closeDate.closeDates,
+      //   "and",
+      //   close.facultis.closeDate.finalCloseDates
+      // );
 
-      var dateclose = close.closedate.closeDates;
-      var finalclose = close.closedate.finalCloseDates;
+      var dateclose = close.facultis.closeDate.closeDates;
+      var finalclose = close.facultis.closeDate.finalCloseDates;
 
       var finalcloseTime;
       if (finalclose) {
@@ -155,7 +168,7 @@ class ArticlesController {
         articlesName: articlesName,
         description: description,
         users: userId,
-        faculty: FacultyId,
+        faculty: FacultyId._id,
         academicYears: AcademicYearsId,
       });
 

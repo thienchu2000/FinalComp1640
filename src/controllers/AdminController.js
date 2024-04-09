@@ -12,15 +12,14 @@ class AdminController {
   async index(req, res, next) {
     try {
       const ad = res.user;
+
       const dataClose = await CloseDates.find({})
         .populate("academic")
         .populate("faculty");
       const dataAcademicyears = await AcademicYears.find({});
       const dataFacultis = await Facultis.find({});
-      const data = await Users.find({})
-        .populate("role")
-        .populate("facultis")
-        .populate("closedate");
+      const data = await Users.find({}).populate("role").populate("facultis");
+
       const role = await Role.find({});
       const sumAr = await Articles.find({})
         .populate("faculty")
@@ -35,22 +34,23 @@ class AdminController {
       //   }
       // }
       // console.log(pusharr[0], pusharr[1]);
-      var tong = data.length;
-      var pusharr = [];
-      var facultyCount = {};
-      for (var i = 0; i < sumAr.length; i++) {
-        var nameFaculty = sumAr[i].faculty.nameFaculty;
-        if (nameFaculty) {
-          if (!facultyCount[nameFaculty]) {
-            facultyCount[nameFaculty] = 1;
-          } else {
-            facultyCount[nameFaculty]++;
-          }
-        }
-      }
-      for (var faculty in facultyCount) {
-        pusharr.push({ name: faculty, count: facultyCount[faculty] });
-      }
+      // console.log("loi");
+      // var tong = data.length;
+      // var pusharr = [];
+      // var facultyCount = {};
+      // for (var i = 0; i < sumAr.length; i++) {
+      //   var nameFaculty = sumAr[i].faculty.nameFaculty;
+      //   if (nameFaculty) {
+      //     if (!facultyCount[nameFaculty]) {
+      //       facultyCount[nameFaculty] = 1;
+      //     } else {
+      //       facultyCount[nameFaculty]++;
+      //     }
+      //   }
+      // }
+      // for (var faculty in facultyCount) {
+      //   pusharr.push({ name: faculty, count: facultyCount[faculty] });
+      // }
 
       // var checkfa = sumAr.length;
       // var checkUser = {};
@@ -71,34 +71,36 @@ class AdminController {
       // console.log(checkUser);
 
       // console.log(sumUser);
-      var checkfa = await Articles.aggregate([
-        {
-          $group: { _id: "$users", count: { $sum: 1 } },
-        },
-        {
-          $sortByCount: "$_id",
-        },
-      ]);
+      //*** */ var checkfa = await Articles.aggregate([
+      //   {
+      //     $group: { _id: "$users", count: { $sum: 1 } },
+      //   },
+      //   {
+      //     $sortByCount: "$_id",
+      //   },
+      // ]);
 
-      var sumUser = tong - checkfa.length;
+      // var sumUser = tong - checkfa.length;
 
-      var checkCmt = (await Articles.find({}))
-        .filter((item) => {
-          return (
-            item.comment && item.comment !== undefined && item.comment !== null
-          );
-        })
-        .map((item) => item.comment);
+      // var checkCmt = (await Articles.find({}))
+      //   .filter((item) => {
+      //     return (
+      //       item.comment && item.comment !== undefined && item.comment !== null
+      //     );
+      //   })
+      //   .map((item) => item.comment);
 
-      var noCmt = sumAr.length - checkCmt.length;
+      // var noCmt = sumAr.length - checkCmt.length;
 
-      var checkAca = dataClose
-        .filter((item) => {
-          return item.academic !== undefined && item.academic !== null;
-        })
-        .map((item) => {
-          return item._id;
-        });
+      // var checkAca = dataClose
+      //   .filter((item) => {
+      //     return item.academic !== undefined && item.academic !== null;
+      //   })
+      //   .map((item) => {
+      //     return item._id;
+      //   });
+      // console.log(checkAca);
+
       return res.status(200).render("admin", {
         user: true,
         admin: true,
@@ -107,14 +109,14 @@ class AdminController {
         nameRole: coverData(role),
         img: ad.img,
         dataClose: coverData(dataClose),
-        sumAr: pusharr,
-        tong: tong,
-        Ar: sumUser,
-        sumCmt: checkCmt.length,
-        noCmt: noCmt,
+        // sumAr: pusharr,
+        // tong: tong,
+        // Ar: sumUser,
+        // sumCmt: checkCmt.length,
+        // noCmt: noCmt,
         dataAcademicyears: coverData(dataAcademicyears),
         dataFacultis: coverData(dataFacultis),
-        dataAr: coverData(sumAr),
+        // dataAr: coverData(sumAr),
         back: "https://png.pngtree.com/background/20210715/original/pngtree-simple-white-textured-crepe-paper-texture-background-picture-image_1296663.jpg",
       });
     } catch (err) {
@@ -320,70 +322,71 @@ class AdminController {
       //   }
       // }
       // console.log(pusharr[0], pusharr[1]);
-      var tong = data.length;
-      var pusharr = [];
-      var facultyCount = {};
-      for (var i = 0; i < sumAr.length; i++) {
-        var nameFaculty = sumAr[i].faculty.nameFaculty;
-        if (nameFaculty) {
-          if (!facultyCount[nameFaculty]) {
-            facultyCount[nameFaculty] = 1;
-          } else {
-            facultyCount[nameFaculty]++;
-          }
-        }
-      }
-      for (var faculty in facultyCount) {
-        pusharr.push({ name: faculty, count: facultyCount[faculty] });
-      }
-
-      // var checkfa = sumAr.length;
-      // var checkUser = {};
-      // var sumUser = [];
+      //***** */ var tong = data.length;
+      // var pusharr = [];
+      // var facultyCount = {};
       // for (var i = 0; i < sumAr.length; i++) {
-      //   var idUser = sumAr[i].users._id;
-      //   if (idUser) {
-      //     if (!checkUser[idUser]) {
-      //       checkUser[idUser] = 1;
+      //   var nameFaculty = sumAr[i].faculty.nameFaculty;
+      //   if (nameFaculty) {
+      //     if (!facultyCount[nameFaculty]) {
+      //       facultyCount[nameFaculty] = 1;
       //     } else {
-      //       checkUser[idUser]++;
+      //       facultyCount[nameFaculty]++;
       //     }
       //   }
       // }
-      // for (var id in checkUser) {
-      //   sumUser.push({ id: id, count: checkUser[idUser] });
+      // for (var faculty in facultyCount) {
+      //   pusharr.push({ name: faculty, count: facultyCount[faculty] });
       // }
-      // console.log(checkUser);
 
-      // console.log(sumUser);
-      var checkfa = await Articles.aggregate([
-        {
-          $group: { _id: "$users", count: { $sum: 1 } },
-        },
-        {
-          $sortByCount: "$_id",
-        },
-      ]);
+      // // var checkfa = sumAr.length;
+      // // var checkUser = {};
+      // // var sumUser = [];
+      // // for (var i = 0; i < sumAr.length; i++) {
+      // //   var idUser = sumAr[i].users._id;
+      // //   if (idUser) {
+      // //     if (!checkUser[idUser]) {
+      // //       checkUser[idUser] = 1;
+      // //     } else {
+      // //       checkUser[idUser]++;
+      // //     }
+      // //   }
+      // // }
+      // // for (var id in checkUser) {
+      // //   sumUser.push({ id: id, count: checkUser[idUser] });
+      // // }
+      // // console.log(checkUser);
 
-      var sumUser = tong - checkfa.length;
+      // // console.log(sumUser);
+      // var checkfa = await Articles.aggregate([
+      //   {
+      //     $group: { _id: "$users", count: { $sum: 1 } },
+      //   },
+      //   {
+      //     $sortByCount: "$_id",
+      //   },
+      // ]);
 
-      var checkCmt = (await Articles.find({}))
-        .filter((item) => {
-          return (
-            item.comment && item.comment !== undefined && item.comment !== null
-          );
-        })
-        .map((item) => item.comment);
+      // var sumUser = tong - checkfa.length;
 
-      var noCmt = sumAr.length - checkCmt.length;
+      // var checkCmt = (await Articles.find({}))
+      //   .filter((item) => {
+      //     return (
+      //       item.comment && item.comment !== undefined && item.comment !== null
+      //     );
+      //   })
+      //   .map((item) => item.comment);
 
-      var checkAca = dataClose
-        .filter((item) => {
-          return item.academic !== undefined && item.academic !== null;
-        })
-        .map((item) => {
-          return item._id;
-        });
+      // var noCmt = sumAr.length - checkCmt.length;
+
+      // var checkAca = dataClose
+      //   .filter((item) => {
+      //     return item.academic !== undefined && item.academic !== null;
+      //   })
+      //   .map((item) => {
+      //     return item._id;
+      //   });
+
       return res.status(200).render("AcademicYearfaculity", {
         user: true,
         admin: true,
@@ -392,14 +395,14 @@ class AdminController {
         nameRole: coverData(role),
         img: ad.img,
         dataClose: coverData(dataClose),
-        sumAr: pusharr,
-        tong: tong,
-        Ar: sumUser,
-        sumCmt: checkCmt.length,
-        noCmt: noCmt,
+        // sumAr: pusharr,
+        // tong: tong,
+        // Ar: sumUser,
+        // sumCmt: checkCmt.length,
+        // noCmt: noCmt,
         dataAcademicyears: coverData(dataAcademicyears),
         dataFacultis: coverData(dataFacultis),
-        dataAr: coverData(sumAr),
+        // dataAr: coverData(sumAr),
         back: "https://png.pngtree.com/background/20210715/original/pngtree-simple-white-textured-crepe-paper-texture-background-picture-image_1296663.jpg",
       });
     } catch (err) {
@@ -433,70 +436,70 @@ class AdminController {
       //   }
       // }
       // console.log(pusharr[0], pusharr[1]);
-      var tong = data.length;
-      var pusharr = [];
-      var facultyCount = {};
-      for (var i = 0; i < sumAr.length; i++) {
-        var nameFaculty = sumAr[i].faculty.nameFaculty;
-        if (nameFaculty) {
-          if (!facultyCount[nameFaculty]) {
-            facultyCount[nameFaculty] = 1;
-          } else {
-            facultyCount[nameFaculty]++;
-          }
-        }
-      }
-      for (var faculty in facultyCount) {
-        pusharr.push({ name: faculty, count: facultyCount[faculty] });
-      }
-
-      // var checkfa = sumAr.length;
-      // var checkUser = {};
-      // var sumUser = [];
+      // *****var tong = data.length;
+      // var pusharr = [];
+      // var facultyCount = {};
       // for (var i = 0; i < sumAr.length; i++) {
-      //   var idUser = sumAr[i].users._id;
-      //   if (idUser) {
-      //     if (!checkUser[idUser]) {
-      //       checkUser[idUser] = 1;
+      //   var nameFaculty = sumAr[i].faculty.nameFaculty;
+      //   if (nameFaculty) {
+      //     if (!facultyCount[nameFaculty]) {
+      //       facultyCount[nameFaculty] = 1;
       //     } else {
-      //       checkUser[idUser]++;
+      //       facultyCount[nameFaculty]++;
       //     }
       //   }
       // }
-      // for (var id in checkUser) {
-      //   sumUser.push({ id: id, count: checkUser[idUser] });
+      // for (var faculty in facultyCount) {
+      //   pusharr.push({ name: faculty, count: facultyCount[faculty] });
       // }
-      // console.log(checkUser);
 
-      // console.log(sumUser);
-      var checkfa = await Articles.aggregate([
-        {
-          $group: { _id: "$users", count: { $sum: 1 } },
-        },
-        {
-          $sortByCount: "$_id",
-        },
-      ]);
+      // // var checkfa = sumAr.length;
+      // // var checkUser = {};
+      // // var sumUser = [];
+      // // for (var i = 0; i < sumAr.length; i++) {
+      // //   var idUser = sumAr[i].users._id;
+      // //   if (idUser) {
+      // //     if (!checkUser[idUser]) {
+      // //       checkUser[idUser] = 1;
+      // //     } else {
+      // //       checkUser[idUser]++;
+      // //     }
+      // //   }
+      // // }
+      // // for (var id in checkUser) {
+      // //   sumUser.push({ id: id, count: checkUser[idUser] });
+      // // }
+      // // console.log(checkUser);
 
-      var sumUser = tong - checkfa.length;
+      // // console.log(sumUser);
+      // var checkfa = await Articles.aggregate([
+      //   {
+      //     $group: { _id: "$users", count: { $sum: 1 } },
+      //   },
+      //   {
+      //     $sortByCount: "$_id",
+      //   },
+      // ]);
 
-      var checkCmt = (await Articles.find({}))
-        .filter((item) => {
-          return (
-            item.comment && item.comment !== undefined && item.comment !== null
-          );
-        })
-        .map((item) => item.comment);
+      // var sumUser = tong - checkfa.length;
 
-      var noCmt = sumAr.length - checkCmt.length;
+      // var checkCmt = (await Articles.find({}))
+      //   .filter((item) => {
+      //     return (
+      //       item.comment && item.comment !== undefined && item.comment !== null
+      //     );
+      //   })
+      //   .map((item) => item.comment);
 
-      var checkAca = dataClose
-        .filter((item) => {
-          return item.academic !== undefined && item.academic !== null;
-        })
-        .map((item) => {
-          return item._id;
-        });
+      // var noCmt = sumAr.length - checkCmt.length;
+
+      // var checkAca = dataClose
+      //   .filter((item) => {
+      //     return item.academic !== undefined && item.academic !== null;
+      //   })
+      //   .map((item) => {
+      //     return item._id;
+      //   });
       return res.status(200).render("closedate", {
         user: true,
         admin: true,
@@ -505,14 +508,14 @@ class AdminController {
         nameRole: coverData(role),
         img: ad.img,
         dataClose: coverData(dataClose),
-        sumAr: pusharr,
-        tong: tong,
-        Ar: sumUser,
-        sumCmt: checkCmt.length,
-        noCmt: noCmt,
+        // sumAr: pusharr,
+        // tong: tong,
+        // Ar: sumUser,
+        // sumCmt: checkCmt.length,
+        // noCmt: noCmt,
         dataAcademicyears: coverData(dataAcademicyears),
         dataFacultis: coverData(dataFacultis),
-        dataAr: coverData(sumAr),
+        // dataAr: coverData(sumAr),
         back: "https://png.pngtree.com/background/20210715/original/pngtree-simple-white-textured-crepe-paper-texture-background-picture-image_1296663.jpg",
       });
     } catch (err) {
@@ -545,70 +548,70 @@ class AdminController {
       //   }
       // }
       // console.log(pusharr[0], pusharr[1]);
-      var tong = data.length;
-      var pusharr = [];
-      var facultyCount = {};
-      for (var i = 0; i < sumAr.length; i++) {
-        var nameFaculty = sumAr[i].faculty.nameFaculty;
-        if (nameFaculty) {
-          if (!facultyCount[nameFaculty]) {
-            facultyCount[nameFaculty] = 1;
-          } else {
-            facultyCount[nameFaculty]++;
-          }
-        }
-      }
-      for (var faculty in facultyCount) {
-        pusharr.push({ name: faculty, count: facultyCount[faculty] });
-      }
-
-      // var checkfa = sumAr.length;
-      // var checkUser = {};
-      // var sumUser = [];
+      // ***var tong = data.length;
+      // var pusharr = [];
+      // var facultyCount = {};
       // for (var i = 0; i < sumAr.length; i++) {
-      //   var idUser = sumAr[i].users._id;
-      //   if (idUser) {
-      //     if (!checkUser[idUser]) {
-      //       checkUser[idUser] = 1;
+      //   var nameFaculty = sumAr[i].faculty.nameFaculty;
+      //   if (nameFaculty) {
+      //     if (!facultyCount[nameFaculty]) {
+      //       facultyCount[nameFaculty] = 1;
       //     } else {
-      //       checkUser[idUser]++;
+      //       facultyCount[nameFaculty]++;
       //     }
       //   }
       // }
-      // for (var id in checkUser) {
-      //   sumUser.push({ id: id, count: checkUser[idUser] });
+      // for (var faculty in facultyCount) {
+      //   pusharr.push({ name: faculty, count: facultyCount[faculty] });
       // }
-      // console.log(checkUser);
 
-      // console.log(sumUser);
-      var checkfa = await Articles.aggregate([
-        {
-          $group: { _id: "$users", count: { $sum: 1 } },
-        },
-        {
-          $sortByCount: "$_id",
-        },
-      ]);
+      // // var checkfa = sumAr.length;
+      // // var checkUser = {};
+      // // var sumUser = [];
+      // // for (var i = 0; i < sumAr.length; i++) {
+      // //   var idUser = sumAr[i].users._id;
+      // //   if (idUser) {
+      // //     if (!checkUser[idUser]) {
+      // //       checkUser[idUser] = 1;
+      // //     } else {
+      // //       checkUser[idUser]++;
+      // //     }
+      // //   }
+      // // }
+      // // for (var id in checkUser) {
+      // //   sumUser.push({ id: id, count: checkUser[idUser] });
+      // // }
+      // // console.log(checkUser);
 
-      var sumUser = tong - checkfa.length;
+      // // console.log(sumUser);
+      // var checkfa = await Articles.aggregate([
+      //   {
+      //     $group: { _id: "$users", count: { $sum: 1 } },
+      //   },
+      //   {
+      //     $sortByCount: "$_id",
+      //   },
+      // ]);
 
-      var checkCmt = (await Articles.find({}))
-        .filter((item) => {
-          return (
-            item.comment && item.comment !== undefined && item.comment !== null
-          );
-        })
-        .map((item) => item.comment);
+      // var sumUser = tong - checkfa.length;
 
-      var noCmt = sumAr.length - checkCmt.length;
+      // var checkCmt = (await Articles.find({}))
+      //   .filter((item) => {
+      //     return (
+      //       item.comment && item.comment !== undefined && item.comment !== null
+      //     );
+      //   })
+      //   .map((item) => item.comment);
 
-      var checkAca = dataClose
-        .filter((item) => {
-          return item.academic !== undefined && item.academic !== null;
-        })
-        .map((item) => {
-          return item._id;
-        });
+      // var noCmt = sumAr.length - checkCmt.length;
+
+      // var checkAca = dataClose
+      //   .filter((item) => {
+      //     return item.academic !== undefined && item.academic !== null;
+      //   })
+      //   .map((item) => {
+      //     return item._id;
+      //   });
       return res.status(200).render("articlesadmim", {
         user: true,
         admin: true,
@@ -617,11 +620,11 @@ class AdminController {
         nameRole: coverData(role),
         img: ad.img,
         dataClose: coverData(dataClose),
-        sumAr: pusharr,
-        tong: tong,
-        Ar: sumUser,
-        sumCmt: checkCmt.length,
-        noCmt: noCmt,
+        // sumAr: pusharr,
+        // tong: tong,
+        // Ar: sumUser,
+        // sumCmt: checkCmt.length,
+        // noCmt: noCmt,
         dataAcademicyears: coverData(dataAcademicyears),
         dataFacultis: coverData(dataFacultis),
         dataAr: coverData(sumAr),
@@ -657,70 +660,70 @@ class AdminController {
       //   }
       // }
       // console.log(pusharr[0], pusharr[1]);
-      var tong = data.length;
-      var pusharr = [];
-      var facultyCount = {};
-      for (var i = 0; i < sumAr.length; i++) {
-        var nameFaculty = sumAr[i].faculty.nameFaculty;
-        if (nameFaculty) {
-          if (!facultyCount[nameFaculty]) {
-            facultyCount[nameFaculty] = 1;
-          } else {
-            facultyCount[nameFaculty]++;
-          }
-        }
-      }
-      for (var faculty in facultyCount) {
-        pusharr.push({ name: faculty, count: facultyCount[faculty] });
-      }
-
-      // var checkfa = sumAr.length;
-      // var checkUser = {};
-      // var sumUser = [];
+      //****** */ var tong = data.length;
+      // var pusharr = [];
+      // var facultyCount = {};
       // for (var i = 0; i < sumAr.length; i++) {
-      //   var idUser = sumAr[i].users._id;
-      //   if (idUser) {
-      //     if (!checkUser[idUser]) {
-      //       checkUser[idUser] = 1;
+      //   var nameFaculty = sumAr[i].faculty.nameFaculty;
+      //   if (nameFaculty) {
+      //     if (!facultyCount[nameFaculty]) {
+      //       facultyCount[nameFaculty] = 1;
       //     } else {
-      //       checkUser[idUser]++;
+      //       facultyCount[nameFaculty]++;
       //     }
       //   }
       // }
-      // for (var id in checkUser) {
-      //   sumUser.push({ id: id, count: checkUser[idUser] });
+      // for (var faculty in facultyCount) {
+      //   pusharr.push({ name: faculty, count: facultyCount[faculty] });
       // }
-      // console.log(checkUser);
 
-      // console.log(sumUser);
-      var checkfa = await Articles.aggregate([
-        {
-          $group: { _id: "$users", count: { $sum: 1 } },
-        },
-        {
-          $sortByCount: "$_id",
-        },
-      ]);
+      // // var checkfa = sumAr.length;
+      // // var checkUser = {};
+      // // var sumUser = [];
+      // // for (var i = 0; i < sumAr.length; i++) {
+      // //   var idUser = sumAr[i].users._id;
+      // //   if (idUser) {
+      // //     if (!checkUser[idUser]) {
+      // //       checkUser[idUser] = 1;
+      // //     } else {
+      // //       checkUser[idUser]++;
+      // //     }
+      // //   }
+      // // }
+      // // for (var id in checkUser) {
+      // //   sumUser.push({ id: id, count: checkUser[idUser] });
+      // // }
+      // // console.log(checkUser);
 
-      var sumUser = tong - checkfa.length;
+      // // console.log(sumUser);
+      // var checkfa = await Articles.aggregate([
+      //   {
+      //     $group: { _id: "$users", count: { $sum: 1 } },
+      //   },
+      //   {
+      //     $sortByCount: "$_id",
+      //   },
+      // ]);
 
-      var checkCmt = (await Articles.find({}))
-        .filter((item) => {
-          return (
-            item.comment && item.comment !== undefined && item.comment !== null
-          );
-        })
-        .map((item) => item.comment);
+      // var sumUser = tong - checkfa.length;
 
-      var noCmt = sumAr.length - checkCmt.length;
+      // var checkCmt = (await Articles.find({}))
+      //   .filter((item) => {
+      //     return (
+      //       item.comment && item.comment !== undefined && item.comment !== null
+      //     );
+      //   })
+      //   .map((item) => item.comment);
 
-      var checkAca = dataClose
-        .filter((item) => {
-          return item.academic !== undefined && item.academic !== null;
-        })
-        .map((item) => {
-          return item._id;
-        });
+      // var noCmt = sumAr.length - checkCmt.length;
+
+      // var checkAca = dataClose
+      //   .filter((item) => {
+      //     return item.academic !== undefined && item.academic !== null;
+      //   })
+      //   .map((item) => {
+      //     return item._id;
+      //   });
       return res.status(200).render("statistics", {
         user: true,
         admin: true,
@@ -729,14 +732,14 @@ class AdminController {
         nameRole: coverData(role),
         img: ad.img,
         dataClose: coverData(dataClose),
-        sumAr: pusharr,
-        tong: tong,
-        Ar: sumUser,
-        sumCmt: checkCmt.length,
-        noCmt: noCmt,
+        // sumAr: pusharr,
+        // tong: tong,
+        // Ar: sumUser,
+        // sumCmt: checkCmt.length,
+        // noCmt: noCmt,
         dataAcademicyears: coverData(dataAcademicyears),
         dataFacultis: coverData(dataFacultis),
-        dataAr: coverData(sumAr),
+        // dataAr: coverData(sumAr),
         back: "https://png.pngtree.com/background/20210715/original/pngtree-simple-white-textured-crepe-paper-texture-background-picture-image_1296663.jpg",
       });
     } catch (err) {
