@@ -97,7 +97,6 @@ class ArticlesController {
 
   async articlesC(req, res, next) {
     const { FacultyId, AcademicYearsId } = req.params;
-    console.log("ok", FacultyId);
     if (FacultyId === "1" && AcademicYearsId === "1") {
       return res.status(404).render("error");
     }
@@ -168,7 +167,7 @@ class ArticlesController {
         articlesName: articlesName,
         description: description,
         users: userId,
-        faculty: FacultyId._id,
+        faculty: FacultyId,
         academicYears: AcademicYearsId,
       });
 
