@@ -17,8 +17,16 @@ class ArticlesController {
     try {
       var checkPrime = await Users.findOne({ _id: users._id }).populate({
         path: "facultis",
-        populate: { path: "closeDate" },
+        populate: { path: "closeDate", populate: { path: "academic" } },
       });
+      // let select = checkPrime.map((item) => {
+      //   return item;
+      // });
+      var nameF = checkPrime.facultis.nameFaculty;
+      var hethan = checkPrime.facultis.closeDate.closeDates;
+      var noplai = checkPrime.facultis.closeDate.finalCloseDates;
+      var namhoc = checkPrime.facultis.closeDate.academic.academicYears;
+      var ketthucnam = checkPrime.facultis.closeDate.academic.End;
       if (checkPrime.facultis === undefined || checkPrime.facultis === null) {
         return res.render("articles", {
           user: true,
@@ -27,6 +35,11 @@ class ArticlesController {
           role: users.role,
           img: users.img,
           a: a,
+          nameF: nameF,
+          hethan: hethan,
+          noplai: noplai,
+          namhoc: namhoc,
+          ketthucnam: ketthucnam,
           FacultyId: "1",
           AcademicYearsId: "2",
           back: "https://t4.ftcdn.net/jpg/02/67/47/05/360_F_267470534_75jH8bHYJ59Zn4ikrdKDlzSqsjYumTqk.jpg",
@@ -51,6 +64,11 @@ class ArticlesController {
           name: users.name,
           role: users.role,
           img: users.img,
+          nameF: nameF,
+          hethan: hethan,
+          noplai: noplai,
+          namhoc: namhoc,
+          ketthucnam: ketthucnam,
           find: covertData(find),
           FacultyId: checkPrime.facultis._id,
           AcademicYearsId: checkPrime.facultis.closeDate.academic,
@@ -84,6 +102,11 @@ class ArticlesController {
           role: users.role,
           img: users.img,
           FacultyId: checkPrime.facultis._id,
+          nameF: nameF,
+          hethan: hethan,
+          noplai: noplai,
+          namhoc: namhoc,
+          ketthucnam: ketthucnam,
           AcademicYearsId: checkPrime.facultis.closeDate.academic,
           find: covertData(findd),
           back: "https://t4.ftcdn.net/jpg/02/67/47/05/360_F_267470534_75jH8bHYJ59Zn4ikrdKDlzSqsjYumTqk.jpg",

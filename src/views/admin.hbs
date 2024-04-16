@@ -69,6 +69,87 @@
 
 
 
+<div class="container-fluid px-1 py-5 mx-auto" style="color:burlywood; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
+  <div class="row d-flex justify-content-center">
+    <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+      <div class="card">
+        <h5 class="text-center mb-4">Register Users</h5>
+        <form class="form-card" method="post" action="/admin/registerUser">
+          <div class="row justify-content-between text-left">
+            <div class="form-group flex-column d-flex">
+              <label class="form-control-label px-3">Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Name"
+                required
+              />
+            </div>
+          </div>
+          <div class="row justify-content-between text-left">
+            <div class="form-group flex-column d-flex">
+              <label class="form-control-label px-3">Email</label>
+              <input
+                type="text"
+                id="email"
+                name="email"
+                placeholder="Email"
+                required
+              />
+            </div>
+            <div class="form-group flex-column d-flex">
+              <label class="form-control-label px-3">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Password"
+                required
+              />
+            </div>
+            <div>
+            <p>Note:</p>
+            <div class="form-group flex-column d-flex">
+             </div>
+                  <label for="roleTreatment">Desired location</label>
+              <Select name="roleTreatment" id="roleTreatment" required class="form-select form-control" >
+                 <option value="">--Choose--</option>
+                  <option value="65ea821b686f7f723b6dbd5d">Admin</option>
+                 <option value="65ead79c686f7f723b6dbd64">Student</option>
+                 <option value="65ead5df686f7f723b6dbd60">Guest</option>
+                 <option value="65ead7b7686f7f723b6dbd65">Marketing Coordinator</option>
+                 <option value="65ead7e6686f7f723b6dbd66">Marketing Manager</option>
+                 
+              </Select>
+             </div>
+             <br>
+             <div class="form-group flex-column d-flex" style="height: 70px;">
+               <label for="facultyWant">Please select the faculty you want</label>
+              <Select name="facultyWant" id="facultyWant"  required  class="form-select form-control">
+                 <option value="">--Choose--</option>
+                 <option value="65fc8dbc27f0ed701480e9e0">Faculty of Information Technology</option>
+                 <option value="65efd99176f3b57cc8683aaa">Faculty of graphic design</option>
+                 <option value="65efd9bd76f3b57cc8683aab">Faculty business management</option>
+              </Select>
+              </div>
+              </div>
+                  <div class="row justify-content-end mt-4">
+            <div >
+              <button type="submit" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" style="margin-left: 700px ;">Submit</button>
+            </div>
+          </div>
+            </div>
+          
+          </div>
+        
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 {{!-- <div class="row" style="color: rgb(233, 156, 40)249, 240); font-family:Optima">
 <div class="col-md-6">

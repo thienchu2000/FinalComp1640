@@ -7,6 +7,7 @@ const AcademicYears = require("../models/AcademicYears");
 const CloseDates = require("../models/CloseDates");
 const Articles = require("../models/Articles");
 const Facultis = require("../models/Facultis");
+const bcrypt = require("bcrypt");
 
 class AdminController {
   async index(req, res, next) {
@@ -737,6 +738,48 @@ class AdminController {
       });
     } catch (err) {
       return res.send("404 Not Found");
+    }
+  }
+  async registerUser(req, res, next) {
+    const {
+      name,
+      email,
+      password,
+      address,
+      phone,
+      roleTreatment,
+      facultyWant,
+    } = req.body;
+    try {
+      if (!name || !email || !password || !roleTreatment || !facultyWant) {
+        return res.send("Please enter correct information");
+      }
+      const checkEmail = await Users.findOne({ email });
+      if (checkEmail) {
+        return res.status(400).send("Email already exists");
+      }
+      if (password.length < 6) {
+        return res.status(400).send("Password must be more than 6 characters");
+      }
+      if (!/[A-Z]/.test(password)) {
+        return res.status(400).send("must have capital letters");
+      }
+      const hashPassword = await bcrypt.hashSync(password, 10);
+      const user = new Users({
+        name,
+        email,
+        password: hashPassword,
+        address,
+        phone,
+        roleTreatment,
+        facultis: facultyWant,
+      });
+      user.save();
+
+      res.status(200).redirect("/admin");
+    } catch (Err) {
+      console.log(Err);
+      return res.send("Err");
     }
   }
 }

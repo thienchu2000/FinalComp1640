@@ -3,6 +3,7 @@ const router = express.Router();
 const AdminController = require("../controllers/AdminController");
 const { isAdmin } = require("../utils/authorize");
 
+router.post("/registerUser", isAdmin, AdminController.registerUser);
 router.get("/statis", isAdmin, AdminController.statis);
 router.get("/article", isAdmin, AdminController.article);
 router.get("/closedate", isAdmin, AdminController.closedate);
