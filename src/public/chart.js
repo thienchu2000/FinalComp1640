@@ -1,5 +1,9 @@
 const data = {
-  labels: ["January", "February", "March", "April", "May"],
+  labels: [
+    "Faculty of graphic design",
+    "Faculty business management",
+    "Faculty of Information Technology",
+  ],
   datasets: [
     {
       label: "total number of submissions",

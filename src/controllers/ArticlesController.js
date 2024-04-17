@@ -247,6 +247,29 @@ class ArticlesController {
       return res.status(500).send(err);
     }
   }
+  upArticle(req, res, next) {
+    const id = req.params.id;
+    const { img, doc, articlesName, description } = req.body;
+    var obj = {};
+    if (img) {
+      obj.img = img;
+    }
+    if (doc) {
+      obj.doc = doc;
+    }
+    if (articlesName) {
+      obj.articlesNamee = articlesName;
+    }
+
+    Articles.findOneAndUpdate({ _id: id }, obj)
+      .then(() => {
+        res.status(200).send("Done");
+      })
+      .catch((err) => {
+        console.error(err);
+        return res.status(404).send("Error");
+      });
+  }
 }
 
 module.exports = new ArticlesController();

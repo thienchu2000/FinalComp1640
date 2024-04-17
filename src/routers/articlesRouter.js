@@ -6,6 +6,12 @@ const checkLogin = require("../utils/checkLogin");
 const { isStudent } = require("../utils/authorize");
 
 router.post(
+  "/uparticles/:id",
+  isStudent,
+  document_img,
+  ArticlesController.upArticle
+);
+router.post(
   "/articlesC/:FacultyId/:AcademicYearsId",
   isStudent,
   document_img,
