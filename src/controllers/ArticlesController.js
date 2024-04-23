@@ -25,8 +25,9 @@ class ArticlesController {
       var nameF = checkPrime.facultis.nameFaculty;
       var hethan = checkPrime.facultis.closeDate.closeDates;
       var noplai = checkPrime.facultis.closeDate.finalCloseDates;
-      var namhoc = checkPrime.facultis.closeDate.academic.academicYears;
+      var namhoc = checkPrime.facultis.closeDate.academic._id;
       var ketthucnam = checkPrime.facultis.closeDate.academic.End;
+
       if (checkPrime.facultis === undefined || checkPrime.facultis === null) {
         return res.render("articles", {
           user: true,
@@ -58,6 +59,7 @@ class ArticlesController {
             return item._id;
           });
         var find = await Articles.find({ _id: userCheck });
+        console.log(find);
         return res.render("articles", {
           user: true,
           student: true,
@@ -71,7 +73,7 @@ class ArticlesController {
           ketthucnam: ketthucnam,
           find: covertData(find),
           FacultyId: checkPrime.facultis._id,
-          AcademicYearsId: checkPrime.facultis.closeDate.academic,
+          AcademicYearsId: checkPrime.facultis.closeDate.academic._id,
           back: "https://t4.ftcdn.net/jpg/02/67/47/05/360_F_267470534_75jH8bHYJ59Zn4ikrdKDlzSqsjYumTqk.jpg",
         });
       } else if (checkPrime.facultis) {
@@ -83,7 +85,6 @@ class ArticlesController {
         var uIdd = userr._id;
 
         var articless = await Articles.find({}).populate("users");
-        console.log(articless);
 
         var userCheckk = articless
           .filter((item) => {
@@ -92,9 +93,9 @@ class ArticlesController {
           .map((item) => {
             return item._id;
           });
-        console.log(userCheckk);
+
         var findd = await Articles.find({ _id: userCheckk });
-        console.log(findd);
+
         res.render("articles", {
           user: true,
           student: true,
@@ -107,7 +108,7 @@ class ArticlesController {
           noplai: noplai,
           namhoc: namhoc,
           ketthucnam: ketthucnam,
-          AcademicYearsId: checkPrime.facultis.closeDate.academic,
+          AcademicYearsId: checkPrime.facultis.closeDate.academic._id,
           find: covertData(findd),
           back: "https://t4.ftcdn.net/jpg/02/67/47/05/360_F_267470534_75jH8bHYJ59Zn4ikrdKDlzSqsjYumTqk.jpg",
         });
@@ -120,6 +121,7 @@ class ArticlesController {
 
   async articlesC(req, res, next) {
     const { FacultyId, AcademicYearsId } = req.params;
+
     if (FacultyId === "1" && AcademicYearsId === "1") {
       return res.status(404).render("error");
     }
@@ -248,22 +250,38 @@ class ArticlesController {
     }
   }
   upArticle(req, res, next) {
-    const id = req.params.id;
-    const { img, doc, articlesName, description } = req.body;
+    const _id = req.params._id;
+
+    const doc_img = req.files;
+
+    var image = [];
+    var doc = [];
+    doc_img.forEach(function (data) {
+      if (data.filename.match(/\.(jpg|png|jpeg)$/)) {
+        return image.push(data.filename);
+      } else if (data.filename.match(/\.(msword|doc|pdf|docx)$/)) {
+        return doc.push(data.filename);
+      }
+    });
+
+    const { articlesname, description } = req.body;
+
     var obj = {};
-    if (img) {
-      obj.img = img;
+    if (image) {
+      obj.img = image;
     }
     if (doc) {
       obj.doc = doc;
     }
-    if (articlesName) {
-      obj.articlesNamee = articlesName;
+    if (articlesname) {
+      obj.articlesName = articlesname;
     }
-
-    Articles.findOneAndUpdate({ _id: id }, obj)
+    if (description) {
+      obj.description = description;
+    }
+    Articles.findOneAndUpdate({ _id: _id }, obj)
       .then(() => {
-        res.status(200).send("Done");
+        res.status(200).redirect("/articles");
       })
       .catch((err) => {
         console.error(err);

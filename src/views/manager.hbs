@@ -1,4 +1,4 @@
-<div
+{{!-- <div
   class="page-content page-container"
   id="page-content"
   style="font-size: 20px; font-family: Courier New ;  color:brown ; width: 2000px ; margin-left: 75px"
@@ -60,7 +60,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> --}}
 
 {{! <div class="container-fluid px-1 py-5 mx-auto" style="color:burlywood; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
   <div class="row d-flex justify-content-center">
@@ -131,3 +131,146 @@
     </div>
   </div>
 </div> }}
+{{!-- <div
+  class="page-content page-container"
+  id="page-content"
+  style="font-size: 20px; font-family: Courier New ;  color:brown ; width: 2000px ; margin-left: 75px"
+>
+  <div class="padding">
+    <div class="row container d-flex justify-content-center">
+      <div class="col-lg-8 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Manager Table</h4>
+            <p class="card-description">
+              Follow and edit
+            </p>
+            <div class="table-responsive" style="width: 100%">
+              <table class="table table-hover" style="color: burlywood;">
+                <thead>
+                  <tr>
+                    <th>Articles Name </th>
+                    <th>Description </th>
+                    <th>CreatedAt</th>
+                    <th>Image</th>
+                    <th>Document</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each dataAr}}
+                    {{#isEqualTrue status}}
+                      <tr>
+                        <td>{{this.articlesName}}</td>
+                        <td>{{this.description}}</td>
+                        <td>{{formatDate this.createdAt}}</td>
+                        <td><img
+                            src="{{this.img}}"
+                            alt="..."
+                            style="height: 80px; width: 80px;"
+                          /></td>
+                        <td><a
+                            href="{{this.doc}}"
+                            download="Document"
+                          >Document</a></td>
+                        <td>
+                          <button
+                            type="submit"
+                            onclick="downloadZip('{{_id}}')"
+                            class="btn btn-primary"
+                            data-toggle="button"
+                            aria-pressed="false"
+                            autocomplete="off"
+                          >
+                            DownloadZip
+                          </button>
+                        </td>
+                      </tr>
+                    {{/isEqualTrue}}
+                  {{/each}}
+                </tbody>
+              </table>
+              <form action="/manager/gusetCrA" method="get">
+                <button class="btn btn-primary">Register Guest</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> --}}
+
+<div
+  class="page-content page-container"
+  id="page-content"
+  style="font-size: 20px; font-family: Arial, sans-serif; color: #8B4513; width: 100%; margin-left: auto; margin-right: auto; padding: 20px;"
+>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card">
+          <div class="card-body">
+            <h4
+              class="card-title"
+              style="text-align: center; color: #8B4513;"
+            >Manager Table</h4>
+            <p class="card-description" style="text-align: center;">Follow and
+              edit</p>
+            <div class="table-responsive">
+              <table
+                class="table table-bordered table-hover"
+                style="color: #8B4513; border: 2px solid #8B4513;"
+              >
+                <thead>
+                  <tr>
+                    <th>Articles Name</th>
+                    <th>Description</th>
+                    <th>CreatedAt</th>
+                    <th>Image</th>
+                    <th>Document</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each dataAr}}
+                    {{#isEqualTrue status}}
+                      <tr>
+                        <td>{{this.articlesName}}</td>
+                        <td>{{this.description}}</td>
+                        <td>{{formatDate this.createdAt}}</td>
+                        <td><img
+                            src="{{this.img}}"
+                            alt="Article Image"
+                            style="height: 80px; width: 80px;"
+                          /></td>
+                        <td><a
+                            href="{{this.doc}}"
+                            download="Document"
+                          >Document</a></td>
+                        <td>
+                          <button
+                            type="submit"
+                            onclick="downloadZip('{{_id}}')"
+                            class="btn btn-primary"
+                          >Download Zip</button>
+                        </td>
+                      </tr>
+                    {{/isEqualTrue}}
+                  {{/each}}
+                </tbody>
+              </table>
+              <form
+                action="/manager/guestCrA"
+                method="get"
+                style="text-align: center;"
+              >
+                <button class="btn btn-primary">Register Guest</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

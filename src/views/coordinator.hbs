@@ -1,4 +1,4 @@
-
+{{!-- 
 <div style="font-size: 50px; font-family: Courier New ; margin-left:400px; color:brown"><p>Marketing Coordinator</p></div>
 
 
@@ -72,4 +72,93 @@
 
 {{#if b}}
 <p class="c">{{b}}</p>
+{{/if}} --}}
+
+<div
+  style="font-size: 36px; font-family: Arial, sans-serif; text-align: center; color: #FFFFFF; background-color: #6E6E6E; padding: 20px;"
+><p>Marketing Coordinator</p></div>
+
+<div
+  style="border: 4px solid #260707; color: #FFFFFF; font-size: 18px; font-family: Arial, sans-serif; margin: 50px auto; width: 90%; background-color: #6E6E6E;"
+>
+  <table
+    class="table table-bordered"
+    style="border: 4px solid #260707; color: #FFFFFF; width: 100%;"
+  >
+    <thead style="background-color: #260707;">
+      <tr>
+        <th scope="col" style="width: 10%;">Name Student</th>
+        <th scope="col" style="width: 10%;">Name Articles</th>
+        <th scope="col" style="width: 20%;">Description</th>
+        <th scope="col" style="width: 15%;">Image</th>
+        <th scope="col" style="width: 15%;">Document</th>
+        <th scope="col" style="width: 10%;">CreatedAt</th>
+        <th scope="col" style="width: 10%;">Comment</th>
+        <th scope="col" style="width: 5%;">Order</th>
+        <th scope="col" style="width: 5%;">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each findArticle}}
+        <tr>
+          <td>{{this.users.name}}</td>
+          <td>{{this.articlesName}}</td>
+          <td><input
+              type="text"
+              value="{{this.description}}"
+              id="description_{{this._id}}"
+              name="description"
+              style="width: 100%;"
+            /></td>
+          <td><img
+              src="{{this.img}}"
+              alt="Article Image"
+              style="max-height: 130px; max-width: 150px; display: block; margin: auto;"
+            /></td>
+          <td><a href="{{this.doc}}">Document</a></td>
+          <td>{{formatDate this.createdAt}}</td>
+          <td><input
+              type="text"
+              id="comment_{{this._id}}"
+              name="comment"
+              value="{{this.comment}}"
+              style="width: 100%;"
+            /></td>
+          <td>
+            Status:
+            {{this.status}}
+            <br />
+            <label for="status_true_{{this._id}}">True</label>
+            <input
+              type="radio"
+              value="true"
+              id="status_true_{{this._id}}"
+              name="status_{{this._id}}"
+            />
+            <label for="status_false_{{this._id}}">False</label>
+            <input
+              type="radio"
+              value="false"
+              id="status_false_{{this._id}}"
+              name="status_{{this._id}}"
+            />
+          </td>
+          <td>
+            <button
+              onclick="updateAr('{{this._id}}')"
+              class="btn btn-primary"
+            >Update</button>
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+
+{{#if a}}
+  <p class="c" style="color: #FFFFFF;">{{a}}</p>
+{{/if}}
+
+{{#if b}}
+  <p class="c" style="color: #FFFFFF;">{{b}}</p>
 {{/if}}

@@ -182,3 +182,8 @@ function deleteAr(id) {
 }
 
 //chart
+function viewDocument(docUrl) {
+  var viewer = document.getElementById("documentViewer");
+  viewer.src = docUrl;
+  $("#documentModal").modal("show");
+}

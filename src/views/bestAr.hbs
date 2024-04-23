@@ -1,4 +1,4 @@
-<div class="b" style="height: 80px; color:rgb(216, 39, 51);">
+{{!-- <div class="b" style="height: 80px; color:rgb(216, 39, 51);">
   <h3>
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -64,4 +64,63 @@
         />
       </svg><i class="bi bi-skip-forward-fill"></i>
     </div></label>
+{{/each}} --}}
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col">
+      <div class="b" style="height: 80px; color:#2e86de; background-color:#f8c291; padding: 20px; border-radius: 10px;">
+        <h3 style="font-size: 28px;">Best Articles</h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br />
+<br />
+<br />
+
+{{#each findTrue}}
+<div class="container mt-5">
+  <div class="row">
+    <div class="col" style="width: 700px;">
+      <table class="table table-bordered">
+        <tbody>
+          <tr style="background-color:#f8c291;">
+            <th style="color:#2e86de;">Faculty</th>
+            <td>{{nameFaculty}}</td>
+          </tr>
+          <tr style="background-color:#f8c291;">
+            <th style="color:#2e86de;">Articles Name</th>
+            <td>{{articlesName}}</td>
+          </tr>
+          <tr style="background-color:#f8c291;">
+            <th style="color:#2e86de;">Description</th>
+            <td>{{description}}</td>
+          </tr>
+          <tr style="background-color:#f8c291;">
+            <th style="color:#2e86de;">Created At</th>
+            <td>{{formatDate createdAt}}</td>
+          </tr>
+          <tr style="background-color:#f8c291;">
+            <th style="color:#2e86de;">Image</th>
+            <td>
+              <img
+                src="/{{img}}"
+                alt="..."
+                style="height: 200px; waith: 400px"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+      </svg>
+      <i class="bi bi-skip-forward-fill"></i>
+    </div>
+  </label>
 {{/each}}
+
+

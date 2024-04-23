@@ -15,6 +15,7 @@ const { create } = require("express-handlebars");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const multer = require("multer");
+const handlebars = require("handlebars");
 
 require("dotenv").config();
 const { env } = require("./config/environment");
@@ -22,6 +23,10 @@ const { env } = require("./config/environment");
 const exphbs = create({
   helpers: require("./utils/helpers"),
   extname: ".hbs",
+});
+
+handlebars.registerHelper("isEqualTrue", function (value, options) {
+  return value === "true" ? options.fn(this) : options.inverse(this);
 });
 app.use(cookieParser());
 app.use(cors());

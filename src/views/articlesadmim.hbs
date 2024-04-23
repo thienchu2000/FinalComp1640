@@ -1,4 +1,4 @@
-<section
+{{!-- <section
   class="container"
   style="border: 3px solid black; color:chocolate; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;"
 >
@@ -43,4 +43,65 @@
       {{/each}}
     </tbody>
   </table>
+</section> --}}
+
+<section
+  class="container"
+  style="border: 3px solid #6c757d; color: #6c757d; font-family: 'Arial', sans-serif;"
+>
+  <h4
+    class="text-center"
+    style="color: #6c757d; font-weight: bold;"
+  >Articles</h4>
+  <div class="table-responsive">
+    <table class="table table-bordered" style="color: #6c757d;">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Name Student</th>
+          <th scope="col">Name Articles</th>
+          <th scope="col">Description</th>
+          <th scope="col">Image</th>
+          <th scope="col">Document</th>
+          <th scope="col">CreatedAt</th>
+          <th scope="col">Comment</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each dataAr}}
+          <tr>
+            <td>{{this.users.name}} </td>
+            <td>{{this.articlesName}}</td>
+            <td>{{this.description}}</td>
+            <td>
+              <img
+                src="../{{this.img}}"
+                alt="..."
+                height="100"
+                width="120"
+                style="object-fit: cover;"
+              />
+            </td>
+            <td>
+              <a
+                href="../{{this.doc}}"
+                download="document"
+                style="text-decoration: none; color: #6c757d;"
+              >
+                Download Document
+              </a>
+            </td>
+            <td>{{formatDate this.createdAt}}</td>
+            <td>{{this.comment}}</td>
+            <td>
+              <button
+                onclick="deleteAr('{{_id}}')"
+                class="btn btn-danger"
+              >Delete</button>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
 </section>

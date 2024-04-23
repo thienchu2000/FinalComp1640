@@ -76,3 +76,9 @@
 .nav-dropdown li a:hover {
   background-color: #555;
 }
+
+.welcome-box {
+  background-color: #71777d;
+  padding: 20px;
+  border-radius: 10px;
+}

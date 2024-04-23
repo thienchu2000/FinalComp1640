@@ -100,7 +100,7 @@ class HomeController {
     res.render("bestAr", {
       user: true,
       findTrue: findTrue,
-      back: "https://media.istockphoto.com/id/1180170441/vi/anh/tr%E1%BB%A5c-tr%E1%BA%B7c-k%E1%BB%B9-thu%E1%BA%ADt-s%E1%BB%91-r%C3%B2-r%E1%BB%89-tinh-th%E1%BB%83-v%C3%A0-v%E1%BA%BFt-n%E1%BB%A9t-tr%C3%AAn-m%C3%A0n-h%C3%ACnh-lcd-b%E1%BB%8B-h%E1%BB%8Fng-m%C3%A0n-h%C3%ACnh-m%C3%A1y-t%C3%ADnh.jpg?b=1&s=612x612&w=0&k=20&c=SKE37-FPSinpK7J_xc9l7Ksm99X0kHN_HHoNkwVJ67Y=",
+      back: "https://t4.ftcdn.net/jpg/02/67/47/05/360_F_267470534_75jH8bHYJ59Zn4ikrdKDlzSqsjYumTqk.jpg",
     });
   }
 }

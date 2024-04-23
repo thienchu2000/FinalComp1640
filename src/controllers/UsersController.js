@@ -66,7 +66,7 @@ class UsersController {
   login(req, res, next) {
     res.render("login", {
       message: "Sign up succsess",
-      back: "https://png.pngtree.com/background/20230520/original/pngtree-the-dark-background-is-filled-with-triangles-and-dots-picture-image_2679996.jpg",
+      back: "https://t4.ftcdn.net/jpg/02/67/47/05/360_F_267470534_75jH8bHYJ59Zn4ikrdKDlzSqsjYumTqk.jpg",
     });
   }
 
@@ -111,7 +111,9 @@ class UsersController {
   }
   logout(req, res, next) {
     res.clearCookie("access_token");
-    return res.redirect("/");
+    return res.render("home", {
+      back: "https://wallpapercave.com/wp/wp10866884.jpg",
+    });
   }
 
   async Find(req, res, next) {
@@ -138,7 +140,7 @@ class UsersController {
         firstName: findUser.firstName,
         lastName: findUser.lastName,
         img: findUser.img,
-        back: "https://img.freepik.com/free-photo/thick-twirling-smoke-pattern-corner-black-background_23-2148092641.jpg",
+        back: "https://t4.ftcdn.net/jpg/02/67/47/05/360_F_267470534_75jH8bHYJ59Zn4ikrdKDlzSqsjYumTqk.jpg",
       });
     } catch (error) {
       console.log(error);

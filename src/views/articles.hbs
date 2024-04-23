@@ -1,30 +1,24 @@
-<br />
-<section class="container">
+<section class="container mt-5">
   <div class="border p-4">
-    <h1 class="text-center">
-      <div style="height: 40px; color:coral; font-family:Display ">Submit your
-        article here</div>
-    </h1>
+    <h2 class="text-center" style="color:coral">Submit your article here</h2>
 
     <form
       action="articles/articlesC/{{FacultyId}}/{{AcademicYearsId}}"
       method="post"
       enctype="multipart/form-data"
-      style="color: darkorange; font-family:Display; font-size:25px"
     >
       <div class="form-group">
-        <label for="exampleInputEmail1">ArticlesName</label>
+        <label for="articlesName">Articles Name</label>
         <input
           class="form-control"
           type="text"
           name="articlesName"
           id="articlesName"
-          aria-describedby="emailHelp"
           required
         />
-      </div><br />
+      </div>
       <div class="form-group">
-        <label for="exampleInputPassword1">Description</label>
+        <label for="description">Description</label>
         <input
           class="form-control"
           type="text"
@@ -32,105 +26,163 @@
           id="description"
           required
         />
-      </div><br />
+      </div>
       <div class="form-group">
-        <label for="">Image</label>
-        <input type="file" name="files" required />
-        <label for="">Document</label>
-        <input type="file" name="files" required />
-      </div><br />
-      <div class="form-group form-check">
-        <label for="">Once you submit your work, it will be reviewed and
-          approved and you agree</label>
+        <label for="image">Image</label>
+        <input type="file" class="form-control" name="files" required />
+      </div>
+      <div class="form-group">
+        <label for="document">Document</label>
+        <input type="file" class="form-control" name="files" required />
+      </div>
+      <div class="form-check">
         <input
           type="checkbox"
           class="form-check-input"
-          name="condition"
           id="condition"
+          name="condition"
           required
         />
+        <label class="form-check-label" for="condition">Once you submit your
+          work, it will be reviewed and approved and you agree</label>
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary mt-3">Submit</button>
     </form>
   </div>
 </section>
-<br />
 
-<div style="height: 70px; color:coral; font-size:20px">
-  Faculty:
-  <p>{{nameF}}</p>
-  Academic Years:
-  <p>{{formatDate namhoc}}</p>
-  Close Academic Years:
-  <p>{{formatDate ketthucnam}}</p>
-  Close Date Final:
-  <p>{{formatDate hethan}}</p>
-  Resubmit Final
-  <p> {{formatDate noplai}}</p>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <th style="color:coral">Faculty</th>
+            <td>{{nameF}}</td>
+          </tr>
+          <tr>
+            <th style="color:coral">Academic Years</th>
+            <td>{{formatDate namhoc}}</td>
+          </tr>
+          <tr>
+            <th style="color:coral">Close Academic Years</th>
+            <td>{{formatDate ketthucnam}}</td>
+          </tr>
+          <tr>
+            <th style="color:coral">Close Date Final</th>
+            <td>{{formatDate hethan}}</td>
+          </tr>
+          <tr>
+            <th style="color:coral">Resubmit Final</th>
+            <td>{{formatDate noplai}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
 
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-
-{{#if a}}
-
-  <p class="c">Note: {{a}}</p>
-
-{{/if}}
-
-{{#if b}}
-  <p class="c">Note: {{b}}</p>
-{{/if}}
-
-<h2><div style="height: 40px; color:coral">Report information</div></h2>
-{{#each find}}
+<section class="container mt-5">
   <div class="row">
-    <div class="col-xs-6" class="form-floating">
-      <ul
-        class="list-group"
-        style="color: rgb(125, 90, 37); font-size: 20px; font-family: Courier New ; width: 800px;"
-      >
-        <li class="list-group-item active" aria-current="true">Articles Name :{{articlesName}}</li>
-        <li class="list-group-item">Description :{{description}}</li>
-        <li class="list-group-item">CreatedAt :{{formatDate createdAt}}</li>
-        <li class="list-group-item">Comment:{{comment}}</li>
-        <li class="list-group-item">
-          <img
-            src="/{{img}}"
-            alt="..."
-            style="height: 200px; waith: 400px"
-          /></li>
-        <li class="list-group-item"><a href="/{{doc}}">Document</a></li>
-      </ul></div>
+    <div class="col">
+      <h2 class="text-center" style="color:coral">Report information</h2>
+      {{#each find}}
+        <div class="row mt-4">
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Articles Name: {{articlesName}}</h5>
+                <p class="card-text">Description: {{description}}</p>
+                <p class="card-text">Created At: {{formatDate createdAt}}</p>
+                <!-- Đây là thời gian tạo -->
+                <p class="card-text">Comment: {{comment}}</p>
+                <img
+                  src="/{{img}}"
+                  class="card-img-top"
+                  alt="..."
+                  style="height: 200px; width: auto;"
+                />
+                <a
+                  href="#"
+                  class="btn btn-primary mt-3"
+                  onclick="viewDocument('{{doc}}')"
+                >View Document</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col">
+            <form
+              action="articles/uparticles/{{_id}}"
+              method="post"
+              enctype="multipart/form-data"
+            >
+              <div class="form-group">
+                <label for="description">Description</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="description"
+                  name="description"
+                />
+              </div>
+              <div class="form-group">
+                <label for="articlesname">Articles Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="articlesname"
+                  name="articlesname"
+                />
+              </div>
+              <div class="form-group">
+                <label for="image">Image</label>
+                <input type="file" class="form-control" name="files" required />
+              </div>
+              <div class="form-group">
+                <label for="document">Document</label>
+                <input type="file" class="form-control" name="files" required />
+              </div>
+              <button type="submit" class="btn btn-dark">Update</button>
+            </form>
+          </div>
+        </div>
+      {{/each}}
+    </div>
   </div>
-  <div>
-    <form
-      action="/articles/uparticles/{{id}}"
-      method="post"
-      enctype="multipart/form-data"
-      class="border p-4"
-      style="width: 900px"
-    >
-      <label for="Description">Description</label>
-      <input type="text" id="description" />
-      <label for="articlesName">ArticlesName</label>
-      <input type="text" id="articlesName" /><br />
-      <label for="img">Image</label>
-      <input type="file" id="files" />
-      <label for="doc">Document</label>
-      <input type="file" id="files" />
-    </form>
+</section>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="documentModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="documentModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="documentModalLabel">Document</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <iframe
+          id="documentViewer"
+          src=""
+          style="width: 100%; height: 500px;"
+          frameborder="0"
+        ></iframe>
+      </div>
+    </div>
   </div>
-{{/each}}
+</div>

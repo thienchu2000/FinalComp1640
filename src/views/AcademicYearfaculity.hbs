@@ -1,122 +1,106 @@
-<div class="row" style="color: rgb(233, 156, 40)249, 240); font-family:Optima">
-<div class="col-md-6">
-<section class="container" class="row" style="border: 3px solid black;" >
-<div class="border p-4" style="width: 500px; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; color:rgb(219, 116, 27)" class="col-sm">
-<h2 class="text-center">Academic Year</h2>
-  <form action="/admin/academic" method="post" >
-   <div class="form-group mt-3">
-    <label for="academic">Start Academic Year</label>
-    <input type="date" name="academicStart" id="academicStart" value="" />
-    </div>
-    <div class="form-group mt-3">
-    <label for="End academic" >End Academic Year</label>
-    <input type="date" name="academicEnd" id="academicEnd" value="" />
-    </div>
-    <button type="submit" class="btn btn-primary mt-3">submit</button>
-  </form>
-  <br>
 
-<table class="table" style="color: chocolate; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Start</th>
-      <th scope="col">End</th>
-      <th scope="col">Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each dataAcademicyears}}
-      <tr>
-        
-        <td>
-          
-          <input
-            type="date"
-           
-            id="academicYears_{{this._id}}"
-            name="academicYears"
-            value="{{formatDate this.academicYears}}"
-          />
-          <p> {{formatDate  this.academicYears}}</p>
-          </td>
-        <td>
-          
-          <input
-            type="date"
-            id="End_{{this._id}}"
-            name="End"
-            value="{{formatDate this.End}}"
-          />
-          <p>{{formatDate this.End}}</p>
-          <td><button onclick="upA('{{_id}}')" class="btn btn-primary">Edit</button>
-          <br>
-              <button onclick="deA('{{_id}}')" class="btn btn-primary">Delete</button>
-          </td>
-      </tr>
-    {{/each}}
-  </tbody>
-</table>
 
+<div class="row" style="color: #E99C28; font-family: 'Optima', sans-serif;">
+  <div class="col-md-6">
+    <section class="container" style="border: 3px solid black;">
+      <div class="border p-4" style="width: 500px; color: #DB741B;">
+        <h2 class="text-center">Academic Year</h2>
+        <form action="/admin/academic" method="post">
+          <div class="form-group mt-3">
+            <label for="academicStart">Start Academic Year</label>
+            <input type="date" name="academicStart" id="academicStart" value="" />
+          </div>
+          <div class="form-group mt-3">
+            <label for="academicEnd">End Academic Year</label>
+            <input type="date" name="academicEnd" id="academicEnd" value="" />
+          </div>
+          <button type="submit" class="btn btn-primary mt-3">Submit</button>
+        </form>
+        <br>
+        <table class="table" style="color: chocolate;">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Start</th>
+              <th scope="col">End</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each dataAcademicyears}}
+              <tr>
+                <td>
+                  <input type="date" id="academicYears_{{this._id}}" name="academicYears" value="{{formatDate this.academicYears}}" />
+                  <p>{{formatDate this.academicYears}}</p>
+                </td>
+                <td>
+                  <input type="date" id="End_{{this._id}}" name="End" value="{{formatDate this.End}}" />
+                  <p>{{formatDate this.End}}</p>
+                </td>
+                <td>
+                  <button onclick="upA('{{_id}}')" class="btn btn-primary">Edit</button>
+                  <br>
+                  <button onclick="deA('{{_id}}')" class="btn btn-primary">Delete</button>
+                </td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <br>
+  </div>
+  <div class="col-md-6" style="border: 3px solid black; color: chocolate;">
+    <section class="container">
+      <div class="border p-4" style="width: 500px;">
+        <h2 class="text-center">Faculties</h2>
+        <form action="/admin/facultyC" method="post">
+          <div class="form-group mt-3">
+            <label for="nameFaculty">Create a new Faculty</label> <br>
+            <input type="text" name="nameFaculty" id="nameFaculty" value="" />
+          </div>
+          <button type="submit" class="btn btn-primary mt-3">Submit</button>
+        </form>
+        <br>
+        <table class="table" style="color: chocolate;">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Faculty</th>
+              <th scope="col">Close Date</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each dataFacultis}}
+              <tr>
+                <td>
+                  <input type="text" id="nameFaculty_{{this._id}}" name="nameFaculty" value="{{this.nameFaculty}}" />
+                </td>
+                <td>
+                  <select class="form-select" onchange="submitChangeCloseDate(this, '{{_id}}')">
+                    <option value="" disabled selected>Choose one</option>
+                    {{#each ../dataClose}}
+                      <option value="{{_id}}" {{#ifEqual _id ../closedates._id}}selected{{/ifEqual}}>{{formatDate closeDates}} - {{formatDate finalCloseDates}}</option>
+                    {{/each}}
+                  </select>
+                </td>
+                <td>
+                  <button onclick="updateFa('{{_id}}')" class="btn btn-primary">Edit</button><br>
+                  <button onclick="deleteFa('{{_id}}')" class="btn btn-primary">Delete</button>
+                </td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
 </div>
 
 
-</section>
 
-<br>
 
-</div>
-<div class="col-md-6" style="border: 3px solid black; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; color:chocolate;">
-<section class="container" class="row">
-<div class="border p-4" style="width: 500px;" class="col-sm">
-<h2 class="text-center">Faculties</h2>
-  <form action="/admin/facultyC" method="post">
-   <div class="form-group mt-3">
-    <label for="academic">Create a new Faculty </label> <br>
-    <input type="text" name="nameFaculty" id="nameFaculty" value="" />
-    </div>
-    <button type="submit" class="btn btn-primary mt-3">submit</button>
-  </form>
-  <br>
-  <table class="table" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; color:chocolate" >
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Faculty</th>
-      <th scope="col">Close Date</th>
-      <th scope="col">Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each dataFacultis}}
-      <tr>
-        
-        <td>
-          <input
-            type="text"
-            id="nameFaculty_{{this._id}}"
-            name="nameFaculty"
-            value="{{this.nameFaculty}}"
-          />
-          </td>
-          <td>
-             <select class="form-select" onchange="submitChangeCloseDate(this, '{{_id}}')">
-               <option value="" disabled selected>Choose one</option>
-               {{#each ../dataClose}}
-                <option value="{{_id}}"{{#ifEqual _id ../closedates._id}}selected{{/ifEqual}} >{{formatDate closeDates}} - {{formatDate finalCloseDates}} </option>
-                {{/each}}
-            </select>
 
-          </td>
-          <td>
-            <button onclick="updateFa('{{_id}}')" class="btn btn-primary">Edit</button><br>
-            <button onclick="deleteFa('{{_id}}')" class="btn btn-primary">Delete</button>
-          </td>
-      </tr>
-    {{/each}}
-  </tbody>
-</table>
-  
-</div>
-</section>
+
 <script>
   // Change role
   function submitChangeRole(e, id) {

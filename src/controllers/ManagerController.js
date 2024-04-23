@@ -5,6 +5,7 @@ const archiver = require("archiver");
 const path = require("path");
 const Users = require("../models/Users");
 const bcrypt = require("bcrypt");
+
 class ManagerController {
   index(req, res, next) {
     var users = res.user;

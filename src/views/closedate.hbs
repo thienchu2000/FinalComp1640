@@ -1,6 +1,8 @@
-<section class="container" style="border: 3px solid black; color:chocolate ; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+
+
+<section class="container" style="border: 3px solid #6c757d; color: #6c757d; font-family: 'Arial', sans-serif;">
   <div class="border p-4">
-    <h3 class="text-center">Close Date</h3>
+    <h3 class="text-center" style="color: #6c757d; font-weight: bold;">Close Date</h3>
     <form action="/admin/closeDate" method="post">
       <div class="form-group mt-3">
         <label for="closedate">Close Dates</label>
@@ -15,7 +17,7 @@
         <select class="form-control" name="academic" id="academic" required>
           <option value="" selected disabled>Choose one</option>
           {{#each dataAcademicyears}}
-          <option value="{{_id}}">{{formatDate academicYears}} - {{formatDate End}}</option>
+            <option value="{{_id}}">{{formatDate academicYears}} - {{formatDate End}}</option>
           {{/each}}
         </select>
       </div>
@@ -24,70 +26,81 @@
         <select class="form-control" name="faculty" id="faculty" required>
           <option value="" selected disabled>Choose one</option>
           {{#each dataFacultis}}
-          <option value="{{_id}}">{{nameFaculty}}</option>
+            <option value="{{_id}}">{{nameFaculty}}</option>
           {{/each}}
         </select>
       </div>
       <button type="submit" class="btn btn-primary mt-3">Submit</button>
     </form>
 
-       </form>
-  <br>
-  <table class="table" style="color: chocolate; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Close Dates</th>
-      <th scope="col">Final Close Date</th>
-      <th scope="col">Academic Year</th>
-      <th scope="col">Facultis</th>
-      <th scope="col">Action</th>
-    </tr>
-  </thead>
-  {{#each dataClose}}
-  <tbody>
- 
-      <tr>
-        
-        <td> 
+    <br>
+
+    <table class="table table-bordered" style="color: #6c757d;">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Close Dates</th>
+          <th scope="col">Final Close Date</th>
+          <th scope="col">Academic Year</th>
+          <th scope="col">Facultis</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each dataClose}}
+          <tr>
+            <td>
               <p>Start: {{formatDate closeDates}}</p>
-               <input type="date" class="form-control" name="closedate" id="closedate_{{this._id}}" value="{{formatDate this.closedate}}" />
-             
-          </td>
-               <td>
-                <p>End: {{formatDate finalCloseDates}}</p>
-                <input type="date" class="form-control" name="finalclosedate" id="finalclosedate_{{this._id}}" value="{{formatDate this.finalCloseDates}}" />
-              </td>
-           <td>
-         
-           <p>{{formatDate academic.academicYears}} - {{formatDate academic.End}}</p>
-          <select class="form-select" onchange="subAca(this, '{{_id}}')"required>
-             <option value="" selected disabled>Choose one </option>
-               {{#each ../dataAcademicyears}} 
-                   <option value="{{_id}}"{{#ifEqual _id ../dataAcademicyears._id}}selected{{/ifEqual}} >{{formatDate academicYears}} - {{formatDate End}} </option>
-               {{/each}}
-        </select>
-          
-           </td>   
-           <td>
-            <p>{{faculty.nameFaculty}}</p>
-          <select class="form-select" onchange="subFa(this, '{{_id}}')"required>
-             <option value="" selected disabled>Choose one </option>
-               {{#each ../dataFacultis}} 
-                   <option value="{{_id}}"{{#ifEqual _id ../dataFacultis._id}}selected{{/ifEqual}} >{{nameFaculty}} </option>
-               {{/each}}
-        </select>
-           </td>
-           
-           <td><button onclick="closedateUp('{{_id}}')" class="btn btn-primary">Edit</button>
-                <button onclick="deleteClose('{{_id}}')" class="btn btn-primary">Delete</button>
-           </td>
-      </tr>
-  
-  </tbody>
-  {{/each}}
-</table>
+              <input type="date" class="form-control" name="closedate" id="closedate_{{this._id}}" value="{{formatDate this.closeDates}}" />
+            </td>
+            <td>
+              <p>End: {{formatDate finalCloseDates}}</p>
+              <input type="date" class="form-control" name="finalclosedate" id="finalclosedate_{{this._id}}" value="{{formatDate this.finalCloseDates}}" />
+            </td>
+            <td>
+              <p>{{formatDate academic.academicYears}} - {{formatDate academic.End}}</p>
+              <select class="form-select" onchange="subAca(this, '{{_id}}')" required>
+                <option value="" selected disabled>Choose one</option>
+                {{#each ../dataAcademicyears}}
+                  <option value="{{_id}}" {{#ifEqual _id ../dataAcademicyears._id}}selected{{/ifEqual}}>{{formatDate academicYears}} - {{formatDate End}}</option>
+                {{/each}}
+              </select>
+            </td>
+            <td>
+              <p>{{faculty.nameFaculty}}</p>
+              <select class="form-select" onchange="subFa(this, '{{_id}}')" required>
+                <option value="" selected disabled>Choose one</option>
+                {{#each ../dataFacultis}}
+                  <option value="{{_id}}" {{#ifEqual _id ../dataFacultis._id}}selected{{/ifEqual}}>{{nameFaculty}}</option>
+                {{/each}}
+              </select>
+            </td>
+            <td>
+              <button onclick="closedateUp('{{_id}}')" class="btn btn-primary">Edit</button>
+              <button onclick="deleteClose('{{_id}}')" class="btn btn-danger">Delete</button>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
   </div>
 </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <script>
   // Change role
