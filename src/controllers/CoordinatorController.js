@@ -71,7 +71,6 @@ class CoordinatorController {
             getDone.push({ status: "Panding", data: item });
           }
         });
-        console.log(getDone);
 
         res.render("coordinator", {
           user: true,
@@ -103,8 +102,7 @@ class CoordinatorController {
       .map((item) => {
         return item.status;
       });
-    console.log(checkt);
-    console.log(checkt.length > 3 && status === "true");
+
     if (checkt.length > 3 && status === "true") {
       return res.status(400).send("err");
     }
@@ -119,15 +117,26 @@ class CoordinatorController {
       var newdateTime = newdate.getTime();
       var timeSubmission = dateSubmission.getTime();
       var cover = (newdateTime - timeSubmission) / (3600 * 1000 * 24);
+
       if (cover > 14) {
         return res.status(400).send("Out of date");
       }
-      var done = Articles.findOneAndUpdate(
-        { _id: articlesId },
-        { coordinator: id, ...req.body }
-      ).then((data) => {
-        res.status(200).send("done");
-      });
+      var obj = {};
+      if (comment) {
+        obj.comment = comment;
+      }
+      if (status) {
+        obj.status = status;
+      }
+      if (description) {
+        obj.description = description;
+      }
+      console.log(obj);
+      var done = Articles.findOneAndUpdate({ _id: articlesId }, obj).then(
+        (data) => {
+          res.status(200).send("done");
+        }
+      );
     } catch (err) {
       console.log(err);
       return res.send("err");

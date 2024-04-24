@@ -127,15 +127,14 @@
               style="width: 100%;"
             /></td>
           <td>
-            Status:
-            {{this.status}}
+            Status:{{this.status}}
             <br />
-            <label for="status_true_{{this.data_id}}">Approved</label>
+            <label for="status_true_{{this.data._id}}">Approved</label>
             <input
               type="radio"
               value="true"
-              id="status_true_{{this.data_id}}"
-              name="status_{{this._id}}"
+              id="status_true_{{this.data._id}}"
+              name="status_{{this.data._id}}"
             />
             <br />
             <label for="status_pending_{{this.data._id}}">Pending</label>
@@ -143,11 +142,10 @@
               type="radio"
               value="pending"
               id="status_pending_{{this.data._id}}"
-              name="status_{{this.dat._id}}"
+              name="status_{{this.data._id}}"
             />
             <br />
             <label for="status_false_{{this.data._id}}">Reject</label>
-            <br />
             <input
               type="radio"
               value="false"
