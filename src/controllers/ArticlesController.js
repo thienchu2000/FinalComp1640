@@ -26,7 +26,9 @@ class ArticlesController {
       var nameF = checkPrime.facultis.nameFaculty;
       var hethan = checkPrime.facultis.closeDate.closeDates;
       var noplai = checkPrime.facultis.closeDate.finalCloseDates;
-      var namhoc = checkPrime.facultis.closeDate.academic._id;
+      var namhoc = checkPrime.facultis.closeDate.academic.academicYears;
+      console.log(namhoc);
+
       var ketthucnam = checkPrime.facultis.closeDate.academic.End;
 
       if (checkPrime.facultis === undefined || checkPrime.facultis === null) {

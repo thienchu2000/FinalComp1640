@@ -3,6 +3,9 @@ const data = {
     "Faculty of graphic design",
     "Faculty business management",
     "Faculty of Information Technology",
+    "Faculty of Cinematic Arts",
+    "Faculty of Education",
+    "Faculty of Engineering",
   ],
   datasets: [
     {
