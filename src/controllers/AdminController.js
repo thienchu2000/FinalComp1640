@@ -8,6 +8,10 @@ const CloseDates = require("../models/CloseDates");
 const Articles = require("../models/Articles");
 const Facultis = require("../models/Facultis");
 const bcrypt = require("bcrypt");
+const { google } = require("googleapis");
+const { GoogleAuth } = require("google-auth-library");
+const { myOAuth2Client } = require("../config/email");
+const nodemailer = require("nodemailer");
 
 class AdminController {
   async index(req, res, next) {
@@ -741,17 +745,10 @@ class AdminController {
     }
   }
   async registerUser(req, res, next) {
-    const {
-      name,
-      email,
-      password,
-      address,
-      phone,
-      roleTreatment,
-      facultyWant,
-    } = req.body;
+    const { name, email, roleTreatment, facultyWant } = req.body;
+    var password = "GreenWich" + Math.floor(Math.random() * 100000);
     try {
-      if (!name || !email || !password || !roleTreatment || !facultyWant) {
+      if (!name || !email || !roleTreatment || !facultyWant) {
         return res.send("Please enter correct information");
       }
       const checkEmail = await Users.findOne({ email });
@@ -761,21 +758,38 @@ class AdminController {
       if (password.length < 6) {
         return res.status(400).send("Password must be more than 6 characters");
       }
-      if (!/[A-Z]/.test(password)) {
-        return res.status(400).send("must have capital letters");
-      }
       const hashPassword = await bcrypt.hashSync(password, 10);
       const user = new Users({
         name,
         email,
         password: hashPassword,
-        address,
-        phone,
         roleTreatment,
         facultis: facultyWant,
       });
       user.save();
 
+      const myAccessTokenObject = await myOAuth2Client.getAccessToken();
+      const myAccessToken = myAccessTokenObject.token;
+      const transport = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          type: "OAuth2",
+          user: env.ADMIN_EMAIL_ADDRESS,
+          clientId: env.GOOGLE_MAILER_CLIENT_ID,
+          clientSecret: env.GOOGLE_MAILER_CLIENT_SECRET,
+          refresh_token: env.GOOGLE_MAILER_REFRESH_TOKEN,
+          accessToken: myAccessToken,
+        },
+      });
+      const mailOptions = {
+        to: email,
+        subject: `Student submission`,
+        html: `<h3>  We give student ${name} an account to log in : 
+        Account:${email}
+        Password:${password}
+        </h3>`,
+      };
+      await transport.sendMail(mailOptions);
       res.status(200).redirect("/admin");
     } catch (Err) {
       console.log(Err);

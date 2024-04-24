@@ -1,7 +1,7 @@
 const data = {
   labels: [
-    "Faculty of graphic design",
-    "Faculty business management",
+    "Faculty of Graphic Design",
+    "Faculty of Business Management",
     "Faculty of Information Technology",
     "Faculty of Cinematic Arts",
     "Faculty of Education",
@@ -9,8 +9,8 @@ const data = {
   ],
   datasets: [
     {
-      label: "total number of submissions",
-      data: [10, 30, 50, 70, 100],
+      label: "Total Number of Submissions",
+      data: [10, 30, 50, 70, 100, 90],
       backgroundColor: "rgba(255, 99, 132, 0.2)",
       borderColor: "rgba(255, 99, 132, 1)",
       borderWidth: 1,

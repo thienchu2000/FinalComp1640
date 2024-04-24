@@ -100,54 +100,65 @@
       </tr>
     </thead>
     <tbody>
-      {{#each findArticle}}
+      {{#each getDone}}
         <tr>
-          <td>{{this.users.name}}</td>
-          <td>{{this.articlesName}}</td>
+          <td>{{this.data.users.name}}</td>
+          <td>{{this.data.articlesName}}</td>
           <td><input
               type="text"
-              value="{{this.description}}"
-              id="description_{{this._id}}"
+              value="{{this.data.description}}"
+              id="description_{{this.data._id}}"
               name="description"
               style="width: 100%;"
             /></td>
           <td><img
-              src="{{this.img}}"
+              src="{{this.data.img}}"
               alt="Article Image"
               style="max-height: 130px; max-width: 150px; display: block; margin: auto;"
             /></td>
           <td><a href="{{this.doc}}">Document</a></td>
-          <td>{{formatDate this.createdAt}}</td>
-          <td>{{formatDate this.updatedAt}}</td>
+          <td>{{formatDate this.data.createdAt}}</td>
+          <td>{{formatDate this.data.updatedAt}}</td>
           <td><input
               type="text"
-              id="comment_{{this._id}}"
+              id="comment_{{this.data._id}}"
               name="comment"
-              value="{{this.comment}}"
+              value="{{this.data.comment}}"
               style="width: 100%;"
             /></td>
           <td>
             Status:
             {{this.status}}
             <br />
-            <label for="status_true_{{this._id}}">True</label>
+            <label for="status_true_{{this.data_id}}">Approved</label>
             <input
               type="radio"
               value="true"
-              id="status_true_{{this._id}}"
+              id="status_true_{{this.data_id}}"
               name="status_{{this._id}}"
             />
-            <label for="status_false_{{this._id}}">False</label>
+            <br />
+            <label for="status_pending_{{this.data._id}}">Pending</label>
+            <input
+              type="radio"
+              value="pending"
+              id="status_pending_{{this.data._id}}"
+              name="status_{{this.dat._id}}"
+            />
+            <br />
+            <label for="status_false_{{this.data._id}}">Reject</label>
+            <br />
             <input
               type="radio"
               value="false"
-              id="status_false_{{this._id}}"
-              name="status_{{this._id}}"
+              id="status_false_{{this.data._id}}"
+              name="status_{{this.data._id}}"
             />
+
           </td>
           <td>
             <button
-              onclick="updateAr('{{this._id}}')"
+              onclick="updateAr('{{this.data._id}}')"
               class="btn btn-primary"
             >Update</button>
           </td>

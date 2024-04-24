@@ -59,10 +59,24 @@ class CoordinatorController {
         const findArticle = await Articles.find({ users: chuyenId }).populate(
           "users"
         );
+        var getDone = [];
+        var getStatus = findArticle.map((item) => {
+          if (item.status === "true") {
+            getDone.push({ status: "Approved", data: item });
+          }
+          if (item.status === "false") {
+            getDone.push({ status: "Reject", data: item });
+          }
+          if (item.status === "pending") {
+            getDone.push({ status: "Panding", data: item });
+          }
+        });
+        console.log(getDone);
 
         res.render("coordinator", {
           user: true,
           img: res.user.img,
+          getDone: getDone,
           coordinator: true,
           findArticle: covertData(findArticle),
           back: "https://t4.ftcdn.net/jpg/02/67/47/05/360_F_267470534_75jH8bHYJ59Zn4ikrdKDlzSqsjYumTqk.jpg",
@@ -84,13 +98,14 @@ class CoordinatorController {
     const ar = await Articles.find({}).populate("faculty");
     var checkt = ar
       .filter((item) => {
-        return item.status === true && item.faculty.nameFaculty === layname;
+        return item.status === "true" && item.faculty.nameFaculty === layname;
       })
       .map((item) => {
         return item.status;
       });
-
-    if (checkt.length >= 3 && status === "true") {
+    console.log(checkt);
+    console.log(checkt.length > 3 && status === "true");
+    if (checkt.length > 3 && status === "true") {
       return res.status(400).send("err");
     }
 

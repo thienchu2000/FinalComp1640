@@ -14,20 +14,17 @@ const CloseDates = require("../models/CloseDates");
 class ArticlesController {
   async index(req, res, next) {
     var users = res.user;
+    console.log(users);
     try {
       var checkPrime = await Users.findOne({ _id: users._id }).populate({
         path: "facultis",
         populate: { path: "closeDate", populate: { path: "academic" } },
       });
-      // let select = checkPrime.map((item) => {
-      //   return item;
-      // });
 
       var nameF = checkPrime.facultis.nameFaculty;
       var hethan = checkPrime.facultis.closeDate.closeDates;
       var noplai = checkPrime.facultis.closeDate.finalCloseDates;
       var namhoc = checkPrime.facultis.closeDate.academic.academicYears;
-      console.log(namhoc);
 
       var ketthucnam = checkPrime.facultis.closeDate.academic.End;
 
@@ -53,7 +50,9 @@ class ArticlesController {
         checkPrime.closedate === null
       ) {
         var uId = checkPrime._id;
+
         var articles = await Articles.find({}).populate("users");
+
         var userCheck = articles
           .filter((item) => {
             return item.users._id.equals(uId);
@@ -71,6 +70,9 @@ class ArticlesController {
           if (item.status === "false") {
             console.log(item.status === "false");
             return ketqua1.push({ sta: "Reject", data: item });
+          }
+          if (item.status === "panding") {
+            return ketqua1.push({ sta: "Pending", data: item });
           }
         });
 
@@ -100,15 +102,38 @@ class ArticlesController {
         var uIdd = userr._id;
 
         var articless = await Articles.find({}).populate("users");
+        console.log(articless);
 
         var userCheckk = articless
           .filter((item) => {
-            return item.users._id.equals(uIdd);
+            console.log(item.users._id);
+            console.log(item.users._id.equals(uIdd));
+
+            if (item.users._id.equals(uIdd)) {
+              return item.users._id.equals(uIdd);
+            }
           })
           .map((item) => {
             return item._id;
           });
-
+        // var userCheckk = [];
+        // for (var i = 0; i < articless.length; i++) {
+        //   console.log(articless[i].users._id);
+        //   if (articless[i].users._id.equals(uIdd)) {
+        //     console.log(articless[i].users._id.equals(uIdd));
+        //     if (
+        //       !articless[i].users._id.equals(uIdd) === null &&
+        //       !articless[i].users._id.equals(uIdd) === undefined
+        //     ) {
+        //       console.log(
+        //         !articless[i].users._id.equals(uIdd) === undefined &&
+        //           !articless[i].users._id.equals(uIdd) === null
+        //       );
+        //       console.log(articless[i].users._id);
+        //       userCheckk.push(articless[i].users._id);
+        //     }
+        //   }
+        // }
         var findd = await Articles.find({ _id: userCheckk });
         var ketqua = [];
         var log = findd.map((item) => {
@@ -165,6 +190,7 @@ class ArticlesController {
     });
     const { articlesName, description, condition } = req.body;
     const userId = res.user._id;
+    console.log(userId);
     var name = res.user.name;
 
     try {
