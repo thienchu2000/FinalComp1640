@@ -23,6 +23,10 @@ const { env } = require("./config/environment");
 const exphbs = create({
   helpers: require("./utils/helpers"),
   extname: ".hbs",
+  runtimeOptions: {
+    allowProtoMethodsByDefault: true,
+    allowProtoPropertiesByDefault: true,
+  },
 });
 
 handlebars.registerHelper("isEqualTrue", function (value, options) {

@@ -25,7 +25,6 @@
           <th>{{name}}</th>
           <th>{{email}}</th>
           <th>
-             The user wants the position to apply for: {{roleTreatment}}
             <select class="form-select" onchange="submitChangeRole(this, '{{_id}}')">
               {{#each ../nameRole}}
               <option value="{{_id}}" {{#ifEqual _id ../role._id}}selected{{/ifEqual}}>{{name}}</option>
@@ -33,7 +32,6 @@
             </select>
           </th>
           <th>
-            The user wants to be in the faculty: {{facultyWant}}
             <select class="form-select" onchange="submitChangeFaculties(this, '{{_id}}')">
               <option value="" disabled selected>Choose one</option>
               {{#each ../dataFacultis}}
@@ -131,6 +129,9 @@
                  <option value="65fc8dbc27f0ed701480e9e0">Faculty of Information Technology</option>
                  <option value="65efd99176f3b57cc8683aaa">Faculty of graphic design</option>
                  <option value="65efd9bd76f3b57cc8683aab">Faculty business management</option>
+                 <option value="66286b3cbaa8b6ab47b63cd1">Faculty of Cinematic Arts</option>
+                 <option value="662885b1baa8b6ab47b63e75">Faculty of Education</option>
+                 <option value="66288f81baa8b6ab47b64165">Faculty of Engineering</option>
               </Select>
               </div>
               </div>

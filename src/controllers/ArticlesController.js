@@ -22,6 +22,7 @@ class ArticlesController {
       // let select = checkPrime.map((item) => {
       //   return item;
       // });
+
       var nameF = checkPrime.facultis.nameFaculty;
       var hethan = checkPrime.facultis.closeDate.closeDates;
       var noplai = checkPrime.facultis.closeDate.finalCloseDates;
@@ -59,7 +60,18 @@ class ArticlesController {
             return item._id;
           });
         var find = await Articles.find({ _id: userCheck });
-        console.log(find);
+        var ketqua1 = [];
+        var log1 = find.map((item) => {
+          console.log(item);
+          if (item.status === "true") {
+            return ketqua1.push({ sta: "Approved", data: item });
+          }
+          if (item.status === "false") {
+            console.log(item.status === "false");
+            return ketqua1.push({ sta: "Reject", data: item });
+          }
+        });
+
         return res.render("articles", {
           user: true,
           student: true,
@@ -70,6 +82,7 @@ class ArticlesController {
           hethan: hethan,
           noplai: noplai,
           namhoc: namhoc,
+          sta: ketqua1,
           ketthucnam: ketthucnam,
           find: covertData(find),
           FacultyId: checkPrime.facultis._id,
@@ -95,6 +108,15 @@ class ArticlesController {
           });
 
         var findd = await Articles.find({ _id: userCheckk });
+        var ketqua = [];
+        var log = findd.map((item) => {
+          if (item.status === "true") {
+            return ketqua.push({ sta: "Approved", data: item });
+          }
+          if (item.status === "false") {
+            return ketqua.push({ sta: "Reject", data: item });
+          }
+        });
 
         res.render("articles", {
           user: true,
@@ -104,6 +126,7 @@ class ArticlesController {
           img: users.img,
           FacultyId: checkPrime.facultis._id,
           nameF: nameF,
+          sta: ketqua,
           hethan: hethan,
           noplai: noplai,
           namhoc: namhoc,

@@ -86,26 +86,27 @@
   <div class="row">
     <div class="col">
       <h2 class="text-center" style="color:coral">Report information</h2>
-      {{#each find}}
+      {{#each sta}}
         <div class="row mt-4">
           <div class="col">
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">Articles Name: {{articlesName}}</h5>
-                <p class="card-text">Description: {{description}}</p>
-                <p class="card-text">Created At: {{formatDate createdAt}}</p>
-                <!-- Đây là thời gian tạo -->
-                <p class="card-text">Comment: {{comment}}</p>
+                <h5 class="card-title">Articles Name: {{data.articlesName}}</h5>
+                <p class="card-text">Description: {{data.description}}</p>
+                <p class="card-text">Created At:
+                  {{formatDate data.createdAt}}</p>
+                <p class="card-text">Comment: {{data.comment}}</p>
+                <p class="card-text">Status: {{sta}}</p>
                 <img
-                  src="/{{img}}"
+                  src="/{{data.img}}"
                   class="card-img-top"
                   alt="..."
                   style="height: 200px; width: auto;"
                 />
                 <a
-                  href="#"
+                  href="{{data.doc}}"
                   class="btn btn-primary mt-3"
-                  onclick="viewDocument('{{doc}}')"
+                  onclick="viewDocument('{{data.doc}}')"
                 >View Document</a>
               </div>
             </div>
@@ -114,7 +115,7 @@
         <div class="row mt-4">
           <div class="col">
             <form
-              action="articles/uparticles/{{_id}}"
+              action="articles/uparticles/{{data._id}}"
               method="post"
               enctype="multipart/form-data"
             >

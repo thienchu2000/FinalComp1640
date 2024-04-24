@@ -93,6 +93,7 @@
         <th scope="col" style="width: 15%;">Image</th>
         <th scope="col" style="width: 15%;">Document</th>
         <th scope="col" style="width: 10%;">CreatedAt</th>
+        <th scope="col" style="width: 10%;">UpdatedAt</th>
         <th scope="col" style="width: 10%;">Comment</th>
         <th scope="col" style="width: 5%;">Order</th>
         <th scope="col" style="width: 5%;">Action</th>
@@ -117,6 +118,7 @@
             /></td>
           <td><a href="{{this.doc}}">Document</a></td>
           <td>{{formatDate this.createdAt}}</td>
+          <td>{{formatDate this.updatedAt}}</td>
           <td><input
               type="text"
               id="comment_{{this._id}}"
