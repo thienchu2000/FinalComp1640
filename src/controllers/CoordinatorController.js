@@ -67,8 +67,8 @@ class CoordinatorController {
           if (item.status === "false") {
             getDone.push({ status: "Reject", data: item });
           }
-          if (item.status === "pending") {
-            getDone.push({ status: "Panding", data: item });
+          if (item.status === "panding") {
+            getDone.push({ status: "Pending", data: item });
           }
         });
 
@@ -90,7 +90,7 @@ class CoordinatorController {
   async updateAr(req, res, next) {
     const id = res.user._id;
     const { articlesId } = req.params;
-    const { comment, description, status } = req.body;
+    const { comment, description, status, guest } = req.body;
 
     const checkFa = await Users.findOne({ _id: id }).populate("facultis");
     var layname = checkFa.facultis.nameFaculty;
@@ -131,7 +131,9 @@ class CoordinatorController {
       if (description) {
         obj.description = description;
       }
-      console.log(obj);
+      if (guest) {
+        obj.guest = guest;
+      }
       var done = Articles.findOneAndUpdate({ _id: articlesId }, obj).then(
         (data) => {
           res.status(200).send("done");

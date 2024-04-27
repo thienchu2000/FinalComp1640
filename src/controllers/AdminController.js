@@ -256,9 +256,15 @@ class AdminController {
       });
   }
 
-  facultyC(req, res, next) {
+  async facultyC(req, res, next) {
     const nameFaculty = req.body;
     console.log(nameFaculty);
+    var checkFaa = await Facultis.findOne(nameFaculty);
+
+    if (checkFaa) {
+      return res.status(404).send("Faculty already existed");
+    }
+
     try {
       const facultis = new Facultis(nameFaculty);
       facultis.save();
@@ -748,15 +754,18 @@ class AdminController {
     const { name, email, roleTreatment, facultyWant } = req.body;
     var password = "GreenWich" + Math.floor(Math.random() * 100000);
     try {
-      if (!name || !email || !roleTreatment || !facultyWant) {
+      if (!name || !email || !roleTreatment) {
         return res.send("Please enter correct information");
       }
       const checkEmail = await Users.findOne({ email });
       if (checkEmail) {
         return res.status(400).send("Email already exists");
       }
-      if (password.length < 6) {
-        return res.status(400).send("Password must be more than 6 characters");
+      var faculytyDone;
+      if (facultyWant) {
+        return (facultyWant = faculytyDone);
+      } else {
+        faculytyDone = null;
       }
       const hashPassword = await bcrypt.hashSync(password, 10);
       const user = new Users({
@@ -764,7 +773,7 @@ class AdminController {
         email,
         password: hashPassword,
         roleTreatment,
-        facultis: facultyWant,
+        facultis: faculytyDone,
       });
       user.save();
 

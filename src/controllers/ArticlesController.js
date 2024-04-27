@@ -14,13 +14,13 @@ const CloseDates = require("../models/CloseDates");
 class ArticlesController {
   async index(req, res, next) {
     var users = res.user;
-    console.log(users);
+
     try {
       var checkPrime = await Users.findOne({ _id: users._id }).populate({
         path: "facultis",
         populate: { path: "closeDate", populate: { path: "academic" } },
       });
-
+      console.log(checkPrime);
       var nameF = checkPrime.facultis.nameFaculty;
       var hethan = checkPrime.facultis.closeDate.closeDates;
       var noplai = checkPrime.facultis.closeDate.finalCloseDates;
@@ -52,7 +52,7 @@ class ArticlesController {
         var uId = checkPrime._id;
 
         var articles = await Articles.find({}).populate("users");
-
+        console.log(articles);
         var userCheck = articles
           .filter((item) => {
             return item.users._id.equals(uId);
@@ -142,6 +142,9 @@ class ArticlesController {
           }
           if (item.status === "false") {
             return ketqua.push({ sta: "Reject", data: item });
+          }
+          if (item.status === "panding") {
+            return ketqua1.push({ sta: "Pending", data: item });
           }
         });
 

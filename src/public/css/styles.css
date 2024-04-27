@@ -362,9 +362,9 @@ tfoot,
 tr,
 td,
 th {
-  border-color: inherit;
-  border-style: solid;
-  border-width: 0;
+  border-color: gold;
+  border-style: outset;
+  border-width: 3;
 }
 
 label {
@@ -11158,4 +11158,20 @@ fieldset:disabled .btn {
   .d-print-none {
     display: none !important;
   }
+}
+
+.welcome-box {
+  background-color: #71777d;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.table th:nth-child(6) /* action column */ {
+  width: 11%;
+  white-space: nowrap;
+}
+
+.table th:nth-child(3) {
+  width: 28%;
+  white-space: nowrap;
 }

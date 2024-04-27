@@ -96,6 +96,7 @@
         <th scope="col" style="width: 10%;">UpdatedAt</th>
         <th scope="col" style="width: 10%;">Comment</th>
         <th scope="col" style="width: 5%;">Order</th>
+        <th scope="col" style="width: 5%;">FindGuest</th>
         <th scope="col" style="width: 5%;">Action</th>
       </tr>
     </thead>
@@ -137,11 +138,11 @@
               name="status_{{this.data._id}}"
             />
             <br />
-            <label for="status_pending_{{this.data._id}}">Pending</label>
+            <label for="status_panding_{{this.data._id}}">Pending</label>
             <input
               type="radio"
-              value="pending"
-              id="status_pending_{{this.data._id}}"
+              value="panding"
+              id="status_panding_{{this.data._id}}"
               name="status_{{this.data._id}}"
             />
             <br />
@@ -153,6 +154,25 @@
               name="status_{{this.data._id}}"
             />
 
+          </td>
+          <td>
+            Status:{{this.data.guest}}
+            <br />
+            <label for="guest_false_{{this.data._id}}">Reject</label>
+            <input
+              type="radio"
+              value="false"
+              id="guest_false_{{this.data._id}}"
+              name="guest_{{this.data._id}}"
+            />
+
+            <label for="status_true_{{this.data._id}}">Approved</label>
+            <input
+              type="radio"
+              value="true"
+              id="guest_true_{{this.data._id}}"
+              name="guest_{{this.data._id}}"
+            />
           </td>
           <td>
             <button

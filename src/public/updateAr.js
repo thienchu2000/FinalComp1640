@@ -8,13 +8,18 @@ function updateAr(id) {
   );
   var status = statusInput ? statusInput.value : "";
 
+  var guestInput = document.querySelector(
+    'input[name="guest_' + id + '" ]:checked'
+  );
+  var guest = guestInput ? guestInput.value : "";
+
   axios
-    .put(`/coordinator/updateAr/${id}`, { description, comment, status })
+    .put(`/coordinator/updateAr/${id}`, { description, comment, status, guest })
     .then((data) => {
       console.log(data);
       return window.location.reload();
     })
     .catch((error) => {
-      return alert("failed : Do not order more than 3");
+      return alert("failed ");
     });
 }

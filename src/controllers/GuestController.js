@@ -16,11 +16,13 @@ class GuestController {
 
       const query2 = (await Articles.find({}).populate("faculty"))
         .filter((item) => {
-          return item.faculty.nameFaculty === name;
+          console.log(item.guest === "true");
+          return item.faculty.nameFaculty === name && item.guest === "true";
         })
         .map((item) => {
           return item;
         });
+      console.log(query2);
       res.render("guest", {
         user: true,
         guest: true,

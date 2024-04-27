@@ -5,7 +5,6 @@ const Users = new mongoose.Schema(
     role: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Role",
-      default: "65ead79c686f7f723b6dbd64",
     },
     closedate: {
       type: mongoose.Schema.Types.ObjectId,
